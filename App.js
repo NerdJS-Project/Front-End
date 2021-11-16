@@ -10,7 +10,7 @@ export default function App() {
         alignItems: "center",
       }}
     >
-      <Text>Universal React ugh ghg new code new code number 2  ghgh with Expo</Text>
+      <Text>Universal React code change time 3 ghgh with Expo</Text>
     </View>
   );
 }

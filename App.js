@@ -80,7 +80,7 @@ logoPlaceholder: {
 
 const signUpButton = StyleSheet.create({
   signUpBtn:{
-      //backgroundColor: 'black',
+      //backgroundColor: 'black',,
       width: 200,
       marginTop: 20,
       marginLeft: 550,

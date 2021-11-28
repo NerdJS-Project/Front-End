@@ -1,50 +1,118 @@
 import * as React from "react";
-import { View, Text, StyleSheet ,Button,TextInput,TouchableWithoutFeedback, Keyboard} from "react-native";
+import { View, Text,Alert, StyleSheet ,Button,TextInput,TouchableWithoutFeedback, Keyboard} from "react-native";
 
-const Dissmiss= ({children})=>(
-  <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
-    {children}
-  </TouchableWithoutFeedback>
-);
+
 
 export default function App() {
   return (
-  <Dissmiss>
-    <View
-    style={{
-      marginBottom: 30,
-      justifyContent: "center",
-      alignItems: "center",
-        }}
-      >
-        <View style={{ alignSelf:'flex-start', paddingTop:70, paddingBottom: 70, marginRight:50,justifyContent:'center', alignItems:'center', width: '100%',backgroundColor:'#4970FA'}}>
 
-            <View style={{alighItems: 'center',justifyContent: 'center', width:'20%', backgroundColor:'white' }} border-style='dotted'>
-              <Text style={styles.logo}>Logo</Text>
+    <View >
+        
+        <View style={top.blueHeader}>
+            <View style={top.logoPlaceholder}border-style='dotted'>
+            <Text style={styles.logo}>Logo</Text>
+
+            
+              
             </View> 
             
         </View >
+        
+
 
           <TextInput multiline={true} placeholder="Email"/>
           <TextInput multiline={true} placeholder="SignUp"/>
+
+
+          <View style ={signUpButton.signUpBtn}>
+            <Button style={signUpButton.signUpBtn} 
+              title ="SignUp"
+              color ="red"
+              accessibilityLabel="Learn more about this purple button"
+              onPress={() => Alert.alert('Left button pressed')}/>
+          </View>
+
+          <View style ={loginButton.loginBtn}>
+        
+            <Button style={loginButton.loginBtn} 
+         
+            color = "blue"/>
+            <Text style ={loginButton.title}>Login</Text>
+          </View>
       
-          <Button  style={s.btn} title="Login"/>
-          <Button  style={s.btn} title ="SignUp"/>
+        
+
+
+ 
+
+      
+
       
         
       </View>
 
-  </Dissmiss>
+
 
 
   );
 }
+const top = StyleSheet.create({
+blueHeader: {
+  alignSelf:'flex-start', 
+  paddingTop:70, 
+  paddingBottom: 70, 
+  marginRight:50,
+  justifyContent:'center', 
+  alignItems:'center', 
+  width: '100%',
+  backgroundColor:'#4970FA',
+},
 
-const s = StyleSheet.create({
-    btn:{
-      padding: 40,
-      borderRadius:80,
+logoPlaceholder: {
+  alighItems: 'center',
+  justifyContent: 'center', 
+  width:'15%',
+  height: '215%',
+  backgroundColor: 'white',
+
+}
+});
+
+const signUpButton = StyleSheet.create({
+  signUpBtn:{
+      //backgroundColor: 'black',
+      width: 200,
+      marginTop: 20,
+      marginLeft: 550,
+      //backgroundColor: "green",
+      padding: 5,
+      borderRadius: 90,
     }
+});
+
+const loginButton = StyleSheet.create({
+  loginBtn:{
+    width: 200,
+    marginTop: 100,
+    marginLeft: 550,
+    padding: 6,
+    borderRadius: 90,
+    //borderWidth: 1,
+    backgroundColor: "blue",
+    fontSize: 30,
+    
+  },
+  title: {
+  
+    fontSize: 16,
+    //lineHeight: 21,
+    //fontWeight: 'bold',
+    //letterSpacing: 0.25,
+    color: "black",
+  },
+  
+
+
 });
 
 const styles = StyleSheet.create({
@@ -53,7 +121,9 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     textAlign: 'center',
     alignItems:'center',
-    fontSize: 20,
+    fontSize: 30,
     color: 'black'
   }
 });
+
+

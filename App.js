@@ -10,15 +10,9 @@ export default function App() {
         
         <View style={top.blueHeader}>
             <View style={top.logoPlaceholder}border-style='dotted'>
-            <Text style={styles.logo}>Logo</Text>
-
-            
-              
+            <Text style={styles.logo}>Logo</Text>  
             </View> 
-            
         </View >
-        
-
 
           <TextInput multiline={true} placeholder="Email"/>
           <TextInput multiline={true} placeholder="SignUp"/>
@@ -33,29 +27,15 @@ export default function App() {
           </View>
 
           <View style ={loginButton.loginBtn}>
-        
             <Button style={loginButton.loginBtn} 
-         
             color = "blue"/>
             <Text style ={loginButton.title}>Login</Text>
           </View>
-      
-        
 
-
- 
-
-      
-
-      
-        
       </View>
-
-
-
-
   );
 }
+
 const top = StyleSheet.create({
 blueHeader: {
   alignSelf:'flex-start', 
@@ -110,9 +90,6 @@ const loginButton = StyleSheet.create({
     //letterSpacing: 0.25,
     color: "black",
   },
-  
-
-
 });
 
 const styles = StyleSheet.create({

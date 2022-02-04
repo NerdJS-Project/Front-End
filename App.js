@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     
   }
 });
-=======
+
 const top = StyleSheet.create({
 blueHeader: {
   alignSelf:'flex-start', 
@@ -119,7 +119,7 @@ blueHeader: {
 },
 
 logoPlaceholder: {
-  alighItems: 'center',
+  alignItems: 'center',
   justifyContent: 'center', 
   width:'15%',
   height: '215%',
@@ -162,7 +162,7 @@ const loginButton = StyleSheet.create({
   },
 });
 
-const styles = StyleSheet.create({
+const styles2 = StyleSheet.create({
   logo:{
     height:50,
     justifyContent:'center',

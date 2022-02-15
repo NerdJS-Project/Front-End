@@ -14,9 +14,10 @@ export default function App() {
   return (
     <NavigationContainer>{
       <Stack.Navigator>
-        <Stack.Screen name="ClassSearchScreen" component={ClassSearchScreen} options={{title: 'ClassSearchScreen', headerShown: false}}/>
+        
         <Stack.Screen name="LogIn" component={LogInScreen}   options={{ title: 'LogIn' }}/>
         <Stack.Screen name="SignUp" component={SignUpScreen}   options={{ title: 'Sign Up' }}/>
+        <Stack.Screen name="ClassSearchScreen" component={ClassSearchScreen} options={{title: 'ClassSearchScreen', headerShown: false}}/>
 
       </Stack.Navigator>
       

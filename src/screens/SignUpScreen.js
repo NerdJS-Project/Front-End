@@ -50,84 +50,35 @@ export default function SignUpScreen({navigation}) {
 
   return (
 
-
-    
     <View style = {styles.container}>
-      <View style = {top.blueWave}>
+    <Text style ={styles.title}>Create an Account</Text>
 
-      
-  
-
-      <View style={top.logoShape}>
-      <Text style={styles.title}> Brain Breeze </Text>
-      </View>
-
-
-      </View>
-
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={login.email} >  
-
-        <TextInput style={login.emailHolder}placeholder={'UserName'} onChangeText={setName}/>    
-
-        <TextInput style={login.emailHolder}placeholder={'Email'} onChangeText={setEmail}/>
-        <TextInput style={login.pwHolder}placeholder={'Password'} onChangeText={setPassword}/>    
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+    style={form.account} > 
+      <TextInput style={form.nameHolder}placeholder={'Name'} onChangedText={setName}/>
+      <TextInput style={form.emailHolder}placeholder={'Email'}onChangedText={setEmail}/>
+      <TextInput secureTextEntry={true} style={form.pwHolder}placeholder={'Password'}onChangedText={setPassword}/>
+      <TextInput secureTextEntry={true} style={form.confirmPwHolder}placeholder={'Confirm Password'}/>
+    </KeyboardAvoidingView>
         
 
-        <Text >{message ? message : null}</Text>
+    <Text style={form.status}>Are you a:</Text>
+    <label>
+      <input type="radio" value="Student"/>
+      <span>Student</span>
+    </label>
+    <label>
+      <input type="radio" value="Teacher/Educator"/>
+      <span>Teacher/Educator</span>
+    </label>
 
-        <TouchableOpacity
-        
-        onPress={onSubmitHandler}
-        >
-          <View style={login.loginBttn}>
-            <Text style ={login.loginText}>Sign Up</Text>
-          </View> 
-        </TouchableOpacity>
-
-      </KeyboardAvoidingView>
-
-
-
-
-      <View style= {signup.divider}>
-      <Text style ={signup.divider}>-or-</Text>
+    <TouchableOpacity style = {register.container}>
+        <View style={register.registerButton}>
+          <Text style ={register.registerText}>Sign Up</Text>
         </View>
+    </TouchableOpacity>
 
-        <TouchableOpacity 
-        style ={signup.container}
-        onPress ={() => navigation.navigate('LogIn')}
-
-        >
-          <View style={signup.firstSgnUpBttn}>
-            <Text style ={signup.signupText}>Log In</Text>
-          </View> 
-        </TouchableOpacity>
-
-
-        <TouchableOpacity>
-          <View style= {forgotPsswrd.forgotText}>
-        <Text style ={forgotPsswrd.forgotText}>Forgot password?</Text>
-        </View>
-
-
-        </TouchableOpacity>
-
-
-        
-
-      
-
-      
-
-
-
-
-      
-
-      
-
-    </View>
+  </View>
 
 
 
@@ -137,76 +88,41 @@ const styles = StyleSheet.create({
   container: {
     //alignSelf: 'stretch',
     flex: 1,
-
     backgroundColor: '#E8EAED',
     alignItems: 'center',
-    paddingTop:0
-
+    paddingTop:10
   },
 
 
   title: {
-    //paddingHorizontal:11,
-    textAlign: "center",
     fontSize: 30,
     fontWeight: "bold",
-    color: '#4970FA'
-    
-
-
-  },
-
-
-
+    color: "#4970FA"
+  }
 
 });
 
-const top = StyleSheet.create({
 
 
-  blueWave: {
-
-    alignSelf: 'stretch',
-    
-    flex: 1,
-    backgroundColor: '#4970FA',
-    borderBottomEndRadius: 200,
-    borderBottomStartRadius:200,
-    justifyContent: 'center',
+const form = StyleSheet.create({
+  account: {
+    top: 20,
+    bottom: 120,
     alignItems: 'center',
-    position: 'relative', 
-    marginBottom: 300
-    
+    margin: 70
   },
-
-
-  logoShape: {
-    position: 'relative',
-    //paddingHorizontal:100,
-    //borderRadius:40,
-    
-
-    justifyContent: 'center',
-    //alignContent:'center',
-    backgroundColor:'#E8EAED',
-    width: 110,
-    height:110,
-    borderRadius: 15//'15%'
-
-}
-
-
-});
-
-const login= StyleSheet.create({
-  email: {
-    position: 'absolute',
-    bottom: 140,
-    //width: '100%'
-    width: 100,
-    //flexDirection: 'row'
-    alignItems: 'center'
-
+  
+  nameHolder: {
+    position:"relative",
+    paddingVertical: 15,
+    paddingHorizontal:15,
+    backgroundColor: 'white',
+    borderColor: '#C0C0C0',
+    bottom:30,
+    borderWidth: 1,
+    borderRadius: 60,
+    width: 250,
+    margin: 10
   },
 
   emailHolder: {
@@ -218,8 +134,8 @@ const login= StyleSheet.create({
     bottom:30,
     borderWidth: 1,
     borderRadius: 60,
-    width: 250
-
+    width: 250,
+    margin: 10
 
   },
 
@@ -227,99 +143,57 @@ const login= StyleSheet.create({
     position:"relative",
     paddingVertical: 15,
     paddingHorizontal:15,
-    bottom:25,
     backgroundColor: 'white',
     borderColor: '#C0C0C0',
+    bottom:30,
     borderWidth: 1,
     borderRadius: 60,
-    marginTop: 10,
-    width: 250
-    
-    
-
+    width: 250,
+    margin: 10
   },
 
-  loginBttn: {
-    width:250,
-    position: "relative",
-    //height: 60,
+  confirmPwHolder: {
+    position:"relative",
     paddingVertical: 15,
     paddingHorizontal:15,
+    backgroundColor: 'white',
+    borderColor: '#C0C0C0',
+    bottom:30,
+    borderWidth: 1,
     borderRadius: 60,
-    backgroundColor: '#4970FA',
-    //marginTop: 10,
-   //top: 10,
-    //textAlign: 'center',
-    color: 'white',
-    //color: 'white',
-    alignItems:'center'
-
+    width: 250,
+    margin: 10
   },
 
-  loginText: {
-    color: 'white',
-    //fontSize: 22,
-    fontWeight: "bold",
-
-  }
-
+  status: {
+    fontWeight:"bold",
+    textAlign:"center",
+    bottom: 550
+  },
 
   
-});
-
-const signup= StyleSheet.create({
-  container: {
-    bottom: 40
-  },
-  divider: {
-    bottom: 25,
-    fontWeight: "bold",
-    color:'#6B6B6B',
-    position: "relative",
-
-
-  },
-
-  firstSgnUpBttn: {
-   width:250,
-
-   position: "relative",
-    paddingVertical: 15,
-    paddingHorizontal:15,
-    borderRadius: 60,
-    backgroundColor: '#4970FA',
-    //marginTOP:0,
-
-    
-  
-    //textAlign: 'center',
-    color: 'white',
-    //color: 'white',
-    alignItems:'center'
-
-  },
-  signupText: {
-    color: 'white',
-    fontWeight: "bold",
-
-  }
-
-});
-
-const forgotPsswrd= StyleSheet.create({
-
-
-  forgotText: {
-    position: "relative",
-    color: '#6B6B6B',
-    fontWeight: "bold",
-
-    bottom:10,
-    textDecorationLine: 'underline',
-   
-
-  }
-
 })
+
+const register = StyleSheet.create ({
+  container: {
+    margin: 50
+  },
+  registerButton: {
+    width: 250,
+    paddingVertical: 15, 
+    paddingHorizontal: 15, 
+    borderRadius: 60,
+    backgroundColor: '#4970FA',
+    color: 'white',
+    alignItems:'center',
+    margin: 50
+  },
+
+  registerText: {
+    color: 'white', 
+    fontWeight: "bold"
+  }
+})
+
 
 

@@ -1,10 +1,56 @@
-import * as React from "react";
+import React, { useState } from 'react';
+
 import { View, Text,Alert, StyleSheet ,Button,TextInput,TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
 
 
+const API_URL =  'http://localhost:3001/api/user';
 
 export default function SignUpScreen({navigation}) {
+
+
+  const [user_email, setEmail] = useState('');
+  const [user_name, setName] = useState('');
+  const [user_password, setPassword] = useState('');
+  const [user_type, setUserType] = useState('string');
+
+  const [message, setMessage] = useState('');
+  
+
+  const onSubmitHandler = () => {
+    const payload = {
+        user_name,
+        user_password,
+        user_email,
+        user_type
+    };
+    fetch(API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    })
+    .then(async res => { 
+        try {
+            const jsonRes = await res.json();
+            if (res.status !== 201) {
+                setMessage(jsonRes.message);
+            } else {
+                setMessage(jsonRes.message);
+            }
+        } catch (err) {
+            console.log(err);
+        };
+    })
+    .catch(err => {
+        console.log(err);
+    });
+};
+
+
   return (
+
+
     
     <View style = {styles.container}>
       <View style = {top.blueWave}>
@@ -22,10 +68,18 @@ export default function SignUpScreen({navigation}) {
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={login.email} >  
 
-        <TextInput style={login.emailHolder}placeholder={'Email'}/>
-        <TextInput style={login.pwHolder}placeholder={'Password'}/>    
+        <TextInput style={login.emailHolder}placeholder={'UserName'} onChangeText={setName}/>    
+
+        <TextInput style={login.emailHolder}placeholder={'Email'} onChangeText={setEmail}/>
+        <TextInput style={login.pwHolder}placeholder={'Password'} onChangeText={setPassword}/>    
         
-        <TouchableOpacity>
+
+        <Text >{message ? message : null}</Text>
+
+        <TouchableOpacity
+        
+        onPress={onSubmitHandler}
+        >
           <View style={login.loginBttn}>
             <Text style ={login.loginText}>Sign Up</Text>
           </View> 

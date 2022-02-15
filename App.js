@@ -3,6 +3,7 @@ import { View, Text,Alert, StyleSheet ,Button,TextInput,TouchableWithoutFeedback
 import { NavigationContainer } from '@react-navigation/native';
 import LogInScreen from "./src/screens/LogInScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
+import ClassSearchScreen from "./src/screens/ClassSearchScreen";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
@@ -13,10 +14,10 @@ export default function App() {
   return (
     <NavigationContainer>{
       <Stack.Navigator>
-        <Stack.Screen name="LogIn" component={LogInScreen}   options={{ title: 'LogIn' }}
- />
-        <Stack.Screen name="SignUp" component={SignUpScreen}   options={{ title: 'Sign Up' }}
- />
+        
+        <Stack.Screen name="LogIn" component={LogInScreen}   options={{ title: 'LogIn' }}/>
+        <Stack.Screen name="SignUp" component={SignUpScreen}   options={{ title: 'Sign Up' }}/>
+        <Stack.Screen name="ClassSearchScreen" component={ClassSearchScreen} options={{title: 'ClassSearchScreen', headerShown: false}}/>
 
       </Stack.Navigator>
       

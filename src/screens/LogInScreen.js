@@ -25,7 +25,8 @@ export default function LogInScreen({navigation}) {
         <TextInput style={login.emailHolder}placeholder={'Email'}/>
         <TextInput style={login.pwHolder}placeholder={'Password'}/>    
         
-        <TouchableOpacity>
+        {/*Emmanuel gave property onPress to TouchableOpacity tag*/}
+        <TouchableOpacity onPress={()=> navigation.navigate('dashboard')}>
           <View style={login.loginBttn}>
             <Text style ={login.loginText}>Login</Text>
           </View> 

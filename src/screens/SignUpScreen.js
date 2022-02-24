@@ -72,7 +72,8 @@ export default function SignUpScreen({navigation}) {
       <span>Teacher/Educator</span>
     </label>
 
-    <TouchableOpacity style = {register.container}>
+    <TouchableOpacity style = {register.container} onPress={onSubmitHandler}>
+      
         <View style={register.registerButton}>
           <Text style ={register.registerText}>Sign Up</Text>
         </View>

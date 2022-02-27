@@ -1,0 +1,117 @@
+{
+    "UserCourse1": {
+      
+      "ID": "2349",
+      "Course Title": "Calculus",
+      "Lessons": {
+          "Lesson 1" : {
+              "Duration": "4 hours",
+              "Completion Status": "True",
+              "Description": "This lecture covers L'Hospital Rule",
+              "VideoContent" : "Youtube.com",
+              "Quiz": "QuizContent"
+
+          },
+          "Lesson 2" : {
+            "Duration": "6 hours",
+            "Completion Status": "True",
+            "Description": "This lecture covers finding the integral",
+            "VideoContent" : "Youtube.com",
+            "Quiz": "QuizContent"
+
+        },
+        "Lesson 3" : {
+            "Duration": "2 hours",
+            "Completion Status": "True",
+            "Description": "This lecture cover L'Hospital Rule",
+            "VideoContent" : "Youtube.com",
+            "Quiz": "QuizContent"
+
+        },
+        "Lesson 4" : {
+            "Duration": "5 hours",
+            "Completion Status": "True",
+            "Description": "This lecture cover right hand rule",
+            "VideoContent" : "Youtube.com",
+            "Quiz": "QuizContent"
+
+        },
+        "Lesson 5" : {
+            "Duration": "4 hours",
+            "Completion Status": "False",
+            "Description": "This lecture cover math theory",
+            "VideoContent" : "Youtube.com",
+            "Quiz": "QuizContent"
+
+        },
+        "Lesson 6" : {
+            "Duration": "4 hours",
+            "Completion Status": "False",
+            "Description": "This lecture cover whatever",
+            "VideoContent" : "Youtube.com",
+            "Quiz": "QuizContent"
+
+        }
+      },
+
+
+
+
+
+      "UserCourse2": {
+      
+        "ID": "4897",
+        "Course Title": "English",
+        "Lessons": {
+            "Lesson 1" : {
+                "Duration": "4 hours",
+                "Completion Status": "True",
+                "Description": "This lecture covers fictional writing",
+                "VideoContent" : "Youtube.com",
+                "Quiz": "QuizContent"
+  
+            },
+            "Lesson 2" : {
+              "Duration": "6 hours",
+              "Completion Status": "True",
+              "Description": "This lecture covers retorical writing",
+              "VideoContent" : "Youtube.com",
+              "Quiz": "QuizContent"
+  
+          },
+          "Lesson 3" : {
+              "Duration": "2 hours",
+              "Completion Status": "True",
+              "Description": "This lecture cover creative writing",
+              "VideoContent" : "Youtube.com",
+              "Quiz": "QuizContent"
+  
+          },
+          "Lesson 4" : {
+              "Duration": "5 hours",
+              "Completion Status": "True",
+              "Description": "This lecture cover business writing",
+              "VideoContent" : "Youtube.com",
+              "Quiz": "QuizContent"
+  
+          },
+          "Lesson 5" : {
+              "Duration": "4 hours",
+              "Completion Status": "False",
+              "Description": "This lecture cover persuasive writing",
+              "VideoContent" : "Youtube.com",
+              "Quiz": "QuizContent"
+  
+          },
+          "Lesson 6" : {
+              "Duration": "4 hours",
+              "Completion Status": "False",
+              "Description": "This lecture cover whatever",
+              "VideoContent" : "Youtube.com",
+              "Quiz": "QuizContent"
+  
+          }
+        }
+      
+  }
+}}

@@ -1,55 +1,197 @@
-import React from 'react';
-import {View,Text, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import {View,Text, StyleSheet,  ScrollView, SafeAreaView, TouchableOpacity,TouchableWithoutFeedback, ScrollViewComponent} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import menuComponent from './component';
+//import data from './dashboard.json'
+
+//const data = require('./src/screens/dashboard.json');
 
 
-function Dash () {
-   
+
+
+
+function Dash ()  {
     return(
-      
-
-                <View style={{flex:2,alignItems:'stretch'}}>
-                    <SafeAreaView style={{flex:1, justifyContent:'space-between'}}>
+        
+        
+        <View style={{flex:2,alignItems:'stretch'}}>
                     
-                        <View style={styles.header} >
-                            {/*<View style={styles.menu}>
-                            </View> */}
-                        
-                                    <FontAwesome5 style={styles.menu} size={20} name={'bars'} color={'white'}>
+                <ScrollView>
+                    <SafeAreaView style={{flex:1, justifyContent:'space-between' }}>
+
+                            <View style={styles.header} >
+                                {/*<View style={styles.menu}>
+                                </View> */}
+
                                     
-                                 </FontAwesome5>
-                              
-                            <Text style={{color:'white'}} >
-                            Dashboard
-                            </Text>
-                            <FontAwesome5 style={styles.searchIcon} size={20}name={'search'} color={'white'} />
-                        </View>
+                                        <TouchableWithoutFeedback>
+                                                  
+                                                <FontAwesome5 style={styles.menu} size={20} name={'bars'} color={'white'}>
+                                                    {menuComponent}        
+                                                </FontAwesome5>
+                                            
+                                    
+                                        </TouchableWithoutFeedback>
+                                  
+                                
 
-                        
-                            <View style={styles.lesson}>
-                                    <Text style={{color:'white', textAlign:'center'}}>
-                                        Lesson #
-                                    </Text>
+                                <TouchableOpacity onPress={()=>{
+                                    alert('you tapped search button');
+                                }}>
+
+                                <FontAwesome5 style={styles.searchIcon} size={20}name={'search'} color={'white'} />
+                                </TouchableOpacity>
                             </View>
-                        
-                        {/*home, setting and profile icons for footer in that order */}
-                        <View style={styles.footer}>
+
+                                <View>
+                                    <Text style={{color:'#3385ff', textAlign:'center', fontWeight:'600'}}>Unit #</Text>
+
+                                </View>
+
+                                    
+                                    <View style={styles.lessonCompletion}>
+
+                                        <Text style={{color:'white',justifyContent:'center',textAlign:'center'}}>
+                                            #% completed
+                                        </Text>
+                                    </View>
+
+                            <View style={styles.lessContainer}>
+
+                                
+
+                                    <View style={styles.lesson}>
+                                        <TouchableOpacity onPress={()=>{
+                                            alert('pressed lesson');
+                                        }}>
+
+                                            <View style={styles.lessonNum}>
+                                                <Text style={{color:'white', textAlign:'center', justifyContent: 'center'}}>Lesson #</Text>
+
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                
+
+                                    <View style={styles.lesson}>
+                                        <TouchableOpacity onPress={()=>{
+                                            alert('pressed lesson');
+                                        }}>
+
+                                            <View style={styles.lessonNum}>
+                                                <Text style={{color:'white', textAlign:'center', justifyContent: 'center'}}>Lesson #</Text>
+
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    <View style={styles.lesson}>
+                                        <TouchableOpacity onPress={()=>{
+                                            alert('pressed lesson');
+                                        }}>
+
+                                            <View style={styles.lessonNum}>
+                                                <Text style={{color:'white', textAlign:'center', justifyContent: 'center'}}>Lesson #</Text>
+
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    <View style={styles.lesson}>
+                                        <TouchableOpacity onPress={()=>{
+                                            alert('pressed lesson');
+                                        }}>
+
+                                            <View style={styles.lessonNum}>
+                                                <Text style={{color:'white', textAlign:'center', justifyContent: 'center'}}>Lesson #</Text>
+
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+
+
+                                    <View style={styles.lesson}>
+                                        <TouchableOpacity onPress={()=>{
+                                            alert('pressed lesson');
+                                        }}>
+
+                                            <View style={styles.lessonNum}>
+                                                <Text style={{color:'white', textAlign:'center', justifyContent: 'center'}}>Lesson #</Text>
+
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    
+                                    <View style={styles.lesson}>
+                                        <TouchableOpacity onPress={()=>{
+                                            alert('pressed lesson');
+                                        }}>
+
+                                            <View style={styles.lessonNum}>
+                                                <Text style={{color:'white', textAlign:'center', justifyContent: 'center'}}>Lesson #</Text>
+
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+
+
+                                    <View style={styles.lesson}>
+                                        <TouchableOpacity onPress={()=>{
+                                            alert('pressed lesson');
+                                        }}>
+
+                                            <View style={styles.lessonNum}>
+                                                <Text style={{color:'white', textAlign:'center', justifyContent: 'center'}}>Lesson #</Text>
+
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                
+
+
+                            </View>
+
                             
-                            <FontAwesome5 style={styles.homeIcon} size={20} name={'home'} color={'white'}/>
-                             <FontAwesome5 style={styles.settingIcon} size={20} name={'snowflake'} color={'white'}/>
-                             <FontAwesome5 style={styles.profileIcon} size={20} name={'user'} color={'white'}/>   
 
-                        </View>
 
-                        
-                
+                            
+                     
+                            {/*home, setting and profile icons for footer in that order */}
+                            <View style={styles.footer}>
+                                <TouchableOpacity onPress={()=>{
+                                    alert('you pressed home icon');
+                                }}>
+                                    <FontAwesome5 style={styles.homeIcon} size={20} name={'home'} color={'white'}/>
+                                </TouchableOpacity>
+                                
+                                <TouchableOpacity onPress={()=>{
+                                    alert('you clicked settings');
+                                }}>
+                                    <Icon style={styles.settingIcon} size={20} name={'settings'} color={'white'}/>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={()=>{
+                                    alert('clicked on profile');
+                                }}>
+                                    <FontAwesome5 style={styles.profileIcon} size={20} name={'user'} color={'white'}/>   
+                                </TouchableOpacity>
+
+                            </View>
+
             
             </SafeAreaView>             
+                        
+                </ScrollView>    
                 </View>
             
        
 
-    );
+    ); 
+    
 
 }
 
@@ -83,9 +225,38 @@ const styles = StyleSheet.create({
         width: 75,
         height: 75,
         borderRadius: 75/2,
+        
+        justifyContent:'space-evenly',
+        
+        
+    },
+    lessonCompletion:{
+        backgroundColor: '#3385ff',
+        width: 75,
+        height: 75,
+        borderRadius: 75/2,
         alignSelf: 'center',
-        justifyContent:'center'
+       // justifyContent:'space-between'
     
+    },
+    lessContainer:{
+        backgroundColor:'gray',
+        width: 200,
+        height: 200,
+        alignSelf:'center',
+        
+        flexWrap:'wrap',
+        flexDirection:'row',
+       justifyContent:'space-evenly',
+
+        
+    },
+    lessonNum:{
+        backgroundColor:`#0000ff`,
+        marginTop: 50,
+        width: 80,
+        height: 25,
+        borderRadius: 78
     },
     searchIcon:{
         justifyContent: 'center',

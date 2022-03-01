@@ -1,13 +1,46 @@
 import * as React from "react";
-import { View, Text,Alert, StyleSheet ,Button,TextInput,TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity,ScrollView} from "react-native";
+import { View, Text,Alert, StyleSheet ,Button,TextInput,TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity,ScrollView, StatusBar} from "react-native";
+const Data = [{
+    
+    "CourseTitle": "Intro To Algebra",
+    "Email": "Anna Thomas",
+    "CourseDescription": "This course will teach the fundamental of algebra",
+    "CourseRating": "4"
+  },
+ {
+    "CourseTitle": "Intermediate Acting",
+    "TeacherName": "Bella Cullens",
+    "CourseDescription": "This course will teach the fundamental of acting",
+    "CourseRating": "5"
+  },
+ {
+    "CourseTitle": "Quantum Physic for Dummies",
+    "TeacherName": "Taylor Spaulding",
+    "CourseDescription": "This course will teach the fundamental of physic",
+    "CourseRating": "4"
+  },
+   {
+    "CourseTitle": "Photoshop 101",
+    "TeacherName": "Taylor Clifford",
+    "CourseDescription": "This course will teach the fundamental of photoshop",
+    "CourseRating": "1"
+}]
 
+for(var i = 0; i < Data.length; i++) {
+  var obj = Data[i];
+
+  console.log(obj.CourseTitle);
+}
 
 
 export default function ClassSearchScreen() {
   return (
     
     
-    <View style = {styles.container}>
+    <View style={styles.container}>
+      <View style = {styles.content}>
+
+
 
 
 
@@ -15,22 +48,24 @@ export default function ClassSearchScreen() {
         
  
         
-        <TouchableOpacity>
+        <TouchableOpacity >
           <View style={search.searchBttn}>
             <Text style ={search.searchText}>Search</Text>
           </View> 
         </TouchableOpacity>
         <Text style={styles.title}> Discover Classes </Text>
+        </View>
 
-        <ScrollView>
-            <View style= {styles.boxes}>
-                 </View>
+        <ScrollView contentContainerStyle = {styles.content}>
+          {Data.map((item) => {
+            return (
+            <View key={item.CourseTitle}> 
+              <Text style = {styles.boxes}>
+                {item.CourseTitle}
+              </Text>
+            </View>
+            )})}
 
-                 <View style= {styles.boxes}>
-                 </View>
-
-                 <View style= {styles.boxes}>
-                 </View>
         </ScrollView>
 
 
@@ -46,14 +81,26 @@ export default function ClassSearchScreen() {
 }
 const styles = StyleSheet.create({
   container: {
-    //alignSelf: 'stretch',
     flex: 1,
-
     backgroundColor: '#E8EAED',
-    alignItems: 'center',
-    paddingTop:0
+  
+    
+    
+   
+  
+   
+    
+
 
   },
+
+  content: {
+
+    alignItems: "center"
+
+  },
+
+  
 
 
   title: {
@@ -73,14 +120,29 @@ const styles = StyleSheet.create({
   },
 
   boxes: {
-      marginTop: 10,
+
       //padding: 30,
+      marginTop:10,
+    
       backgroundColor: 'white',
       borderColor: '#C0C0C0',
       borderWidth: 1,
       borderRadius: 10,
       width:300,
       height: 200,
+      textAlign: "center",
+   
+      alignItems: "center"
+
+      
+
+     
+     
+      
+   
+
+
+
       //top: 10,
 
       
@@ -145,3 +207,4 @@ const search= StyleSheet.create({
 
   
 });
+

@@ -62,7 +62,7 @@ export default function SignUpScreen({navigation}) {
     </KeyboardAvoidingView>
         
 
-    <Text style={form.status}>Are you a:</Text>
+    <Text style={form.status}>Are you a:</Text> 
     <label>
       <input type="radio" value="Student"/>
       <span>Student</span>

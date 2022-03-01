@@ -24,7 +24,7 @@ export default function LogInScreen({navigation}) {
       style={login.email} >  
 
         <TextInput style={login.emailHolder}placeholder={'Email'}/>
-        <TextInput style={login.pwHolder}placeholder={'Password'}/>    
+        <TextInput style={login.pwHolder}placeholder={'Password'} secureTextEntry={true}/>    
         
         {/*Emmanuel gave property onPress to TouchableOpacity tag*/}
         <TouchableOpacity onPress={()=> navigation.navigate('dashboard')}>
@@ -58,25 +58,9 @@ export default function LogInScreen({navigation}) {
         </View>
 
 
-        </TouchableOpacity>
-
-
-        
-
-      
-
-      
-
-
-
-
-      
-
-      
+        </TouchableOpacity>   
 
     </View>
-
-
 
   );
 }

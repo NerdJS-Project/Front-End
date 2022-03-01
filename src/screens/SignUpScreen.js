@@ -7,7 +7,7 @@ const API_URL =  'http://localhost:3001/api/user';
 
 export default function SignUpScreen({navigation}) {
 
-
+  //TODO: Add proper set state on text input in order to recieve and update as user types their info
   const [user_email, setEmail] = useState('');
   const [user_name, setName] = useState('');
   const [user_password, setPassword] = useState('');
@@ -63,14 +63,15 @@ export default function SignUpScreen({navigation}) {
         
 
     <Text style={form.status}>Are you a:</Text>
-    <label>
+    {/*TODO: Add radio button to select user type*/}
+    {/* <label>
       <input type="radio" value="Student"/>
       <span>Student</span>
     </label>
     <label>
       <input type="radio" value="Teacher/Educator"/>
       <span>Teacher/Educator</span>
-    </label>
+    </label> */}
 
     <TouchableOpacity style = {register.container} onPress={onSubmitHandler}>
       

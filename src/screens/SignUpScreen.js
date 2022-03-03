@@ -7,7 +7,7 @@ const API_URL =  'http://localhost:3001/api/user';
 
 export default function SignUpScreen({navigation}) {
 
-
+  //TODO: Add proper set state on text input in order to recieve and update as user types their info
   const [user_email, setEmail] = useState('');
   const [user_name, setName] = useState('');
   const [user_password, setPassword] = useState('');
@@ -17,6 +17,12 @@ export default function SignUpScreen({navigation}) {
   
 
   const onSubmitHandler = () => {
+
+    console.log("email and pass and name: ",user_email, user_password, user_name);
+
+
+
+
     const payload = {
         user_name,
         user_password,
@@ -55,22 +61,23 @@ export default function SignUpScreen({navigation}) {
 
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
     style={form.account} > 
-      <TextInput style={form.nameHolder}placeholder={'Name'} onChangedText={setName}/>
-      <TextInput style={form.emailHolder}placeholder={'Email'}onChangedText={setEmail}/>
-      <TextInput secureTextEntry={true} style={form.pwHolder}placeholder={'Password'}onChangedText={setPassword}/>
+      <TextInput style={form.nameHolder}placeholder={'Name'} onChangeText={newText => setName(newText)}/>
+      <TextInput style={form.emailHolder}placeholder={'Email'}onChangeText={newText => setEmail(newText)}/>
+      <TextInput secureTextEntry={true} style={form.pwHolder}placeholder={'Password'}onChangeText={newText => setPassword(newText)}/>
       <TextInput secureTextEntry={true} style={form.confirmPwHolder}placeholder={'Confirm Password'}/>
     </KeyboardAvoidingView>
         
 
-    <Text style={form.status}>Are you a:</Text> 
-    <label>
+    <Text style={form.status}>Are you a:</Text>
+    {/*TODO: Add radio button to select user type*/}
+    {/* <label>
       <input type="radio" value="Student"/>
       <span>Student</span>
     </label>
     <label>
       <input type="radio" value="Teacher/Educator"/>
       <span>Teacher/Educator</span>
-    </label>
+    </label> */}
 
     <TouchableOpacity style = {register.container} onPress={onSubmitHandler}>
       

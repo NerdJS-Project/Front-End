@@ -1,15 +1,44 @@
-import * as React from "react";
+import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text,Alert, StyleSheet ,Button,TextInput,TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
-
+import Authentication from "../utility/Authentication";
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
+//const API_URL =  'http://localhost:3001/api/user';
 
 
 export default function LogInScreen({navigation}) {
+
+  //TODO: Add proper set state on text input in order to recieve and update as user types their info
+  const [user_email, setEmail] = useState('');
+  const [user_password, setPassword] = useState('');
+
+  const [message, setMessage] = useState('');
+
+  const onSubmitHandler = () => {
+    console.log("email and pass: ",user_email, user_password);
+    const api = new Authentication();
+    api.signIn(user_email, user_password).then(() => {
+    
+    AsyncStorage.getItem('@user_info').then( (data) => {
+      const user = JSON.parse(data);
+      if(user && user.token) {
+          alert("Authorized!");
+      }
+      else {
+          alert("Not Authorized!");
+          AsyncStorage.clear();
+      }
+      }).catch((reason) => {
+          console.log(reason);
+      })
+    });
+    
+  }
+
   return (
     
     <View style = {styles.container}>
       <View style = {top.blueWave}>
-
       
   
 
@@ -23,11 +52,21 @@ export default function LogInScreen({navigation}) {
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={login.email} >  
 
-        <TextInput style={login.emailHolder}placeholder={'Email'}/>
-        <TextInput style={login.pwHolder}placeholder={'Password'}/>    
-        
+      <TextInput 
+      style={login.emailHolder}
+      placeholder={'Email'} 
+      onChangeText={setEmail}/>
+
+      <TextInput 
+      secureTextEntry={true} 
+      style={login.pwHolder}
+      placeholder={'Password'}
+      onChangeText={setPassword}/>
+      <Text >{message ? message : null}</Text>
+
+            
         {/*Emmanuel gave property onPress to TouchableOpacity tag*/}
-        <TouchableOpacity onPress={()=> navigation.navigate('dashboard')}>
+        <TouchableOpacity onPress={onSubmitHandler}>
           <View style={login.loginBttn}>
             <Text style ={login.loginText}>Login</Text>
           </View> 
@@ -50,6 +89,7 @@ export default function LogInScreen({navigation}) {
             <Text style ={signup.signupText}>Sign Up</Text>
           </View> 
         </TouchableOpacity>
+        
 
 
         <TouchableOpacity>
@@ -58,25 +98,9 @@ export default function LogInScreen({navigation}) {
         </View>
 
 
-        </TouchableOpacity>
-
-
-        
-
-      
-
-      
-
-
-
-
-      
-
-      
+        </TouchableOpacity>   
 
     </View>
-
-
 
   );
 }

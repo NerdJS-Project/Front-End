@@ -1,154 +1,149 @@
 import { useState } from 'react';
 import * as React from 'react-native';
-//import React, { Component } from 'react';
+import { Component } from 'react';
 //import { render } from 'react-dom';
-import {View,Text, StyleSheet,  ScrollView, SafeAreaView, TouchableOpacity,TouchableWithoutFeedback, ScrollViewComponent, TextInput} from 'react-native';
+import {View,Text, StyleSheet, LayoutAnimation, UIManager, Platform,  ScrollView, SafeAreaView, 
+    TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-//import menuComponent from './component';
-//import  {Example} from './component';
-//import {Dropdown} from 'react-native-material-dropdown';
-//import data from './dashboard.json'
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-//const data = require('./src/screens/dashboard.json');
+import ModuleView from "../component/ModuleView";
+ import Example from "../component/dashboardMenu";
+ import Course from '../component/course';
 
-// class Example extends Component {
-//     render() {
-//       let data = [{
-//         value: 'Banana',
-//       }, {
-//         value: 'Mango',
-//       }, {
-//         value: 'Pear',
-//       }];
-  
-//       return (
-//         <Dropdown
-//           label='Favorite Fruit'
-//           data={data}
-//         />
-//       );
-//     }
-//   }
-const json=[{
+ import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
+
+const json=[
+    {
     
-  //  "UserCourse1": {
-          
+    
+          isExpanded:false,
           "ID": "2349",
-          "Course Title": "Calculus",
-          "Lessons": {
-              "Lesson 1" : {
+          Course_Title: "Calculus",
+          Lessons: [
+              {
+                  id:1,
                   "Duration": "4 hours",
                   "Completion Status": "True",
-                  "Description": "This lecture covers L'Hospital Rule",
+                  Description: "This lecture covers L'Hospital Rule",
                   "VideoContent" : "Youtube.com",
                   "Quiz": "QuizContent"
     
               },
-              "Lesson 2" : {
+               {
+                id:2,
                 "Duration": "6 hours",
                 "Completion Status": "True",
-                "Description": "This lecture covers finding the integral",
+                Description: "This lecture covers finding the integral",
                 "VideoContent" : "Youtube.com",
                 "Quiz": "QuizContent"
     
             },
-            "Lesson 3" : {
+            {
+                id:3,
                 "Duration": "2 hours",
                 "Completion Status": "True",
-                "Description": "This lecture cover L'Hospital Rule",
+                Description: "This lecture cover L'Hospital Rule",
                 "VideoContent" : "Youtube.com",
                 "Quiz": "QuizContent"
     
             },
-            "Lesson 4" : {
+            {
+                id:4,
                 "Duration": "5 hours",
                 "Completion Status": "True",
-                "Description": "This lecture cover right hand rule",
+                Description: "This lecture cover right hand rule",
                 "VideoContent" : "Youtube.com",
                 "Quiz": "QuizContent"
     
             },
-            "Lesson 5" : {
+             {
+                id:5,
                 "Duration": "4 hours",
                 "Completion Status": "False",
-                "Description": "This lecture cover math theory",
+                Description: "This lecture cover math theory",
                 "VideoContent" : "Youtube.com",
                 "Quiz": "QuizContent"
     
             },
-            "Lesson 6" : {
+             {
+                id:6,
                 "Duration": "4 hours",
                 "Completion Status": "False",
-                "Description": "This lecture cover whatever",
+                Description: "This lecture cover whatever",
                 "VideoContent" : "Youtube.com",
                 "Quiz": "QuizContent"
     
             }
-            },
-        
-     //   },
+        ]
+    },
     
-    
-    
-    
-    
-       //   "UserCourse2": [{
+         {
           
             "ID": "4897",
-            "Course Title": "English",
-            "Lessons": {
-                "Lesson 1" : {
+            Course_Title: "English",
+            Lessons: [
+                {
+                    id:7,
+                    
                     "Duration": "4 hours",
                     "Completion Status": "True",
-                    "Description": "This lecture covers fictional writing",
+                    Description: "This lecture covers fictional writing",
                     "VideoContent" : "Youtube.com",
                     "Quiz": "QuizContent"
       
                 },
-                "Lesson 2" : {
+                 {
+                    id:8,
                   "Duration": "6 hours",
                   "Completion Status": "True",
-                  "Description": "This lecture covers retorical writing",
+                  Description: "This lecture covers retorical writing",
                   "VideoContent" : "Youtube.com",
                   "Quiz": "QuizContent"
       
               },
-              "Lesson 3" : {
+              {
+                id:9,
                   "Duration": "2 hours",
                   "Completion Status": "True",
-                  "Description": "This lecture cover creative writing",
+                  Description: "This lecture cover creative writing",
                   "VideoContent" : "Youtube.com",
                   "Quiz": "QuizContent"
       
               },
-              "Lesson 4" : {
+              {
+                id:10,
                   "Duration": "5 hours",
                   "Completion Status": "True",
-                  "Description": "This lecture cover business writing",
+                  Description: "This lecture cover business writing",
                   "VideoContent" : "Youtube.com",
                   "Quiz": "QuizContent"
       
               },
-              "Lesson 5" : {
+               {
+                id:11,
                   "Duration": "4 hours",
                   "Completion Status": "False",
-                  "Description": "This lecture cover persuasive writing",
+                  Description: "This lecture cover persuasive writing",
                   "VideoContent" : "Youtube.com",
                   "Quiz": "QuizContent"
       
               },
-              "Lesson 6" : {
+              {
+                  id:12,
                   "Duration": "4 hours",
                   "Completion Status": "False",
-                  "Description": "This lecture cover whatever",
+                  Description: "This lecture cover whatever",
                   "VideoContent" : "Youtube.com",
                   "Quiz": "QuizContent"
       
               }
-            }
+            ]
           
-      }]
+      }
+    
+    ]
     
 //}]
 
@@ -159,58 +154,105 @@ let newObj =[];
 
 let lesson=[];
 
-function getLesson(){
+let index = 0;
+
+// function getLesson(){
   
 
-    //Object.keys(json[0].UserCourse1.Lessons).length
-   for(let i=0; i < Object.keys(json[0].Lessons).length; i++){
-          lesson = json[0].Lessons['Lesson 1'].Description;
-         ///let description = json[0].Lessons["Lesson 2"]['Description'];
-        // let theKey = json[0].Lessons['Lesson 1'].Description;
-        // let lessonLength = Object.keys(json[0].Lessons).length;//json[0].Lessons.length;
+//     //Object.keys(json[0].UserCourse1.Lessons).length
+//    for(let i=0; i < json[0].UserCourse1.Lessons.length; i++){
+//       // let a= json[0].UserCourse1.Lessons[1];
+//   lesson= json[0].UserCourse1.Lessons[i].Description;
+//         index = i; 
          
-            newObj.push(
-                <ModuleView description={lesson} >
-                         </ModuleView>);
-    // console.log(lesson);
-       // console.log(lesson);
-      
-    }
-    return  newObj;// (json.map((item)=>{
-//         <ModuleView description={lesson} key={item.Lessons} >
-//             </ModuleView>
-// }));
-    
-}
+//             newObj.push(
+//                 <ModuleView description={lesson} >
+//                          </ModuleView>);
+//           //console.log(a);
+//      //console.log(lesson);
+//     //  newObj = json.map((item)=>{
+//     //     console.log(item.UserCourse1.Lessons[index].Description);
+//     //     <ModuleView description={item.UserCourse1.Lessons[index].Description} item={item.UserCourse1.Lessons[index].Description} key={item.UserCourse1.Lessons[index].Description} >
+//     //         </ModuleView>
+//     //    })
+//         //console.log(json[0].UserCourse1.Lessons.length);
+         
+//         console.log(newObj[0]);
+// }
 
-function Dash ()  {
-    
+// return  newObj;
+   
+// }
+
+export default function Dash ({navigation})  {
+    const [listDataSource, setListDataSource] = useState(json)
     // {getLesson()}
     
+    
+
+    if(Platform.OS == "android"){
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+
+    const updateLayout = (index) =>{
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+        const array = [...listDataSource];
+
+        array[index]["isExpanded"] =!array[index]["isExpanded"];
+
+        setListDataSource(array);
+    };
+
+    const expandFalse = (i)=>{
+        const ar = [...listDataSource];
+
+        if(arr[i]["isExpanded"] == true){
+            arr[i]["isExpanded"] = false;
+        }
+     
+    }
+
+
     return(
         
         
         <View style={{flex:2,alignItems:'stretch'}}>
                
                 
-
                     <SafeAreaView style={{flex:1, justifyContent:'space-between' }}>
                         
-                        
-
                             <View style={styles.header} >
+
+              
+                                    <Example  >
+                                    
+     
+                                </Example> 
+
+                               
                                 {/*<View style={styles.menu}>
                                 </View> */}
 
                                     
-                                        <TouchableWithoutFeedback>
-                                                  
-                                                <FontAwesome5 style={styles.menu} size={20} name={'bars'} color={'white'}>
-                                                    {/*menuComponent*/}        
-                                                </FontAwesome5>
-                                            
+                                       {/* <menuComponent> */}
                                     
-                                        </TouchableWithoutFeedback>
+
+                                      
+
+                                      {/*  <TouchableOpacity>
+
+                                       
+                                        
+                                                <FontAwesome5 style={styles.menu} size={20} 
+                                                name={'bars'} color={'white'}>
+                                                                                                    
+       
+                                                </FontAwesome5>
+                                               
+                                                
+                                             
+                                         </TouchableOpacity> */}
+                                      {/* // </menuComponent> */}
                                   
                                 
 
@@ -221,6 +263,8 @@ function Dash ()  {
                                 <FontAwesome5 style={styles.searchIcon} size={20}name={'search'} color={'white'} />
                             </TouchableOpacity> */}
                             </View>
+
+                               {/* <addCourse description={'hello'}/> */}
 
                                 <View>
                                     <Text style={{color:'#3385ff', textAlign:'center', fontWeight:'600'}}>Unit #</Text>
@@ -242,22 +286,50 @@ function Dash ()  {
                     
 
                             <View style={styles.lessContainer}> 
-
-                              
-                                     {getLesson()} 
-                                    <TouchableOpacity>
-                                
-                                        {/* Example */}
-                                    </TouchableOpacity>
-                                        
-                               
-                                
+                                    
+                                     {/* {getLesson()}  */}
+                                    <SafeAreaView style={{ flex: 1 }}>
+                                        <View style={styles.container}>
+                                            <View style={{ flexDirection: "row", padding: 10 }}>
+                                            {/* <ModuleView >{item.Description}</ModuleView> */}
+                                            {/* {json.map((item) =>(
+                                                
+                                             <Text style={styles.titleText}> {item.Course_Title}</Text>
+                                            ))} */}
+                                            
+                                            <TouchableOpacity
+                                                onPress={() => setMultiSelect(!multiSelect)}
+                                            ></TouchableOpacity>
+                                            </View>
+                                            <ScrollView>
+                                            {json.map((item, key) => (
+                                                <ModuleView
+                                                key={item.Course_Title}
+                                                onClickFunction={() => {
+                                                    updateLayout(key);
+                                                }}
+                                                item={item}
+                                                />
+                                            ))}
+                                            </ScrollView>
+                                        </View>
+                                    </SafeAreaView>
+  
+  
                             </View> 
                                
                     
-                            
-                           
-                        
+                            {/* <View style={{justifyContent:'center'}}>
+                                <TouchableOpacity onPress={()=>{
+                                    alert('clicked on edit');
+                                }}>
+
+                                    <View style={styles.lesson}>
+                                        <AntDesign name={'edit'} size={30} color={'white'}/>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                         */}
                         
                         
 
@@ -275,9 +347,10 @@ function Dash ()  {
 
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={()=>{
-                                    alert('clicked on profile');
-                                }}>
+                                <TouchableOpacity onPress={()=>
+                                    navigation.navigate('ClassSearchScreen')
+                                    // alert('clicked on profile');
+                                }>
                                     <FontAwesome5 style={styles.profileIcon} size={20} name={'user'} color={'white'}/>   
                                 </TouchableOpacity>
 
@@ -294,30 +367,17 @@ function Dash ()  {
 }
 
 
-const ModuleView = (props)=>{
-   
-    return(
-    
-    <View style={{justifyContent:'space-evenly'}}>
 
-        <View style={{alignItems:'center',justifyContent:'space-between'}}>
-           
-
-            <View style={{color:'silver', borderRadius:10,  borderStyle:'solid', borderWidth:5, borderColor:'white', 
-            width: 300,height:60, alignItems:'center',justifyContent:'center', flexWrap:'wrap',
-            flexGrow:0
-        }} >
-                
-                <Text > Module: {props.description}</Text>
-
-            </View>
-                
-        </View>
-    </View>
-    )
-}
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+      },
+      titleText: {
+        flex: 1,
+        fontSize: 22,
+        fontWeight: "bold",
+      },
     menu:{
        // alignItems:'flex-start',
         
@@ -339,7 +399,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingBottom:10,
         paddingTop:10,
-        
         justifyContent:'space-between',
         alignItems: 'stretch'
     },
@@ -348,8 +407,10 @@ const styles = StyleSheet.create({
         width: 75,
         height: 75,
         borderRadius: 75/2,  
-        justifyContent:'space-evenly',
-        
+        alignItems:'center',
+        flexDirection:'row',
+       justifyContent:'center',
+       
         
     },
     lessonCompletion:{
@@ -369,7 +430,9 @@ const styles = StyleSheet.create({
         
         flexWrap:'wrap',
         flexDirection:'row',
-       justifyContent:'space-evenly',
+        
+        alignContent:'center',
+       justifyContent:'space-evenly'
 
         
     },
@@ -399,4 +462,3 @@ const styles = StyleSheet.create({
 
 });
 
-export default Dash;

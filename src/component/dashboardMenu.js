@@ -1,3 +1,4 @@
+import { NavigationHelpersContext } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
 
@@ -141,52 +142,51 @@ const data=[
 
 
 
-export default function menu({navigation,item, key}) {
+export default function DashMenu({navigation}) {
   const [visible, setVisible] = useState(false);
 
    // const shouldShow
-   const hideMenu = () => setVisible(false);
-
-   const showMenu = () => setVisible(true);
-
+  
   return (
   
     <SafeAreaView >
 
     <View >
-
+      <View>
       <TouchableOpacity onPress={()=>setVisible(!visible)} > 
       
       <FontAwesome5  size={20} 
                    name={'bars'} color={'white'}/>
       </TouchableOpacity>
-
+      </View>
       {visible ? 
       (
 
-        <View style={{width: 180, height: 70, 
+        <View style={{width: 200, height: 70, 
         color:'green',backgroundColor:'green', 
         flexDirection:'row',
         justifyContent:'space-between'}}>
             <ScrollView horizontal={true} >
 
             
-             {data.map((item,key) =>( 
-                    <Course
-                    key={key}   
-                    item={item} />
+             {data.map((item,key,t) =>( 
+                    <Course    
+                    item={item}
+                    key={item.Course_Title}
+                    t={()=>navigation.navigate('LogIn')}
+                    />
                ))} 
 
 
 
-        
-          <View style={{alignItems:'center',justifyContent:'center', width:40,borderRadius:10, borderWidth:5, borderColor:'white'}}>
-              <TouchableOpacity onPress={()=> navigation.navigate('ClassSearchScreen')}>
-                <Text size={29}style={{color:'white'}}>
+<TouchableOpacity onPress={navigation}>
+          <View style={{alignItems:'center',justifyContent:'center',height:70, width:40,borderRadius:10, borderWidth:5, borderColor:'white'}}>
+             
+                <Text style={{color:'white',fontSize:35}}>
                   +
                 </Text>
-              </TouchableOpacity>
           </View>
+              </TouchableOpacity>
             </ScrollView>
 
         </View>

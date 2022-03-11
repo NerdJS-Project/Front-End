@@ -223,12 +223,14 @@ export default function Dash ({navigation})  {
                         
                             <View style={styles.header} >
 
-              
-                                    <Example  >
+                                <TouchableOpacity >
+
+                                    <Example navigation={()=>navigation.navigate('ClassSearchScreen')} >
                                     
      
                                 </Example> 
 
+                                </TouchableOpacity>
                                
                                 {/*<View style={styles.menu}>
                                 </View> */}
@@ -267,7 +269,7 @@ export default function Dash ({navigation})  {
                                {/* <addCourse description={'hello'}/> */}
 
                                 <View>
-                                    <Text style={{color:'#3385ff', textAlign:'center', fontWeight:'600'}}>Unit #</Text>
+                                    <Text style={{color:'#3385ff', textAlign:'center', fontWeight:'600'}}>{item.Course_Title}</Text>
 
                                 </View>
 
@@ -389,7 +391,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3385ff',
         alignItems:'center',
         paddingBottom: 10,
-        paddingTop: 10,
+        marginTop: 40,
         flexDirection:'row',
         justifyContent:'space-between'
       },

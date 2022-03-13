@@ -1,5 +1,7 @@
-import * as React from "react";
-import { View, Text,Alert, StyleSheet ,Button,TextInput,TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity,ScrollView, StatusBar} from "react-native";
+import React, { Children, useState } from 'react';
+import { View, Text,Alert, StyleSheet ,Button,TextInput, KeyboardAvoidingView, Platform, TouchableOpacity,ScrollView, StatusBar, TouchableWithoutFeedback, Keyboard,} from "react-native";
+
+
 const Data = [{
     
     "CourseTitle": "Intro To Algebra",
@@ -34,36 +36,48 @@ for(var i = 0; i < Data.length; i++) {
 
 
 export default function ClassSearchScreen() {
+  const [searchTerm, setSearchTerm] = useState('');
+  
   return (
     
-    
+  
     <View style={styles.container}>
+      
       <View style = {styles.content}>
-
-
-
-
-
-        <TextInput style={search.searchHolder}placeholder={'Enter Class'}/>
-        
- 
-        
-        <TouchableOpacity >
-          <View style={search.searchBttn}>
+       
+     
+        <TextInput style={search.searchHolder}placeholder={'Enter Class'}   onChangeText={newText => setSearchTerm(newText)}  defaultValue={searchTerm}/>
+   
+    
+        <TouchableOpacity onPress={() => Keyboard.dismiss()} >
+          <View style={search.searchBttn} >
             <Text style ={search.searchText}>Search</Text>
           </View> 
         </TouchableOpacity>
+        
+     
+
+
         <Text style={styles.title}> Discover Classes </Text>
         </View>
 
         <ScrollView contentContainerStyle = {styles.content}>
-          {Data.map((item) => {
+          {Data.filter((val)=>{
+            if (searchTerm == "") {
+              return val
+            } else if (val.CourseTitle.toLowerCase().includes(searchTerm.toLowerCase())) {
+              return val
+            } 
+            
+
+
+          }).map((item,key) => {
             return (
-            <View key={item.CourseTitle}> 
+            <TouchableOpacity key={key}> 
               <Text style = {styles.boxes}>
                 {item.CourseTitle}
               </Text>
-            </View>
+            </TouchableOpacity>
             )})}
 
         </ScrollView>
@@ -72,6 +86,7 @@ export default function ClassSearchScreen() {
 
 
     </View>
+
 
 
 

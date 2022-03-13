@@ -142,7 +142,7 @@ const data=[
 
 
 
-export default function DashMenu({navigation}) {
+export default function DashMenu({take,navigation}) {
   const [visible, setVisible] = useState(false);
 
    // const shouldShow
@@ -169,11 +169,11 @@ export default function DashMenu({navigation}) {
             <ScrollView horizontal={true} >
 
             
-             {data.map((item,key,t) =>( 
+             {data.map((item,key) =>( 
                     <Course    
                     item={item}
                     key={item.Course_Title}
-                    t={()=>navigation.navigate('LogIn')}
+                   take= {take}
                     />
                ))} 
 

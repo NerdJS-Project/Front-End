@@ -10,7 +10,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import ModuleView from "../component/ModuleView";
  import Example from "../component/dashboardMenu";
- import Course from '../component/course';
+//  import Course from '../component/course';
 
  import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
@@ -184,7 +184,7 @@ let index = 0;
    
 // }
 
-export default function Dash ({navigation})  {
+export default function Dash ({navigation, item})  {
     const [listDataSource, setListDataSource] = useState(json)
     // {getLesson()}
     
@@ -225,7 +225,7 @@ export default function Dash ({navigation})  {
 
                                 <TouchableOpacity >
 
-                                    <Example navigation={()=>navigation.navigate('ClassSearchScreen')} >
+                                    <Example take={()=>navigation.navigate('SignUp')} navigation={()=>navigation.navigate('ClassSearchScreen')} >
                                     
      
                                 </Example> 
@@ -269,7 +269,7 @@ export default function Dash ({navigation})  {
                                {/* <addCourse description={'hello'}/> */}
 
                                 <View>
-                                    <Text style={{color:'#3385ff', textAlign:'center', fontWeight:'600'}}>{item.Course_Title}</Text>
+                                    <Text style={{color:'#3385ff', textAlign:'center', fontWeight:'600'}}>hello</Text>
 
                                 </View>
 

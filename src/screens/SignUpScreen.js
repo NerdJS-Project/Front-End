@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { View, Text,Alert, StyleSheet ,Button,TextInput,TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Authentication from "../utility/Authentication";
 
 const API_URL =  'http://localhost:3001/api/user';
 

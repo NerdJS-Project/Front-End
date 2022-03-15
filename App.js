@@ -17,16 +17,14 @@ export default function App() {
   return (
     <NavigationContainer>{
       <Stack.Navigator>
-
-        <Stack.Screen name="CourseEdit" component={CourseEditScreen}   options={{ title: 'Course Edit' }}/>
- 
+        
+        
         <Stack.Screen name="LogIn" component={LogInScreen}   options={{ title: 'LogIn' }}/>
         <Stack.Screen name="SignUp" component={SignUpScreen}   options={{ title: 'Sign Up' }}/>
         <Stack.Screen name="ClassSearchScreen" component={ClassSearchScreen} options={{title: 'ClassSearchScreen', headerShown: false}}/>
-
         <Stack.Screen name="dashboard" component={Dash}/>
         <Stack.Screen name="Profile" component={Profile}   options={{ title: 'Profile' }}/>
-
+        <Stack.Screen name="CourseEdit" component={CourseEditScreen}   options={{ title: 'Course Edit' }}/>
 
       </Stack.Navigator>
       

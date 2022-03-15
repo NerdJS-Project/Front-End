@@ -17,6 +17,7 @@ export default function App() {
   return (
     <NavigationContainer>{
       <Stack.Navigator>
+        <Stack.Screen name="dashboard" component={Dash}/>
 
         <Stack.Screen name="CourseEdit" component={CourseEditScreen}   options={{ title: 'Course Edit' }}/>
  
@@ -24,7 +25,6 @@ export default function App() {
         <Stack.Screen name="SignUp" component={SignUpScreen}   options={{ title: 'Sign Up' }}/>
         <Stack.Screen name="ClassSearchScreen" component={ClassSearchScreen} options={{title: 'ClassSearchScreen', headerShown: false}}/>
 
-        <Stack.Screen name="dashboard" component={Dash}/>
         <Stack.Screen name="Profile" component={Profile}   options={{ title: 'Profile' }}/>
 
 

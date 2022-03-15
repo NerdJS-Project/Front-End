@@ -1,247 +1,223 @@
 import { useState } from 'react';
 import * as React from 'react-native';
+import { BottomSheet, Button, ListItem } from 'react-native-elements';
+
 import { Component } from 'react';
 //import { render } from 'react-dom';
-import {View,Text, StyleSheet, LayoutAnimation, UIManager, Platform,  ScrollView, SafeAreaView, 
-    TouchableOpacity} from 'react-native';
+import {
+    View, Text, StyleSheet, LayoutAnimation, UIManager, Platform, ScrollView, SafeAreaView,
+    TouchableOpacity
+} from 'react-native';
+
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import ModuleView from "../component/ModuleView";
- import Example from "../component/dashboardMenu";
 //  import Course from '../component/course';
 
- import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
-const json=[
+const jsonRootData = [
     {
-    
-    
-          isExpanded:false,
-          "ID": "2349",
-          Course_Title: "Calculus",
-          Lessons: [
-              {
-                  id:1,
-                  "Duration": "4 hours",
-                  "Completion Status": "True",
-                  Description: "This lecture covers L'Hospital Rule",
-                  "VideoContent" : "Youtube.com",
-                  "Quiz": "QuizContent"
-    
-              },
-               {
-                id:2,
-                "Duration": "6 hours",
-                "Completion Status": "True",
-                Description: "This lecture covers finding the integral",
-                "VideoContent" : "Youtube.com",
-                "Quiz": "QuizContent"
-    
+        courseName: "Calculus",
+        courseContent:
+            [{
+
+
+
+                isExpanded: false,
+                "ID": "2249",
+                Course_Title: "Module 1: Calculus",
+                Lessons: [
+                    {
+                        id: 1,
+                        "Duration": "4 hours",
+                        "Completion Status": "True",
+                        Description: "This lecture covers L'Hospital Rule",
+                        "VideoContent": "Youtube.com",
+                        "Quiz": "QuizContent"
+
+                    },
+                    {
+                        id: 2,
+                        "Duration": "6 hours",
+                        "Completion Status": "True",
+                        Description: "This lecture covers finding the integral",
+                        "VideoContent": "Youtube.com",
+                        "Quiz": "QuizContent"
+
+                    }
+                ]
             },
             {
-                id:3,
-                "Duration": "2 hours",
-                "Completion Status": "True",
-                Description: "This lecture cover L'Hospital Rule",
-                "VideoContent" : "Youtube.com",
-                "Quiz": "QuizContent"
-    
-            },
-            {
-                id:4,
-                "Duration": "5 hours",
-                "Completion Status": "True",
-                Description: "This lecture cover right hand rule",
-                "VideoContent" : "Youtube.com",
-                "Quiz": "QuizContent"
-    
-            },
-             {
-                id:5,
-                "Duration": "4 hours",
-                "Completion Status": "False",
-                Description: "This lecture cover math theory",
-                "VideoContent" : "Youtube.com",
-                "Quiz": "QuizContent"
-    
-            },
-             {
-                id:6,
-                "Duration": "4 hours",
-                "Completion Status": "False",
-                Description: "This lecture cover whatever",
-                "VideoContent" : "Youtube.com",
-                "Quiz": "QuizContent"
-    
-            }
-        ]
+
+
+                isExpanded: false,
+                "ID": "2347",
+                Course_Title: "Module 2: Calculus",
+                Lessons: [
+                    {
+                        id: 1,
+                        "Duration": "4 hours",
+                        "Completion Status": "True",
+                        Description: "This lecture covers L'Hospital Rule",
+                        "VideoContent": "Youtube.com",
+                        "Quiz": "QuizContent"
+
+                    },
+                    {
+                        id: 2,
+                        "Duration": "6 hours",
+                        "Completion Status": "True",
+                        Description: "This lecture covers finding the integral",
+                        "VideoContent": "Youtube.com",
+                        "Quiz": "QuizContent"
+
+                    }
+                ]
+            }],
     },
-    
-         {
-          
-            "ID": "4897",
-            Course_Title: "English",
-            Lessons: [
-                {
-                    id:7,
-                    
-                    "Duration": "4 hours",
-                    "Completion Status": "True",
-                    Description: "This lecture covers fictional writing",
-                    "VideoContent" : "Youtube.com",
-                    "Quiz": "QuizContent"
-      
-                },
-                 {
-                    id:8,
-                  "Duration": "6 hours",
-                  "Completion Status": "True",
-                  Description: "This lecture covers retorical writing",
-                  "VideoContent" : "Youtube.com",
-                  "Quiz": "QuizContent"
-      
-              },
-              {
-                id:9,
-                  "Duration": "2 hours",
-                  "Completion Status": "True",
-                  Description: "This lecture cover creative writing",
-                  "VideoContent" : "Youtube.com",
-                  "Quiz": "QuizContent"
-      
-              },
-              {
-                id:10,
-                  "Duration": "5 hours",
-                  "Completion Status": "True",
-                  Description: "This lecture cover business writing",
-                  "VideoContent" : "Youtube.com",
-                  "Quiz": "QuizContent"
-      
-              },
-               {
-                id:11,
-                  "Duration": "4 hours",
-                  "Completion Status": "False",
-                  Description: "This lecture cover persuasive writing",
-                  "VideoContent" : "Youtube.com",
-                  "Quiz": "QuizContent"
-      
-              },
-              {
-                  id:12,
-                  "Duration": "4 hours",
-                  "Completion Status": "False",
-                  Description: "This lecture cover whatever",
-                  "VideoContent" : "Youtube.com",
-                  "Quiz": "QuizContent"
-      
-              }
-            ]
-          
-      }
-    
-    ]
-    
-//}]
+
+    {
+        courseName: "English",
+        courseContent:
+            [{
 
 
 
+                isExpanded: false,
+                "ID": "2349",
+                Course_Title: "Module 1: English",
+                Lessons: [
+                    {
+                        id: 1,
+                        "Duration": "4 hours",
+                        "Completion Status": "True",
+                        Description: "This lecture covers L'Hospital Rule",
+                        "VideoContent": "Youtube.com",
+                        "Quiz": "QuizContent"
 
-let newObj =[];
+                    },
+                    {
+                        id: 2,
+                        "Duration": "6 hours",
+                        "Completion Status": "True",
+                        Description: "This lecture covers finding the integral",
+                        "VideoContent": "Youtube.com",
+                        "Quiz": "QuizContent"
 
-let lesson=[];
+                    }
+                ]
+            },
+            {
 
-let index = 0;
 
-// function getLesson(){
-  
+                isExpanded: false,
+                "ID": "2347",
+                Course_Title: "Module 2: English",
+                Lessons: [
+                    {
+                        id: 1,
+                        "Duration": "4 hours",
+                        "Completion Status": "True",
+                        Description: "This lecture covers L'Hospital Rule",
+                        "VideoContent": "Youtube.com",
+                        "Quiz": "QuizContent"
 
-//     //Object.keys(json[0].UserCourse1.Lessons).length
-//    for(let i=0; i < json[0].UserCourse1.Lessons.length; i++){
-//       // let a= json[0].UserCourse1.Lessons[1];
-//   lesson= json[0].UserCourse1.Lessons[i].Description;
-//         index = i; 
-         
-//             newObj.push(
-//                 <ModuleView description={lesson} >
-//                          </ModuleView>);
-//           //console.log(a);
-//      //console.log(lesson);
-//     //  newObj = json.map((item)=>{
-//     //     console.log(item.UserCourse1.Lessons[index].Description);
-//     //     <ModuleView description={item.UserCourse1.Lessons[index].Description} item={item.UserCourse1.Lessons[index].Description} key={item.UserCourse1.Lessons[index].Description} >
-//     //         </ModuleView>
-//     //    })
-//         //console.log(json[0].UserCourse1.Lessons.length);
-         
-//         console.log(newObj[0]);
-// }
+                    },
+                    {
+                        id: 2,
+                        "Duration": "6 hours",
+                        "Completion Status": "True",
+                        Description: "This lecture covers finding the integral",
+                        "VideoContent": "Youtube.com",
+                        "Quiz": "QuizContent"
 
-// return  newObj;
-   
-// }
-
-export default function Dash ({navigation, item})  {
-    const [listDataSource, setListDataSource] = useState(json)
-    // {getLesson()}
-    
-    
-
-    if(Platform.OS == "android"){
-        UIManager.setLayoutAnimationEnabledExperimental(true);
+                    }
+                ]
+            }],
     }
 
-    const updateLayout = (index) =>{
+
+
+
+
+
+]
+
+
+
+export default function Dash({ navigation }) {
+    const [listDataSource, setListDataSource] = useState(jsonRootData[0].courseContent)
+
+    const [isVisible, setIsVisible] = useState(false);
+    const list = [
+        {
+            title: 'Calculus',
+            onPress: () => { setListDataSource(jsonRootData[0].courseContent) }
+        },
+        { title: 'English' ,
+        onPress: () => {setListDataSource(jsonRootData[1].courseContent)}
+    },
+        {
+            title: 'Cancel',
+            containerStyle: { backgroundColor: 'red' },
+            titleStyle: { color: 'white' },
+            onPress: () => setIsVisible(false),
+        },
+    ];
+
+
+
+    if (Platform.OS == "android") {
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+    //this is used to signified the component is abou tto be animated (like setState())
+    //could be used to define animation property
+    const updateLayout = (index) => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
         const array = [...listDataSource];
 
-        array[index]["isExpanded"] =!array[index]["isExpanded"];
+        array[index]["isExpanded"] = !array[index]["isExpanded"];
 
         setListDataSource(array);
     };
 
-    const expandFalse = (i)=>{
+    const expandFalse = (i) => {
         const ar = [...listDataSource];
 
-        if(arr[i]["isExpanded"] == true){
+        if (arr[i]["isExpanded"] == true) {
             arr[i]["isExpanded"] = false;
         }
-     
+
     }
 
 
-    return(
-        
-        
-        <View style={{flex:2,alignItems:'stretch'}}>
-               
-                
-                    <SafeAreaView style={{flex:1, justifyContent:'space-between' }}>
-                        
-                            <View style={styles.header} >
+    return (
 
-                                <TouchableOpacity >
 
-                                    <Example take={()=>navigation.navigate('SignUp')} navigation={()=>navigation.navigate('ClassSearchScreen')} >
-                                    
-     
-                                </Example> 
+        <View style={{ flex: 2, alignItems: 'stretch' }}>
 
-                                </TouchableOpacity>
-                               
-                                {/*<View style={styles.menu}>
+
+            <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
+
+                <View style={styles.header} >
+
+                    <Button
+                        onPress={() => setIsVisible(true)}
+                        icon={<FontAwesome5 size={20}
+                            name={'bars'} color={'white'} />}
+                    />
+
+                    {/*<View style={styles.menu}>
                                 </View> */}
 
-                                    
-                                       {/* <menuComponent> */}
-                                    
 
-                                      
+                    {/* <menuComponent> */}
 
-                                      {/*  <TouchableOpacity>
+
+
+
+                    {/*  <TouchableOpacity>
 
                                        
                                         
@@ -254,74 +230,74 @@ export default function Dash ({navigation, item})  {
                                                 
                                              
                                          </TouchableOpacity> */}
-                                      {/* // </menuComponent> */}
-                                  
-                                
+                    {/* // </menuComponent> */}
 
-                                {/* <TouchableOpacity onPress={()=>{
+
+
+                    {/* <TouchableOpacity onPress={()=>{
                                     alert('you tapped search button');
                                 }}>
                                 
                                 <FontAwesome5 style={styles.searchIcon} size={20}name={'search'} color={'white'} />
                             </TouchableOpacity> */}
-                            </View>
+                </View>
 
-                               {/* <addCourse description={'hello'}/> */}
+                {/* <addCourse description={'hello'}/> */}
 
-                                <View>
-                                    <Text style={{color:'#3385ff', textAlign:'center', fontWeight:'600'}}>hello</Text>
+                <View>
+                    <Text style={{ color: '#3385ff', textAlign: 'center', fontWeight: '600' }}>hello</Text>
 
-                                </View>
+                </View>
 
-                                    
-                                    {/* <View style={styles.lessonCompletion}>
+
+                {/* <View style={styles.lessonCompletion}>
 
 <Text style={{color:'white',justifyContent:'center',textAlign:'center'}}>
 #% completed
 </Text>
 </View> */}
 
-                            {/* <ScrollView style={{backgroundColor:'green', flexWrap:'wrap'}}> */}
-                         
-                            
+                {/* <ScrollView style={{backgroundColor:'green', flexWrap:'wrap'}}> */}
 
-                    
 
-                            <View style={styles.lessContainer}> 
-                                    
-                                     {/* {getLesson()}  */}
-                                    <SafeAreaView style={{ flex: 1 }}>
-                                        <View style={styles.container}>
-                                            <View style={{ flexDirection: "row", padding: 10 }}>
-                                            {/* <ModuleView >{item.Description}</ModuleView> */}
-                                            {/* {json.map((item) =>(
+
+
+
+                <View style={styles.lessContainer}>
+
+                    {/* {getLesson()}  */}
+                    <SafeAreaView style={{ flex: 1 }}>
+                        <View style={styles.container}>
+                            <View style={{ flexDirection: "row", padding: 10 }}>
+                                {/* <ModuleView >{item.Description}</ModuleView> */}
+                                {/* {json.map((item) =>(
                                                 
                                              <Text style={styles.titleText}> {item.Course_Title}</Text>
                                             ))} */}
-                                            
-                                            <TouchableOpacity
-                                                onPress={() => setMultiSelect(!multiSelect)}
-                                            ></TouchableOpacity>
-                                            </View>
-                                            <ScrollView>
-                                            {json.map((item, key) => (
-                                                <ModuleView
-                                                key={item.Course_Title}
-                                                onClickFunction={() => {
-                                                    updateLayout(key);
-                                                }}
-                                                item={item}
-                                                />
-                                            ))}
-                                            </ScrollView>
-                                        </View>
-                                    </SafeAreaView>
-  
-  
-                            </View> 
-                               
-                    
-                            {/* <View style={{justifyContent:'center'}}>
+
+                                <TouchableOpacity
+                                    onPress={() => setMultiSelect(!multiSelect)}
+                                ></TouchableOpacity>
+                            </View>
+                            <ScrollView>
+                                {listDataSource.map((item, key) => (
+                                    <ModuleView
+                                        key={key}
+                                        onClickFunction={() => {
+                                            updateLayout(key);
+                                        }}
+                                        item={item}
+                                    />
+                                ))}
+                            </ScrollView>
+                        </View>
+                    </SafeAreaView>
+
+
+                </View>
+
+
+                {/* <View style={{justifyContent:'center'}}>
                                 <TouchableOpacity onPress={()=>{
                                     alert('clicked on edit');
                                 }}>
@@ -332,39 +308,51 @@ export default function Dash ({navigation, item})  {
                                 </TouchableOpacity>
                             </View>
                          */}
-                        
-                        
 
-                            <View style={styles.footer}>
-                                <TouchableOpacity onPress={()=>{
-                                    alert('you pressed home icon');
-                                }}>
-                                    <FontAwesome5 style={styles.homeIcon} size={20} name={'home'} color={'white'}/>
-                                </TouchableOpacity>
-                                
-                                <TouchableOpacity onPress={()=>{
-                                    alert('you clicked settings');
-                                }}>
-                                  <Icon style={styles.settingIcon} size={20} name={'settings'} color={'white'}/>
+                <BottomSheet modalProps={{}} isVisible={isVisible}>
+                    {list.map((l, i) => (
+                        <ListItem
+                            key={i}
+                            containerStyle={l.containerStyle}
+                            onPress={l.onPress}
+                        >
+                            <ListItem.Content>
+                                <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+                            </ListItem.Content>
+                        </ListItem>
+                    ))}
+                </BottomSheet>
 
-                                </TouchableOpacity>
+                <View style={styles.footer}>
+                    <TouchableOpacity onPress={() => {
+                        alert('you pressed home icon');
+                    }}>
+                        <FontAwesome5 style={styles.homeIcon} size={20} name={'home'} color={'white'} />
+                    </TouchableOpacity>
 
-                                <TouchableOpacity onPress={()=>
-                                    navigation.navigate('ClassSearchScreen')
-                                    // alert('clicked on profile');
-                                }>
-                                    <FontAwesome5 style={styles.profileIcon} size={20} name={'user'} color={'white'}/>   
-                                </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        alert('you clicked settings');
+                    }}>
+                        <Icon style={styles.settingIcon} size={20} name={'settings'} color={'white'} />
 
-                            </View>
-                      
+                    </TouchableOpacity>
 
-                    </SafeAreaView>             
-                        
-            </View>
-            
-    ); 
-    
+                    <TouchableOpacity onPress={() =>
+                        navigation.navigate('ClassSearchScreen')
+                        // alert('clicked on profile');
+                    }>
+                        <FontAwesome5 style={styles.profileIcon} size={20} name={'user'} color={'white'} />
+                    </TouchableOpacity>
+
+                </View>
+
+
+            </SafeAreaView>
+
+        </View>
+
+    );
+
 
 }
 
@@ -374,91 +362,91 @@ export default function Dash ({navigation, item})  {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-      },
-      titleText: {
+    },
+    titleText: {
         flex: 1,
         fontSize: 22,
         fontWeight: "bold",
-      },
-    menu:{
-       // alignItems:'flex-start',
-        
+    },
+    menu: {
+        // alignItems:'flex-start',
+
         alignSelf: 'flex-start',
         justifyContent: 'center'
-        
-    } , 
-    header:{
+
+    },
+    header: {
         backgroundColor: '#3385ff',
-        alignItems:'center',
+        alignItems: 'center',
         paddingBottom: 10,
         marginTop: 40,
-        flexDirection:'row',
-        justifyContent:'space-between'
-      },
-    footer:{
-        backgroundColor:'#3385ff',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    footer: {
+        backgroundColor: '#3385ff',
         justifyContent: 'flex-end',
         flexDirection: 'row',
-        paddingBottom:10,
-        paddingTop:10,
-        justifyContent:'space-between',
+        paddingBottom: 10,
+        paddingTop: 10,
+        justifyContent: 'space-between',
         alignItems: 'stretch'
     },
-    lesson:{
+    lesson: {
         backgroundColor: '#3385ff',
         width: 75,
         height: 75,
-        borderRadius: 75/2,  
-        alignItems:'center',
-        flexDirection:'row',
-       justifyContent:'center',
-       
-        
+        borderRadius: 75 / 2,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+
+
     },
-    lessonCompletion:{
+    lessonCompletion: {
         backgroundColor: '#3385ff',
         width: 75,
         height: 75,
-        borderRadius: 75/2,
+        borderRadius: 75 / 2,
         alignSelf: 'center',
-       // justifyContent:'space-between'
-    
+        // justifyContent:'space-between'
+
     },
-    lessContainer:{
-        backgroundColor:'gray',
+    lessContainer: {
+        backgroundColor: 'gray',
         width: 350,
         height: 350,
-        alignSelf:'center',
-        
-        flexWrap:'wrap',
-        flexDirection:'row',
-        
-        alignContent:'center',
-       justifyContent:'space-evenly'
+        alignSelf: 'center',
 
-        
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+
+        alignContent: 'center',
+        justifyContent: 'space-evenly'
+
+
     },
-    lessonNum:{
-        backgroundColor:`#0000ff`,
+    lessonNum: {
+        backgroundColor: `#0000ff`,
         marginTop: 50,
         width: 80,
         height: 25,
         borderRadius: 78
     },
-    searchIcon:{
+    searchIcon: {
         justifyContent: 'center',
-       alignSelf: 'flex-end'
-      
+        alignSelf: 'flex-end'
+
     },
-    homeIcon:{
-        alignSelf:'flex-start',
-         
+    homeIcon: {
+        alignSelf: 'flex-start',
+
     },
-    settingIcon:{
-        alignSelf:'center'
+    settingIcon: {
+        alignSelf: 'center'
     },
-    profileIcon:{
-        alignSelf:'flex-end'
+    profileIcon: {
+        alignSelf: 'flex-end'
     }
 
 

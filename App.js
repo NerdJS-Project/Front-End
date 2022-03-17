@@ -25,7 +25,6 @@ export default function App() {
         <Stack.Screen name="ClassSearchScreen" component={ClassSearchScreen} options={{title: 'ClassSearchScreen', headerShown: false}}/>
         <Stack.Screen name="Profile" component={Profile}   options={{ title: 'Profile' }}/>
         <Stack.Screen name="CourseEdit" component={CourseEditScreen}   options={{ title: 'Course Edit' }}/>
-
       </Stack.Navigator>
       
       

@@ -23,7 +23,7 @@ class Authentication{
 
     async signUp(user_email, user_password, user_name, user_type){
         if(u!=='' && p!=='' && e!==''){
-            let response = await fetch(`${url}/user`, {
+            let response = await fetch(`${url}/user/create`, {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',

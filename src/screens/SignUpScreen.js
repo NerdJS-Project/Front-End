@@ -5,7 +5,7 @@ import { View, Text,Alert, StyleSheet ,Button,TextInput,TouchableWithoutFeedback
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Authentication from "../utility/Authentication";
 
-const API_URL =  'http://localhost:3001/api/user';
+const API_URL =  'http://localhost:3001/api/user/create';
 
 export default function SignUpScreen({navigation}) {
 

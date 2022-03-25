@@ -208,38 +208,7 @@ export default function Dash({ navigation }) {
                             name={'bars'} color={'white'} />}
                     />
 
-                    {/*<View style={styles.menu}>
-                                </View> */}
-
-
-                    {/* <menuComponent> */}
-
-
-
-
-                    {/*  <TouchableOpacity>
-
-                                       
-                                        
-                                                <FontAwesome5 style={styles.menu} size={20} 
-                                                name={'bars'} color={'white'}>
-                                                                                                    
-       
-                                                </FontAwesome5>
-                                               
-                                                
-                                             
-                                         </TouchableOpacity> */}
-                    {/* // </menuComponent> */}
-
-
-
-                    {/* <TouchableOpacity onPress={()=>{
-                                    alert('you tapped search button');
-                                }}>
-                                
-                                <FontAwesome5 style={styles.searchIcon} size={20}name={'search'} color={'white'} />
-                            </TouchableOpacity> */}
+ 
                 </View>
 
                 {/* <addCourse description={'hello'}/> */}
@@ -248,16 +217,6 @@ export default function Dash({ navigation }) {
                     <Text style={{ color: '#3385ff', textAlign: 'center', fontWeight: '600' }}>hello</Text>
 
                 </View>
-
-
-                {/* <View style={styles.lessonCompletion}>
-
-<Text style={{color:'white',justifyContent:'center',textAlign:'center'}}>
-#% completed
-</Text>
-</View> */}
-
-                {/* <ScrollView style={{backgroundColor:'green', flexWrap:'wrap'}}> */}
 
 
 
@@ -297,17 +256,7 @@ export default function Dash({ navigation }) {
                 </View>
 
 
-                {/* <View style={{justifyContent:'center'}}>
-                                <TouchableOpacity onPress={()=>{
-                                    alert('clicked on edit');
-                                }}>
 
-                                    <View style={styles.lesson}>
-                                        <AntDesign name={'edit'} size={30} color={'white'}/>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                         */}
 
                 <BottomSheet modalProps={{}} isVisible={isVisible}>
                     {list.map((l, i) => (

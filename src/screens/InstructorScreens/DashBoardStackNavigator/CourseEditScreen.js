@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { View, Picker, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
-import Authentication from "../utility/Authentication";
+import Authentication from "../../../utility/Authentication";
 import { Input, Icon, ButtonGroup, Divider } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
-export default function CourseEditScreen({ navigation }) {
+export default function CourseEditScreen({ route, navigation }) {
 
-    const [courseName, setCourseName] = useState('');
+    const courseID = route.params;
+    const className = route.params;
+
+    const [courseName, setCourseName] = useState("");
     const [courseDescription, setCourseDescription] = useState('');
 
     const [selectedCourseTypeIndex, setSelectedCourseTypeIndex] = useState(0);
@@ -19,6 +22,7 @@ export default function CourseEditScreen({ navigation }) {
 
 function getCategoryPickerItems()
 {
+    console.log("Route debug:", courseID, courseName, "route: ", route)
     let result = []
     for (let i = 0; i < categoryData.length; i++)
         {
@@ -31,11 +35,11 @@ function getCategoryPickerItems()
 }
 
     return (
-        <SafeAreaView>
+        <View style={{backgroundColor: "white", flex: 1}}>
             <Input
                 containerStyle={styles.inputContainerStyle}
                 inputStyle={styles.inputStyle}
-                placeholder='Calculus'
+                placeholder={className}
                 label="Course Name"
                 onChangeText={setCourseName}
             />
@@ -100,7 +104,7 @@ function getCategoryPickerItems()
                   paddingTop: 40
                 }}
               />
-        </SafeAreaView>
+        </View>
     )
 
 

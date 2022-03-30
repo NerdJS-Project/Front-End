@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet,TextInput,KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Authentication from "../utility/Authentication";
 import { ButtonGroup, CheckBox } from 'react-native-elements';
+import { AuthContext } from '../store/AuthContext';
+
 
 const API_URL =  'http://localhost:3001/api/user/create';
 
@@ -10,6 +12,7 @@ export default function SignUpScreen({navigation}) {
 
   const [selectedIndex, setSelectedIndex] = useState();
   const [check1, setCheck1] = useState(false);
+
 
   //pasword eye
   const [passwordEye, setPasswordEye] = useState(false);
@@ -94,9 +97,9 @@ export default function SignUpScreen({navigation}) {
       onPress={(value) => {
         setSelectedIndex(value);
         if(value == 0){
-          setUserType('Student');
+          setUserType('student');
         } else if(value == 1 ){
-          setUserType('Educator');
+          setUserType('instructor');
         }
       }}
       containerStyle={button.container}
@@ -255,6 +258,4 @@ const register = StyleSheet.create ({
     fontWeight: "bold"
   }
 })
-
-
 

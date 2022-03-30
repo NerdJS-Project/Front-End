@@ -5,6 +5,7 @@ import Authentication from "../utility/Authentication";
 import { ButtonGroup, CheckBox } from 'react-native-elements';
 import { AuthContext } from '../store/AuthContext';
 
+
 const API_URL =  'http://localhost:3001/api/user/create';
 
 export default function SignUpScreen({navigation}) {

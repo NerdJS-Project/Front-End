@@ -234,7 +234,7 @@ const button = StyleSheet.create({
     textAlign:'center',
     borderRadius:80,
     width: 400,
-    underlayColor: "#4970FA"
+    backgroundColor: "#4970FA"
   }
 })
 

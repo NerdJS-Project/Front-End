@@ -8,10 +8,11 @@ function CourseGridCard({ title, color, onPress }) {
         style={({ pressed }) => [
           styles.button,
           pressed ? styles.buttonPressed : null,
+          
         ]}
         onPress={onPress}
       >
-        <View style={[styles.innerContainer, { backgroundColor: color }]}>
+        <View style={[styles.innerContainer, { backgroundColor: 'white' }]}>
           <Text style={styles.title}>{title}</Text>
         </View>
       </Pressable>
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 4,
     backgroundColor: 'white',
+    color: 'white',
     shadowColor: 'black',
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: 2 },
@@ -37,9 +39,11 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
+    
   },
   buttonPressed: {
     opacity: 0.5,
+    
   },
   innerContainer: {
     flex: 1,
@@ -47,9 +51,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
+    
+    
   },
   title: {
     fontWeight: 'bold',
     fontSize: 18,
+    
   },
 });

@@ -27,9 +27,13 @@ export default function LogInScreen({ navigation }) {
 
       AsyncStorage.getItem('@user_info').then((data) => {
         const user = JSON.parse(data);
+        console.log("Log in user id debug" + user);
+        console.log("log in user token" + user.token);
+        console.log("log in user id" + user.user_id);
+
         if (user && user.token) {
           alert("Authorized!");
-          authCtx.authenticate(user.token)
+          authCtx.authenticate(user.token, user.user_id)
         }
         else {
           alert("Not Authorized!");

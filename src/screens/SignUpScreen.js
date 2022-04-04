@@ -39,8 +39,8 @@ export default function SignUpScreen({navigation}) {
 
     const payload = {
         user_name,
-        user_password,
         user_email,
+        user_password,
         user_type
     };
     fetch(API_URL, {

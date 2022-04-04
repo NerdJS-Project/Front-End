@@ -7,10 +7,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CourseEditScreen({ route, navigation }) {
 
-    const courseID = route.params;
-    const className = route.params;
+    const {courseID, courseName} = route.params;
 
-    const [courseName, setCourseName] = useState("");
+    const [className, setClassName] = useState("");
     const [courseDescription, setCourseDescription] = useState('');
 
     const [selectedCourseTypeIndex, setSelectedCourseTypeIndex] = useState(0);
@@ -39,9 +38,9 @@ function getCategoryPickerItems()
             <Input
                 containerStyle={styles.inputContainerStyle}
                 inputStyle={styles.inputStyle}
-                placeholder={className}
+                placeholder={courseName}
                 label="Course Name"
-                onChangeText={setCourseName}
+                onChangeText={setClassName}
             />
 
             <ButtonGroup

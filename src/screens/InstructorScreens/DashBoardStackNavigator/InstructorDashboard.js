@@ -3,18 +3,21 @@ import React, { Children,useState, useContext, useEffect } from 'react';
 import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import CourseGridCard from '../../../component/CourseGridCard';
 import { AuthContext } from '../../../store/AuthContext';
+import APIConnection from '../../../utility/APIConnection';
 
 
 
 export default function InstructorDashboard({navigation}) {
 
-    const authCtx = useContext(AuthContext);
-    const token = authCtx.token;
-
-
-
-    const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+
+    const apiConnection = new APIConnection();
+
+
+     useEffect(() => {
+       apiConnection.getClasses().then(json => {
+        setData(json);
+
 
     const getClasses = async () => {
         try {
@@ -43,8 +46,10 @@ export default function InstructorDashboard({navigation}) {
         getClasses();
         
     
-      }, []);
 
+       })
+
+      }, []);
 
 
     function classCardComponent(itemData) {

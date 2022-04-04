@@ -12,11 +12,12 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function EditCourseAndModuleTabScreen({ route, navigation }) {
 
+    const {courseID, courseName} = route.params;
 
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Course Edit" component={CourseEditScreen} />
-            <Tab.Screen name="Module Edit" component={EditModuleScreen} />
+            <Tab.Screen name="Course Edit" component={CourseEditScreen} initialParams={{courseID, courseName}} />
+            <Tab.Screen name="Module Edit" component={EditModuleScreen}  initialParams={{courseID, courseName}} />
         </Tab.Navigator>
     );
 };

@@ -13,35 +13,9 @@ export default function InstructorDashboard({navigation}) {
 
 
 
-    const getClasses = async () => {
-        try {
-         const response = await fetch('http://localhost:3001/api/class/findByUser/'+5, {
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              'token': token,
-            },
-          });
-         const json = await response.json();
-         setData(json);
-        
-       } catch (error) {
-         console.error(error);
-         authCtx.logout
-       } finally {
-         setLoading(false);
-       }
-     }
-     
-
-
-     useEffect(() => {
-        getClasses();
-        
     
 
-       })
+
 
   const isFocused = useIsFocused();
 

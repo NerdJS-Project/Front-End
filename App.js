@@ -22,23 +22,6 @@ const Stack = createNativeStackNavigator();
 
 function AuthStack() {
   return (
-<<<<<<< HEAD
-    <NavigationContainer>{
-      <Stack.Navigator>
-
-        <Stack.Screen name="dashboard" component={Dash}/>
-        <Stack.Screen name="CourseEdit" component={CourseEditScreen}   options={{ title: 'Course Edit' }}/>
-        <Stack.Screen name="LogIn" component={LogInScreen}   options={{ title: 'LogIn' }}/>
-        <Stack.Screen name="SignUp" component={SignUpScreen}   options={{ title: 'Sign Up' }}/>
-        <Stack.Screen name="ClassSearchScreen" component={ClassSearchScreen} options={{title: 'ClassSearchScreen', headerShown: false}}/>
-        <Stack.Screen name="Profile" component={Profile}   options={{ title: 'Profile' }}/>
-        {/* <Stack.Screen name="CourseEdit" component={CourseEditScreen}   options={{ title: 'Course Edit' }}/> */}
-      </Stack.Navigator>
-      
-      
-      
-      }</NavigationContainer>
-=======
     <Stack.Navigator screenOptions={{
       headerStyle: { backgroundColor: '#26A8FF' },
       headerTintColor: 'white',
@@ -86,7 +69,6 @@ function AuthenticatedStack() {
     </Stack.Navigator>
   )
 }
->>>>>>> 0af4d129eaa1e01e3aadf1a4844fad794d4d0811
 
 function Navigation() {
   const authCtx = useContext(AuthContext);

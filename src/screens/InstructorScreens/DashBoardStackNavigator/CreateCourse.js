@@ -5,8 +5,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Picker} from '@react-native-picker/picker';
 import { Input, Icon, ButtonGroup, Divider } from 'react-native-elements';
 import { AuthContext } from '../../../store/AuthContext';
+import APIConnection from "../../../utility/APIConnection";
 
 export default function CreateCourse({navigation})  {
+
+
+  const apiConnection = new APIConnection();
+
+
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 
     const categoryData = ["Mathematic", "Physics", "English", "Computer Science"];
     const [selectedValue, setSelectedValue] = useState('');
@@ -18,20 +26,15 @@ export default function CreateCourse({navigation})  {
     const authCtx = useContext(AuthContext);
     const token = authCtx.token;
     
-    function functionCombined() {
-      fetch('http://localhost:3001/api/class/create', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'token': token,
-        },
-        body: JSON.stringify({
-          "class_name": courseText,
-          "class_descrip": "this is a class"
-        })
-      });
-      navigation.navigate('Instructor Dashboard', {screen: 'InstructorDashboard'});
+    function onSaved(courseName, courseDesc) {
+      apiConnection.postClass(courseName, courseDesc).then(() => delay(300)).then(json => {
+        navigation.push('Instructor Dashboard');
+      })
+      
+      
+      
+      
+
   }
   
   function getCategoryPickerItems() {
@@ -73,7 +76,8 @@ export default function CreateCourse({navigation})  {
         
         <View style ={styles.bottomContainer}>
 
-            <TouchableOpacity onPress={() => functionCombined()}>
+            <TouchableOpacity onPress={() => onSaved(courseText, "this is description")}>
+
                 <View style={addClass.addBttn}>
                     <Text style ={addClass.addText}>Save</Text>
                 </View> 

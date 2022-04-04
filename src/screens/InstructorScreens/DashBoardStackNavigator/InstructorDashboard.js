@@ -1,22 +1,16 @@
-import React, { Children,useState, useContext, useEffect } from 'react';
+import React, { Children,useState, useContext, useEffect, useLayoutEffect } from 'react';
+
 
 import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import CourseGridCard from '../../../component/CourseGridCard';
 import { AuthContext } from '../../../store/AuthContext';
 import APIConnection from '../../../utility/APIConnection';
+import { useIsFocused } from "@react-navigation/native";
 
 
 
 export default function InstructorDashboard({navigation}) {
 
-    const [data, setData] = useState([]);
-
-    const apiConnection = new APIConnection();
-
-
-     useEffect(() => {
-       apiConnection.getClasses().then(json => {
-        setData(json);
 
 
     const getClasses = async () => {
@@ -49,9 +43,21 @@ export default function InstructorDashboard({navigation}) {
 
        })
 
-      }, []);
+  const isFocused = useIsFocused();
 
+    const [data, setData] = useState([]);
 
+    const apiConnection = new APIConnection();
+          useLayoutEffect(() => {
+            //your code here
+            if(isFocused) {
+              apiConnection.getClasses().then(json => {
+                setData(json);})
+            }
+            
+         },[isFocused]);
+
+ 
     function classCardComponent(itemData) {
         function pressHandler() {
             console.log("item data debug:", itemData)

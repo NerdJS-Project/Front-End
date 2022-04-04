@@ -40,5 +40,34 @@ class APIConnection{
          } finally {
          }
        }
+
+
+
+       async postClass(courseName, courseText )
+       {
+        try {
+            const response = fetch('http://localhost:3001/api/class/create', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                  'token': this.token,
+                },
+                body: JSON.stringify({
+                  "class_name": courseName,
+                  "class_descrip": "this is a class"
+                })
+              });
+            const json = await response.json();
+            console.log("Json api: " + json);
+ 
+            return json;
+          } catch (error) {
+            console.error(error);
+            this.authCtx.logout
+          } finally {
+          }
+        
+       }
 }
 export default APIConnection;

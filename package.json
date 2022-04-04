@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.16.1",
+    "@react-native-picker/picker": "^2.4.0",
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/material-top-tabs": "^6.1.1",
     "@react-navigation/native": "^6.0.8",

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
 import Authentication from "../utility/Authentication";
+import { AuthContext } from '../store/AuthContext';
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
 //const API_URL =  'http://localhost:3001/api/user';
 
@@ -14,6 +15,11 @@ export default function LogInScreen({ navigation }) {
 
   const [message, setMessage] = useState('');
 
+
+  const authCtx = useContext(AuthContext);
+
+
+
   const onSubmitHandler = () => {
     console.log("email and pass: ", user_email, user_password);
     const api = new Authentication();
@@ -21,8 +27,13 @@ export default function LogInScreen({ navigation }) {
 
       AsyncStorage.getItem('@user_info').then((data) => {
         const user = JSON.parse(data);
+        console.log("Log in user id debug" + user);
+        console.log("log in user token" + user.token);
+        console.log("log in user id" + user.user_id);
+
         if (user && user.token) {
           alert("Authorized!");
+          authCtx.authenticate(user.token, user.user_id)
         }
         else {
           alert("Not Authorized!");

@@ -1,5 +1,6 @@
 import React, { Children,useState, useContext, useEffect, useLayoutEffect } from 'react';
 
+
 import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import CourseGridCard from '../../../component/CourseGridCard';
 import { AuthContext } from '../../../store/AuthContext';
@@ -11,6 +12,36 @@ import { useIsFocused } from "@react-navigation/native";
 export default function InstructorDashboard({navigation}) {
 
 
+
+    const getClasses = async () => {
+        try {
+         const response = await fetch('http://localhost:3001/api/class/findByUser/'+5, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'token': token,
+            },
+          });
+         const json = await response.json();
+         setData(json);
+        
+       } catch (error) {
+         console.error(error);
+         authCtx.logout
+       } finally {
+         setLoading(false);
+       }
+     }
+     
+
+
+     useEffect(() => {
+        getClasses();
+        
+    
+
+       })
 
   const isFocused = useIsFocused();
 

@@ -15,6 +15,7 @@ export default function CreateCourse({navigation})  {
 
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+
     const categoryData = ["Mathematic", "Physics", "English", "Computer Science"];
     const [selectedValue, setSelectedValue] = useState('');
 
@@ -33,6 +34,7 @@ export default function CreateCourse({navigation})  {
       
       
       
+
   }
   
   function getCategoryPickerItems() {
@@ -75,6 +77,7 @@ export default function CreateCourse({navigation})  {
         <View style ={styles.bottomContainer}>
 
             <TouchableOpacity onPress={() => onSaved(courseText, "this is description")}>
+
                 <View style={addClass.addBttn}>
                     <Text style ={addClass.addText}>Save</Text>
                 </View> 

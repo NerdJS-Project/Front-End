@@ -1,48 +1,37 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { Children,useState, useContext, useEffect, useLayoutEffect } from 'react';
+
 
 import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import CourseGridCard from '../../../component/CourseGridCard';
 import { AuthContext } from '../../../store/AuthContext';
+import APIConnection from '../../../utility/APIConnection';
+import { useIsFocused } from "@react-navigation/native";
 
 
 
 export default function InstructorDashboard({navigation}) {
 
-    const authCtx = useContext(AuthContext);
-    const token = authCtx.token;
+
+
+    
 
 
 
-    const [isLoading, setLoading] = useState(true);
+  const isFocused = useIsFocused();
+
     const [data, setData] = useState([]);
 
-    const getClasses = async () => {
-        try {
-         const response = await fetch('http://localhost:3001/api/class/findByUser/'+2, {
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              'token': token,
-            },
-          });
-         const json = await response.json();
-         setData(json);
-       } catch (error) {
-         console.error(error);
-         authCtx.logout
-       } finally {
-         setLoading(false);
-       }
-     }
+    const apiConnection = new APIConnection();
+          useLayoutEffect(() => {
+            //your code here
+            if(isFocused) {
+              apiConnection.getClasses().then(json => {
+                setData(json);})
+            }
+            
+         },[isFocused]);
 
-
-     useEffect(() => {
-        getClasses();
-      }, []);
-
-
-
+ 
     function classCardComponent(itemData) {
         function pressHandler() {
             console.log("item data debug:", itemData)
@@ -62,14 +51,126 @@ export default function InstructorDashboard({navigation}) {
       }
      
       return (
+        
+  
+        <View style={styles.container}>
+        <Text style={styles.title}>Courses</Text>
+
+
         <FlatList
           data={data}
           keyExtractor={(item) => item.class_id}
           renderItem={classCardComponent}
           numColumns={2}
         />
+
+
+        <View style ={styles.bottomContainer}>
+        <TouchableOpacity onPress={() =>  navigation.navigate('Create Course And Module', { screen:'CreateCourse'})}>
+        <View style={addClass.addBttn} >
+          <Text style ={addClass.addText}>+</Text>
+        </View> 
+      </TouchableOpacity>
+      </View>
+      
+
+
+
+
+    </View>
+
+
+
+
+
+
+  );
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E8EAED',
+
+  },
+
+  content: {
+    alignItems: "center",
+
+  },
+
+  bottomContainer: {
+      flex: 1,
+      justifyContent: 'flex-end',
+
+  },
+
+  
+
+
+  title: {
+    textAlign: "center",
+    fontSize: 30,
+    fontWeight: "bold",
+    color: 'black',
+    marginTop:50,
+    marginBottom: 50
+
+  },
+
+  boxes: {
+      marginTop:10,
+      backgroundColor: 'white',
+      borderColor: '#C0C0C0',
+      borderWidth: 1,
+      borderRadius: 10,
+      width:300,
+      height: 200,
+      textAlign: "center",
+      alignItems: "center"
+
+  }
+
+
+
+
+});
+
+const addClass = StyleSheet.create({
+
+  addBttn: {
+  alignSelf: 'flex-end',
+
+  justifyContent: 'center',
+  alignItems: 'center',
+  width:80,
+  height:80,
+  paddingBottom:5,
+  position: "absolute",
+    //height: 60,
+
+  borderRadius: 50,
+  backgroundColor: '#4970FA',
+  color: 'white',
+  right: 20,
+  bottom:40
+
+  },
+
+  addText: {
+
+    color: 'white',
+    fontSize: 50,
+    fontWeight: "bold",
+
+  }
+}
+        
       );
 
+      
 
+//class id 58b0a1f3-acd6-4893-afe4-10ef88ab161f
+//user id 5
+//mod id 5
 
-}
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjQ4ODcyNzc4LCJleHAiOjE2NDg5NTkxNzh9.O2VDmIrA5ZmvrebfYhlQbWyhzPmGlF7OTpgkRzJSfvA

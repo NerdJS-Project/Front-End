@@ -30,9 +30,9 @@ class Authentication{
                 'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ 
+                    user_name: user_name,
                     user_email: user_email,
                     user_password: user_password,
-                    user_name: user_name,
                     user_type: user_type
                 })
             })

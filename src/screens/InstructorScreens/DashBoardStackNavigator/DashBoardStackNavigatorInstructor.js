@@ -5,7 +5,8 @@ import InstructorDashboard from './InstructorDashboard'
 import EditCourseAndModuleTabScreen from './EditCourseAndModuleTabScreen'
 import CreateCourseAndModuleTabScreen from './CreateCourseAndModuleTabScreen'
 import CreateCourse from './CreateCourse'
-
+import LessonCreation from './LessonCreationScreen'
+import InstructorCourseScreen from './InstructorCourseScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -15,11 +16,12 @@ export default function DashBoardStackNavigatorInstructor(navigation) {
     <Stack.Navigator screenOptions={{
       headerShown: true,
     }}>
+      <Stack.Screen name="InstructorCourseView" component={InstructorCourseScreen}/>
+      <Stack.Screen name="LessonCreationScreen" component={LessonCreation} />
       <Stack.Screen name="Instructor Dashboard" component={InstructorDashboard} options={{ headerShown: false }}/>
       <Stack.Screen name="EditCourseAndModule" component={EditCourseAndModuleTabScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="Create Course And Module" component={CreateCourseAndModuleTabScreen} options={{ headerShown: true, title: 'Course & Module' }}/>
       <Stack.Screen name="CreateCourseInstructor" component={CreateCourse} options={{ headerShown: true, title: 'Create Course Instructor' }}/>
-
 
 
     </Stack.Navigator>

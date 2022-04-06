@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import {AuthContext} from '../store/AuthContext';
-import ModuleView from "../component/ModuleView";
+import {AuthContext} from '../../../store/AuthContext';
+import ModuleView from "../../../component/ModuleView";
 //  import Course from '../component/course';
 
 
@@ -431,6 +431,10 @@ export default function Dash({ navigation }) {
 
                 </View>
 
+                <View style={styles.editButton}>
+
+                </View>
+
 
             </SafeAreaView>
             <BottomSheet  modalProps={{}}isVisible={isVisible}>
@@ -488,6 +492,12 @@ const styles = StyleSheet.create({
         width: 350,
         
        
+    },
+    editButton:{
+        backgroundColor:'#3385ff',
+        width:50,
+        height:50,
+        borderRadius: 50/2
     },
     titleText: {
         flex: 1,

@@ -12,7 +12,6 @@ export default function LogInScreen({ navigation }) {
   //TODO: Add proper set state on text input in order to recieve and update as user types their info
   const [user_email, setEmail] = useState('');
   const [user_password, setPassword] = useState('');
-
   const [message, setMessage] = useState('');
 
 

@@ -10,7 +10,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 
 export default function InstructorDashboard({navigation}) {
-
+  
 
 
     

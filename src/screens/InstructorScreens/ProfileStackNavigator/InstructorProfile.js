@@ -59,7 +59,7 @@ export default function InstructorProfile({}) {
             >
               {data.user_name}
             </Text>
-            <Text style={styles.caption}>              {data.user_email}
+            <Text style={styles.caption}>{data.user_email}
 </Text>
             <Text
               style={[

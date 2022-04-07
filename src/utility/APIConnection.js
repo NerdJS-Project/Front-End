@@ -69,5 +69,57 @@ class APIConnection{
           }
         
        }
+
+       async getUserForProfilePage() {
+
+        console.log("token  " + this.token);
+        
+        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+          try {
+           const response = await fetch('http://localhost:3001/api/user/'+ this.user_id, {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'token': this.token,
+              },
+            });
+           const json = await response.json();
+           console.log("User Info:  " + json);
+
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+         }
+       }
+
+       async getModulesAndLessonInstructorCourseViewScreen() {
+
+        console.log("token  " + this.token);
+        
+        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+          try {
+           const response = await fetch('http://localhost:3001/api/class/modulesAndLessons/'+ "712ba8f8-8546-4d31-870e-2a7163449033", {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            });
+           const json = await response.json();
+           console.log("Json api: " + json);
+
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+         }
+       }
+
+
+
 }
 export default APIConnection;

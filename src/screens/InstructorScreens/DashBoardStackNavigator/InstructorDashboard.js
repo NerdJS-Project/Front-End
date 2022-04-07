@@ -15,7 +15,7 @@ export default function InstructorDashboard({navigation}) {
 
     
 
-
+//--------------Copy This Piece Of Code Here------------
 
   const isFocused = useIsFocused();
 
@@ -31,7 +31,7 @@ export default function InstructorDashboard({navigation}) {
             
          },[isFocused]);
 
- 
+ //------------------------------------------
     function classCardComponent(itemData) {
         function pressHandler() {
             console.log("item data debug:", itemData)

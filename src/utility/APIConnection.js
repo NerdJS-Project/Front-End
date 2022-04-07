@@ -69,5 +69,33 @@ class APIConnection{
           }
         
        }
+
+       async getUserForProfilePage() {
+
+        console.log("token  " + this.token);
+        
+        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+          try {
+           const response = await fetch('http://localhost:3001/api/user/'+ this.user_id, {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'token': this.token,
+              },
+            });
+           const json = await response.json();
+           console.log("User Info:  " + json);
+
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+         }
+       }
+
+
+
 }
 export default APIConnection;

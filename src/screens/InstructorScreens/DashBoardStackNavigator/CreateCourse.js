@@ -19,7 +19,6 @@ export default function CreateCourse({navigation})  {
     const categoryData = ["Mathematic", "Physics", "English", "Computer Science"];
     const [selectedValue, setSelectedValue] = useState('');
 
-
     const [selectedCourseTypeIndex, setSelectedCourseTypeIndex] = useState(0);
     const [courseText, setCourseText] = useState(null);
   

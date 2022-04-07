@@ -8,10 +8,11 @@ import {
     View, Text, StyleSheet, LayoutAnimation, UIManager, Platform, ScrollView, SafeAreaView,
     TouchableOpacity
 } from 'react-native';
+
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import {AuthContext} from '../../../store/AuthContext';
-import ModuleView from "../../../component/ModuleView";
+// import {AuthContext} from '../store/AuthContext';
+import ModuleView from "../../../component/ModuleView"
 //  import Course from '../component/course';
 
 
@@ -20,6 +21,7 @@ const jsonRootData = [
         courseName: "Calculus",
         courseContent:
             [{
+
 
 
                 isExpanded: false,
@@ -39,7 +41,7 @@ const jsonRootData = [
                         id: 2,
                         "Duration": "6 hours",
                         "Completion Status": "True",
-                        Description: "This lecture covers finding the integral",
+                        Description: "This lecture covers finding the integral and ",
                         "VideoContent": "Youtube.com",
                         "Quiz": "QuizContent"
 
@@ -244,20 +246,32 @@ export default function Dash({ navigation }) {
     console.log(courseTitle);
     const [isVisible, setIsVisible] = useState(false);
 
-    const authCtx = useContext(AuthContext);
-    const token = authCtx.token;
+    // const authCtx = useContext(AuthContext);
+    // const token = authCtx.token;
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState(true);
+
+    //idea for looping throug classes in datanbase
+    // for(let i = 0; i < data[i].length;i++)
+    /* { 
+        list[i].push({
+            title: 
+        })
+    }*/
     
     const list = [
         {
             title: 'Calculus',
             classStyles:{ backgroundColor:'#00bfff'},
+            titleStyle:{fontWeight:500},
+            containerStyle: {color:'white', backgroundColor: '#3385ff', borderColor:'white',borderWidth:1 },
             onPress: () => { {setListDataSource(jsonRootData[0].courseContent)} {setCourseTitle(jsonRootData[0].courseName)}},
         
         },
         { title: 'English' ,
         classStyles:{ backgroundColor:'#00bfff'},
+        containerStyle: { backgroundColor: '#3385ff', borderColor:'white',borderWidth:1 },
+        titleStyle:{color:'white',fontWeight:500},
         onPress: () => {{setListDataSource(jsonRootData[2].courseContent)} {setCourseTitle(jsonRootData[2].courseName)} },
         
         },
@@ -265,6 +279,8 @@ export default function Dash({ navigation }) {
 
             title:'Art',
             classStyles:{ backgroundColor:'#00bfff'},
+            containerStyle: { backgroundColor: '#3385ff', borderColor:'white',borderWidth:1 },
+            titleStyle:{color:'white',fontWeight:500},
             onPress:()=> { {setListDataSource(jsonRootData[1].courseContent)} {setCourseTitle(jsonRootData[1].courseName)} },
         },
      
@@ -274,14 +290,16 @@ export default function Dash({ navigation }) {
         justifyContent:'center',
         styleAdd:{ backgroundColor:'blue', borderColor:'white', borderWidth:1, borderStyle:'solid',
         },
+        containerStyle: { backgroundColor: '#3385ff' },
+        titleStyle:{ color:'white',fontWeight:500},
         onPress:()=>{{navigation.navigate('ClassSearchScreen')} {setIsVisible(false)}},
     },
-        // {
-        //     title: 'Close',
-        //     containerStyle: { backgroundColor: 'red' },
-        //     titleStyle: { color: 'white' },
-        //     onPress: () => setIsVisible(false),
-        // },
+        {
+            title: 'Close',
+            containerStyle: { backgroundColor: 'red', borderColor:'white',borderWidth:1 },
+            titleStyle: { color: 'white',fontWeight:500 },
+            onPress: () => setIsVisible(false),
+        },
     ];
 
     // fetch()
@@ -309,38 +327,38 @@ export default function Dash({ navigation }) {
 
     // }
 
-    const getClasses = async ()=>{
-        try{
-            const response = await fetch('http://localhost:3001/api/class/findByUser/'+10, {
-                method: 'GET',
-                headers:{
-                    Accept:'application/json',
-                    'Content-Type': 'application/json',
-                     'token': token,
-                },
-            });
-            const json = await response.json();
-            console.log(token);
-            setData(json);
-        } catch (error){
-            console.log(error);
-            authCtx.logout
-        } finally{
-            setLoading(false);
-        }
-    }
+    // const getClasses = async ()=>{
+    //     try{
+    //         const response = await fetch('http://localhost:3001/api/class/findByUser/'+10, {
+    //             method: 'GET',
+    //             headers:{
+    //                 Accept:'application/json',
+    //                 'Content-Type': 'application/json',
+    //                  'token': token,
+    //             },
+    //         });
+    //         const json = await response.json();
+    //         console.log(token);
+    //         setData(json);
+    //     } catch (error){
+    //         console.log(error);
+    //         authCtx.logout
+    //     } finally{
+    //         setLoading(false);
+    //     }
+    // }
 
-    useEffect(() =>{
-        getClasses();
-    },[]);
+    // useEffect(() =>{
+    //     getClasses();
+    // },[]);
 
     
-    console.log(data);
+   // console.log(data);
     
     return (
       
-        <View onLayout={(event)=>{
-            var{x,y,width,Viewheight} = event.nativeEvent.layout}} 
+        <View // onLayout={(event)=>{
+         //   var{x,y,width,Viewheight} = event.nativeEvent.layout}} 
             style={{ flex: 2, alignItems: 'stretch' }}>
             
 
@@ -403,64 +421,46 @@ export default function Dash({ navigation }) {
                     {/* </SafeAreaView> */}
 
                 </View>
+                
                     </ScrollView>
                   
+                    <TouchableOpacity style={styles.editButton} onPress={()=> navigation.navigate('EditCourseAndModule')}>
+                  
+                  <FontAwesome5 name={'edit'} color={'white'} size={20}/>
+
+           
+                 </TouchableOpacity>
                     {/* </View> */}
              
-
-                <View style={styles.footer}>
-                    <TouchableOpacity onPress={() => {
-                        alert('you pressed home icon');
-                    }}>
-                        <FontAwesome5 style={styles.homeIcon} size={20} name={'home'} color={'white'} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => {
-                        alert('you clicked settings');
-                    }}>
-                        <Icon style={styles.settingIcon} size={20} name={'settings'} color={'white'} />
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() =>
-                        navigation.navigate('Profile')
-                        // alert('clicked on profile');
-                    }>
-                        <FontAwesome5 style={styles.profileIcon} size={20} name={'user'} color={'white'} />
-                    </TouchableOpacity>
-
-                </View>
-
-                <View style={styles.editButton}>
-
-                </View>
+            
+              
 
 
             </SafeAreaView>
-            <BottomSheet  modalProps={{}}isVisible={isVisible}>
+            <BottomSheet  style={{borderRadius: 100,marginTop:90,width:140}} modalProps={{}}isVisible={isVisible}>
                 <ScrollView  style={{height:170}}>
                 
-                    {data.map((l, i) => (
+                    {list.map((l, i) => (
                         <ListItem
                         key={i}
-                        style={l.classStyles}
-                        //  containerStyle={styles.containerStyle}
+                        // style={l.classStyles}
+                          containerStyle={l.containerStyle}
                         
                         onPress={l.onPress}
                         >
-                            <ListItem.Content style={l.classStyles,{ height: 5, justifyContent:'center', alignItems:'center'}}>
+                            <ListItem.Content style={{justifyContent:'center',alignItems:'center'}} >
                             
-                            <ListItem.Title  style={l.titleStyle}>{l.class_name}</ListItem.Title>
+                            <ListItem.Title  style={l.titleStyle}>{l.title}</ListItem.Title>
                             
                             </ListItem.Content>
                         </ListItem>
                     ))}
-                        <ListItem style={{backgroundColor:'red'}}>
+                        {/* <ListItem style={{backgroundColor:'red'}}>
                             <ListItem.Content style={{ height: 5, justifyContent:'center', alignItems:'center'}}>
                                 
                                 <ListItem.Title onPress={()=>setIsVisible(false)}style={{color:'white'}}>close</ListItem.Title>
                             </ListItem.Content>
-                        </ListItem>
+                        </ListItem> */}
                     </ScrollView>
                 </BottomSheet>
                
@@ -479,9 +479,16 @@ const styles = StyleSheet.create({
         backgroundColor:'#00bfff',
         padding:20
     },
-    containerStyle: { 
-        backgroundColor: 'red' 
-    },
+    editButton: { 
+        marginLeft:900,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor: '#3385ff' ,
+        width:50,
+        height:50,
+        borderRadius:50/2
+
+    }, 
     titleStyle:{
         color:'white'
     },
@@ -492,12 +499,6 @@ const styles = StyleSheet.create({
         width: 350,
         
        
-    },
-    editButton:{
-        backgroundColor:'#3385ff',
-        width:50,
-        height:50,
-        borderRadius: 50/2
     },
     titleText: {
         flex: 1,
@@ -518,18 +519,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    footer: {
-        backgroundColor: '#3385ff',
-        justifyContent: 'flex-end',
-        flexDirection: 'row',
-        height:40,
-        
-        marginTop:145,
-        paddingBottom: 10,
-        paddingTop: 10,
-        justifyContent: 'space-between',
-        alignItems: 'stretch'
-    },
+   
     lesson: {
         backgroundColor: '#3385ff',
         width: 75,

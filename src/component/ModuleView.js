@@ -11,11 +11,11 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function ModuleView({item, onClickFunction}) {
     //Custom Component for the Expandable List
   const [layoutHeight, setLayoutHeight] = useState(0);
-
 
   //same as component did mount, this method is called when the component is first mounted
   useEffect(() => {
@@ -36,14 +36,21 @@ export default function ModuleView({item, onClickFunction}) {
         onPress={onClickFunction}
         style={styles.header}>
 
-        <Text style={styles.headerText}>{item.Course_Title}</Text>
+        <Text style={styles.headerText} >{item.Course_Title}</Text>
+        <FontAwesome5 style={{transform:[{rotate: layoutHeight != 0? '180deg': '0deg'}] }} name={'angle-down'} size={15} color={'white'}/>
         
+    
       </TouchableOpacity>
        </View>
       <View
         style={{
           height: layoutHeight,
           overflow: 'hidden',
+         
+          // alignContent:'center',
+          // alignItems:'center',
+          // justifyContent:'center',
+        
         }}>
         {/*Content under the header of the Expandable List Item*/}
         {item.Lessons.map((item, key) => (
@@ -54,9 +61,12 @@ export default function ModuleView({item, onClickFunction}) {
             <Text style={styles.text}>
                {item.Description}
             </Text>
-            <View style={styles.separator} />
+            {/* <View style={styles.separator} /> */}
+            
           </TouchableOpacity>
+          
         ))}
+        
       </View>
     </View>
   );
@@ -65,9 +75,10 @@ export default function ModuleView({item, onClickFunction}) {
 
 const styles = StyleSheet.create({
     classes:{
-      backgroundColor: 'black',
+      // backgroundColor: 'black',
+     
       alignItems:'center',
-      padding:10,
+      padding:5,
       borderRadius:10
     },
     container: {
@@ -79,29 +90,40 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     header: {
-      backgroundColor: '#F5FCFF',
+      width:345,
+      alignItems:'center',
+      borderRadius:10,
+      borderWidth:2,
+      borderColor:'black',
+      flexDirection:'row',
+      justifyContent:'space-between',
+       backgroundColor: '#3385ff',
       padding: 20,
     },
     headerText: {
       fontSize: 16,
       fontWeight: '500',
-      color: 'black'
+      color: 'white'
     },
     separator: {
-      height: 0.5,
-      backgroundColor: '#808080',
+      height: 1,
+      backgroundColor: 'black',
       width: '95%',
       marginLeft: 16,
       marginRight: 16,
     },
     text: {
       fontSize: 16,
-      color: '#606070',
+      color: 'black',
       padding: 10,
     },
     content: {
+      borderRadius:10,
+      borderColor:'black',
+      borderWidth:2,
       paddingLeft: 10,
       paddingRight: 10,
-      backgroundColor: '#fff',
+      // backgroundColor: 'silver',
+      margin:2
     },
   });

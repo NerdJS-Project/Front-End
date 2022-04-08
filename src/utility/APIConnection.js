@@ -95,13 +95,13 @@ class APIConnection{
          }
        }
 
-       async getModulesAndLessonInstructorCourseViewScreen() {
+       async getModulesAndLessonInstructorCourseViewScreen(courseID) {
 
         console.log("token  " + this.token);
         
-        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+courseID);
           try {
-           const response = await fetch('http://localhost:3001/api/class/modulesAndLessons/'+ "712ba8f8-8546-4d31-870e-2a7163449033", {
+           const response = await fetch('http://localhost:3001/api/class/modulesAndLessons/'+ courseID, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',

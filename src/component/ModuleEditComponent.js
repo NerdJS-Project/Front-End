@@ -6,9 +6,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLinkProps } from '@react-navigation/native';
 
 
-export default function ModuleEditComponent({ navigation, lessonData }) {
+export default function ModuleEditComponent({ navigation, lessonData}) {
 
-    const [ModuleName, setModuleName] = useState(lessonData["Module"]);
+    const [ModuleName, setModuleName] = useState(lessonData.module_name);
 
 
 
@@ -30,7 +30,7 @@ export default function ModuleEditComponent({ navigation, lessonData }) {
                             styles.buttonLabel,
                         ]}
                     >
-                        {lessonData["lessons"][i]}
+                        {lessonData["lessons"][i].lesson_name}
                     </Text>
                 </TouchableOpacity>
             )

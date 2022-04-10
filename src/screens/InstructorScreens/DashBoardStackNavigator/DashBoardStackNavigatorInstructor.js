@@ -16,12 +16,12 @@ export default function DashBoardStackNavigatorInstructor(navigation) {
     <Stack.Navigator screenOptions={{
       headerShown: true,
     }}>
-      <Stack.Screen name="Instructor CourseView" component={InstructorCourseView} options={{ headerShown: false }}/>
-
       <Stack.Screen name="Instructor Dashboard" component={InstructorDashboard} options={{ headerShown: false }}/>
+
+      <Stack.Screen name="Instructor CourseView" component={InstructorCourseView} options={{ headerShown: true }}/>
+
       <Stack.Screen name="EditCourseAndModule" component={EditCourseAndModuleTabScreen} options={{ headerShown: true }}/>
-      <Stack.Screen name="Create Course And Module" component={CreateCourseAndModuleTabScreen} options={{ headerShown: true, title: 'Course & Module' }}/>
-      <Stack.Screen name="CreateCourseInstructor" component={CreateCourse} options={{ headerShown: true, title: 'Create Course Instructor' }}/>
+      <Stack.Screen name="Create Course" component={CreateCourse} options={{ headerShown: true, title: 'Create Course' }}/>
 
 
 

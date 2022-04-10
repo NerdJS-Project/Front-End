@@ -35,7 +35,11 @@ export default function InstructorDashboard({navigation}) {
     function classCardComponent(itemData) {
         function pressHandler() {
             console.log("item data debug:", itemData)
-          navigation.navigate('EditCourseAndModule', {
+          // navigation.navigate('EditCourseAndModule', {
+          //   courseID: itemData.item.class_id,
+          //   courseName: itemData.item.class_name
+          // });
+          navigation.navigate('Instructor CourseView', {
             courseID: itemData.item.class_id,
             courseName: itemData.item.class_name
           });
@@ -66,7 +70,7 @@ export default function InstructorDashboard({navigation}) {
 
 
         <View style ={styles.bottomContainer}>
-        <TouchableOpacity onPress={() =>  navigation.navigate('Create Course And Module', { screen:'CreateCourse'})}>
+        <TouchableOpacity onPress={() =>  navigation.navigate('Create Course', { screen:'CreateCourse'})}>
         <View style={addClass.addBttn} >
           <Text style ={addClass.addText}>+</Text>
         </View> 

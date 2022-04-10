@@ -73,7 +73,7 @@ class APIConnection{
 
         console.log("token  " + this.token);
         
-        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/user/'+this.user_id);
+        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
           try {
            const response = await fetch('http://localhost:3001/api/user/'+ this.user_id, {
               method: 'GET',
@@ -84,7 +84,7 @@ class APIConnection{
               },
             });
            const json = await response.json();
-           console.log("Json api: " + json);
+           console.log("User Info:  " + json);
 
            return json;
          } catch (error) {
@@ -93,6 +93,8 @@ class APIConnection{
          } finally {
          }
        }
+
+
 
 }
 export default APIConnection;

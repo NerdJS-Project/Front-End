@@ -1,40 +1,47 @@
 import { useIsFocused } from "@react-navigation/native";
-import React, { useState, useContext, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import {
   View,
   ScrollView,
   Text,
-  Alert,
   StyleSheet,
-  Button,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Dimensions,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
+  FlatList,
+  TouchableOpacity
 } from "react-native";
 import { Avatar } from "react-native-elements";
+import Icon from 'react-native-vector-icons/AntDesign';
 import APIConnection from "../../../utility/APIConnection";
 
 export default function InstructorProfile({}) {
-  //----------Copy This-----------
+
   const isFocused = useIsFocused();
-
   const [data, setData] = useState([]);
-
+  const [classData, setClassData] = useState([]);
   const apiConnection = new APIConnection();
+
   useLayoutEffect(() => {
-    //your code here
     if (isFocused) {
       apiConnection.getUserForProfilePage().then((json) => {
         setData(json);
       });
+      apiConnection.getClasses().then((json) => {
+        setClassData(json);
+      });
     }
   }, [isFocused]);
 
-  //-----------Copy This-----------
+
+  const shadowOverlay = {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 11
+  }
+
 
   return (
     <ScrollView style={styles.container}>
@@ -43,10 +50,9 @@ export default function InstructorProfile({}) {
           <Avatar
             rounded
             size={100}
-            source={{
-              uri: "https://www.seekpng.com/png/detail/17-175297_jouissance-the-king-s-avatar-zhou-zekai-discord.png",
-            }}
-          />
+            containerStyle={shadowOverlay}
+            source={data.user_img || require('./icons/defaultAvatar.png')}
+          />      
           <View style={{ marginLeft: 20 }}>
             <Text
               style={[
@@ -76,14 +82,43 @@ export default function InstructorProfile({}) {
 
         <View style={styles.userAbout}>
           <Text style={styles.title}>About</Text>
-          <Text style={{ marginTop: 10 }}>
-            Assistant Professor at California State University, Sacramento.
-          </Text>
+            <Text style={[styles.bioBox, shadowOverlay]}>
+              <Text style={styles.bioText}>
+                {data.user_bio || 'No information at this time.'}
+              </Text>
+            </Text>
         </View>
         <View style={styles.userClass}>
-          <Text style={styles.title}>Classes</Text>
+          <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
+          <View style={{alignItems:'left'}}>
+            <FlatList
+              data={classData}
+              numColumns={1}
+              renderItem={({item}) => (
+                <Text style={[styles.list, shadowOverlay]}>{item.class_name}</Text>
+              )}
+            />
+          </View>
         </View>
       </View>
+                
+
+      <View style={styles.bottom}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Edit Profile', {screen: 'InstructorEditProfile'})}
+            style={styles.buttonContainer}
+          >
+            <Icon name="edit" size={40} style={[shadowOverlay, {
+              color:'#fff',
+              paddingTop:10,
+              paddingLeft:10,
+              backgroundColor:'#4970FA',
+              width:70,
+              height:70,
+              borderRadius:60
+            }]}/>
+          </TouchableOpacity>
+        </View>
     </ScrollView>
   );
 }
@@ -110,6 +145,18 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 
+  avatarShadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 11
+  },
+
+
   userAbout: {
     marginTop: 15,
   },
@@ -117,4 +164,44 @@ const styles = StyleSheet.create({
   userClass: {
     marginTop: 15,
   },
+
+  bioBox: {
+    marginTop: 10,
+    padding:10,
+    borderRadius: 10,
+    borderColor: '#000',
+    borderWidth: 0.2,
+  },
+
+  bioText: {
+    marginTop: 10,
+  },
+
+  list: { 
+    textAlign:'center',
+    marginTop: 10,
+    alignItems: 'center',
+    fontWeight:"bold",
+    borderColor:'#000',
+    borderWidth:1,
+    borderRadius:5,
+    padding:15,
+  },
+
+  bottom:{
+    justifyContent: 'center',
+    alignContent: 'center',
+    flex:1,
+    marginTop: 130
+  },
+
+  buttonContainer: {
+    position:'absolute',
+    alignItems:"center",
+    justifyContent:'flex-end',
+    right: 30,
+    bottom:30,
+    flex:1
+  }
+
 });

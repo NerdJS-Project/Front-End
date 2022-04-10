@@ -1,8 +1,6 @@
 import React, {useContext, useEffect, useMemo, useReducer} from 'react';
-import EncryptedStorage from 'react-native-encrypted-storage';
-
+//import EncryptedStorage from 'react-native-encrypted-storage';
 const AuthContext = React.createContext();
-
 const AUTHENTICATED = 'AUTHENTICATED';
 const ACCESS_TOKEN_KEY = 'access_token';
 
@@ -49,7 +47,7 @@ export const AuthContainer = props => {
       initialized: false,
     },
   );
-
+  /*
   // Memoize this facade since it shouldn't be recreated every render
   const facade = useMemo(
     () => ({
@@ -90,7 +88,7 @@ export const AuthContainer = props => {
     }),
     [],
   );
-
+*/
   // This will trigger when the app is mounted for the first time
   useEffect(() => {
     facade.resume();

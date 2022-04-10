@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import InstructorProfile from './InstructorProfile'
 import { AuthContext } from '../../../store/AuthContext'
 import IconButton from '../../../component/ui/IconButton'
+import InstructorEditProfile from './InstructorEditProfile'
 
 const Stack = createNativeStackNavigator()
 
@@ -27,7 +28,13 @@ export default function ProfileStackNavigatorInstructor()  {
               onPress={authCtx.logout}
             />
           ),
+
+          
         }} />
+
+<Stack.Screen name="Edit Profile" component={InstructorEditProfile} options={{headerShown:true}}/>
+
+        
     </Stack.Navigator>
   )
 }

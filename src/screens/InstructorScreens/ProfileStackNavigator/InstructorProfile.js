@@ -59,7 +59,7 @@ export default function InstructorProfile({navigation}) {
                 styles.title,
                 {
                   marginTop: 15,
-                  marginBottom: 5,
+                  marginBottom: 5
                 },
               ]}
             >

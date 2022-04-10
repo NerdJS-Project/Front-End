@@ -12,7 +12,7 @@ import { Avatar } from "react-native-elements";
 import Icon from 'react-native-vector-icons/AntDesign';
 import APIConnection from "../../../utility/APIConnection";
 
-export default function InstructorProfile({}) {
+export default function InstructorProfile({navigation}) {
 
   const isFocused = useIsFocused();
   const [data, setData] = useState([]);
@@ -65,18 +65,21 @@ export default function InstructorProfile({}) {
             >
               {data.user_name}
             </Text>
-            <Text style={styles.caption}>{data.user_email}
-</Text>
-            <Text
-              style={[
-                styles.caption,
-                {
-                  marginTop: 5,
-                },
-              ]}
-            >
-              Instructor
-            </Text>
+            <View style={{flexDirection:"row"}}>
+              <Icon name="mail" size={20} style={{paddingRight:5}}/>
+              <Text style={styles.caption}>{data.user_email}</Text>
+            </View>
+              <View style={{flexDirection:"row"}}>
+                <Icon name="user" size={20} style={{paddingRight:5}}/>
+              <Text
+                style={[styles.caption,{
+                    marginTop: 5,
+                  },
+                ]}
+              >
+              {data.user_type}
+              </Text>
+              </View>
           </View>
         </View>
 

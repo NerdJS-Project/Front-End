@@ -207,6 +207,3 @@ export default function CreateCourse({navigation})  {
     }
 
   });
-  
-  
-

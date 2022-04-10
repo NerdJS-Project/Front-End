@@ -65,19 +65,18 @@ export default function InstructorProfile({}) {
             >
               {data.user_name}
             </Text>
-            <View style={{flexDirection: "row"}}>
-              <Icon name="mail" size={20} style={{marginRight:5}}/>
-              <Text style={styles.caption}>{data.user_email}</Text>
-            </View>
-            <View style={{flexDirection: "row"}}>
-            <Icon name="user" size={20} style={{marginRight:5}}/>
-              <Text style={[styles.caption,
-                  {
-                    marginTop: 5,
-                  },
-                ]}>{data.user_type}
-              </Text>
-            </View>
+            <Text style={styles.caption}>{data.user_email}
+</Text>
+            <Text
+              style={[
+                styles.caption,
+                {
+                  marginTop: 5,
+                },
+              ]}
+            >
+              Instructor
+            </Text>
           </View>
         </View>
 

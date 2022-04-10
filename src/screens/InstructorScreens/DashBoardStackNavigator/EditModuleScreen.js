@@ -1,11 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Picker, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
 import Authentication from "../../../utility/Authentication";
 import { Input, Icon, ButtonGroup, Divider } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ModuleEditComponent from '../../../component/ModuleEditComponent';
+import { useIsFocused } from '@react-navigation/native';
+import APIConnection from '../../../utility/APIConnection';
 
-export default function EditModuleScreen({ navigation }) {
+export default function EditModuleScreen({ navigation, route }) {
+
+  const {courseID, courseName} = route.params;
+
+
+
+
+  //-----------API Connection Code----------
+  const isFocused = useIsFocused();
+
+  const [finalData, setFinalData] = useState([]);
+
+  const apiConnection = new APIConnection();
+  useEffect(() => {
+    if (isFocused) {
+      apiConnection
+        .getModulesAndLessonInstructorCourseViewScreen(courseID)
+        .then((json) => {
+          setFinalData(json);
+        });
+    }
+  }, [isFocused]);
+  //---------------------------------------
+
+
+  
 
     let lessonData = [{
         "Module": "Module 1: Intro To Math",
@@ -39,11 +66,11 @@ export default function EditModuleScreen({ navigation }) {
 
     function getModuleView() {
         const result = [];
-        for (let i = 0; i < lessonData.length; i++) {
+        for (let i = 0; i < finalData.length; i++) {
             result.push(
                 <ModuleEditComponent 
                 key={i} 
-                lessonData={lessonData[i]}>
+                lessonData={finalData[i]}>
 
                 </ModuleEditComponent>
             )

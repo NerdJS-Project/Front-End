@@ -97,7 +97,7 @@ class APIConnection{
 
        async getModulesAndLessonInstructorCourseViewScreen(courseID) {
 
-        console.log("token  " + this.token);
+      //  console.log("token  " + this.token);
         
         console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+courseID);
           try {
@@ -119,7 +119,33 @@ class APIConnection{
          }
        }
 
+      
+     
 
+      async getSectionsPerLesson(){
+        // console.log("token  " + this.token);
+        
+       // console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/');
+     //  console.log(LessonID);
+          try {
+           const response = await fetch('http://localhost:3001/api/unit/findByLesson/'+7, {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            });
+           const json = await response.json();
+           console.log("Json api: " + json);
+
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+      }
+
+    }
 
 }
 export default APIConnection;

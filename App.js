@@ -3,7 +3,6 @@ import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedb
 import { NavigationContainer } from '@react-navigation/native';
 import LogInScreen from "./src/screens/LogInScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
-import ClassSearchScreen from "./src/screens/ClassSearchScreen";
 import Dash from "./src/screens/dashboard";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CourseEditScreen from "./src/screens/InstructorScreens/DashBoardStackNavigator/CourseEditScreen";

@@ -6,7 +6,7 @@ export const AuthContext = createContext({
   token: '',
   user_id: null,
   isAuthenticated: false,
-  authenticate: (token) => {},
+  authenticate: (token,userid) => {},
   logout: () => {},
 });
 
@@ -17,21 +17,40 @@ function AuthContextProvider({ children }) {
 
   //these functions are part of the auth context
   //what happens when users logged in successfully
-  function authenticate(token, userid) {
+ const authenticate = async(token, userid)=>{
+   try {
     setAuthToken(token);
     setAuthUserid(userid);
-    AsyncStorage.setItem('token', token);
-    AsyncStorage.setItem('user_id', userid);
+    await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem('user_id', JSON.stringify(userid))    
+ 
+    return true;
+    
+   } catch (exception) {
+    return false;
+   }
 
   }
 
-  function logout() {
-    setAuthToken(null);
-    setAuthUserid(null);
-    AsyncStorage.removeItem('token');
-    AsyncStorage.removeItem('user_id');
+  
+    //AsyncStorage.removeItem('token');
+    //AsyncStorage.removeItem('user_id');
+    const logout = async() => {
+      try {
+        await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('user_id');
+        setAuthToken(null);
+        setAuthUserid('');
+        
+        return true;
+    }
+    catch(exception) {
+        return false;
+    }
+}
+  
 
-  }
+  
 
   //these values are what gonna be availble to context users
   //!! convert authToken to boolean (true if exist, false if not exist)

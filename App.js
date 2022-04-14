@@ -16,7 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import IconButton from "./src/component/ui/IconButton";
 import InstructorMainScreen from "./src/screens/InstructorScreens/InstructorMainScreenTabs";
 import InstructorMainScreenTabs from "./src/screens/InstructorScreens/InstructorMainScreenTabs";
-
+import CreateContent from "./src/screens/InstructorScreens/DashBoardStackNavigator/CreateContentScreen";
 const Stack = createNativeStackNavigator();
 
 

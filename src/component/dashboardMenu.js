@@ -11,7 +11,6 @@ import Course from '../component/course';
 const data=[
   {
   
-  
         isExpanded:false,
         "ID": "2349",
         Course_Title: "Calculus",

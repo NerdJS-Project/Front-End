@@ -85,7 +85,6 @@ class APIConnection{
             this.authCtx.logout
           } finally {
           }
-        
        }
 
        async getUserForProfilePage() {

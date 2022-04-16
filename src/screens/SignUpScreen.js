@@ -32,9 +32,6 @@ export default function SignUpScreen({navigation}) {
   const onSubmitHandler = () => {
     console.log("email and pass and name: ",user_email, user_password, user_name, user_type);
 
-    if(!check1){
-      alert("You need to agree to the terms and conditions.");
-    }
 
 
     const payload = {
@@ -57,6 +54,8 @@ export default function SignUpScreen({navigation}) {
                 setMessage(jsonRes.message);
             } else {
                 setMessage(jsonRes.message);
+                alert("Account created!");
+                navigation.navigate('LogIn');
             }
         } catch (err) {
             console.log(err);
@@ -115,7 +114,7 @@ export default function SignUpScreen({navigation}) {
       <Text style={styles.boxLabel}>By checking, you Agree to our Terms of Use and understand our privacy policy. You may recieve notifications via email.</Text>
     </View>
 
-    <TouchableOpacity style = {register.container} onPress={onSubmitHandler}>
+    <TouchableOpacity disabled={!check1}  style = {register.container} onPress={onSubmitHandler}>
         <View style={register.registerButton}>
           <Text style ={register.registerText}>Sign Up</Text>
         </View>

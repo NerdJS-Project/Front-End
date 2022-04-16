@@ -33,7 +33,7 @@ export default function LogInScreen({ navigation }) {
 
         if (user && user.token) {
           alert("Authorized!");
-          authCtx.authenticate(user.token, user.user_id)
+          authCtx.authenticate(user.token, user.user_id, user.user_type)
         }
         else {
           alert("Not Authorized!");

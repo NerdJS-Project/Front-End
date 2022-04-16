@@ -37,6 +37,7 @@ export default function InstructorCourseView({ navigation, route }) {
   const isFocused = useIsFocused();
 
   const [finalData, setFinalData] = useState([]);
+  const [lessonID, setLessonID] = useState(0);
 
   const apiConnection = new APIConnection();
   useEffect(() => {
@@ -61,14 +62,14 @@ export default function InstructorCourseView({ navigation, route }) {
       let newLessonArray = [];
       for (let j = 0; j < json[i].lessons.length; j++) {
         newLessonArray[j] = json[i].lessons[j];
+        setLessonID(newLessonArray[j].lesson_id);
+        console.log(lessonID);
       }
       newModule["Lessons"] = newLessonArray;
       returnData[i] = newModule;
     }
     return returnData;
   }
-
-  const [isVisible, setIsVisible] = useState(false);
 
 
   if (Platform.OS == "android") {
@@ -126,6 +127,9 @@ export default function InstructorCourseView({ navigation, route }) {
                     onClickFunction={() => {
                       updateLayout(key);
                     }}
+                    route = {route}
+                    navigation ={navigation}
+                   // lessonID={lessonID}
                     item={item}
                   />
                 ))}

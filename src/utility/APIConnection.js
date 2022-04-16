@@ -113,6 +113,7 @@ class APIConnection{
 
        async getModulesAndLessonInstructorCourseViewScreen(courseID) {
 
+
         
         console.log("get modules and lessons called " + 'http://localhost:3001/api/class/findByUser/'+courseID);
           try {
@@ -133,7 +134,155 @@ class APIConnection{
          }
        }
 
+      
+     async putLessonNameForLessonCreation(lessonName,lessonId,less_description,
+        less_index, mod_id){
+      try {
+        const response = await fetch('http://localhost:3001/api/lesson/update/'+lessonId, {
+           method: 'PUT',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+             'token': this.token 
+           },
+           body:JSON.stringify({
+             lesson_name: lessonName,
+             lesson_descrip: less_description,
+             lesson_index: less_index,
+             module_id: mod_id
+           })
 
+           
+         });
+        const json = await response.json();
+        console.log("Json api: " + json);
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+   }
+
+     }
+
+     async getSingleLessonForLessonCreation(lesson_id){
+      try {
+        const response = await fetch('http://localhost:3001/api/lesson/findById/'+lesson_id, {
+           method: 'GET',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+           },
+         });
+        const json = await response.json();
+        console.log("Json api: " + json);
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+   }
+     }
+
+     // student route will be moved eventually
+     async getClassByNameForStudentCourseDescription(class_id){
+       try{
+      const response = await fetch('http://http://localhost:3001/api/class/findByName/'+class_id, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+     const json = await response.json();
+     console.log("Json api: " + json);
+
+     return json;
+   } catch (error) {
+     console.error(error);
+     this.authCtx.logout
+   } finally {
+    }
+
+     }
+
+      async getSectionsPerLesson(lesson_id){
+        // console.log("token  " + this.token);
+        
+       // console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/');
+     //  console.log(LessonID);
+          try {
+           const response = await fetch('http://localhost:3001/api/unit/findByLesson/'+lesson_id, {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            });
+           const json = await response.json();
+           console.log("Json api: " + json);
+
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+      }
+
+    }
+
+    async addUnitForLessonCreation(lessonID){
+      try {
+        const response = await fetch('http://localhost:3001/api/unit/create/', {
+           method: 'POST',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+            'token': this.token
+           },
+           body:JSON.stringify({
+             unit_name: "new unit",
+             unit_content: "content",
+            lesson_id: lessonID,
+            instructor_id: 10
+          })
+
+         });
+        const json = await response.json();
+        console.log("Json api: " + json);
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+    }
+  }
+
+    async deleteUnit(unit_id){
+      try {
+        const response = await fetch('http://localhost:3001/api/unit/delete/'+unit_id, {
+           method: 'DELETE',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+            'token': this.token
+           },
+
+         });
+        const json = await response.json();
+        console.log("Json api: " + json);
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+   }
+
+    }
 
 
 

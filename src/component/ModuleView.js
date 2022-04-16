@@ -13,8 +13,9 @@ import {
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-export default function ModuleView({item, onClickFunction}) {
+export default function ModuleView({item, onClickFunction,route,lessonID,navigation}) {
     //Custom Component for the Expandable List
+    
   const [layoutHeight, setLayoutHeight] = useState(0);
 
   //same as component did mount, this method is called when the component is first mounted
@@ -57,7 +58,11 @@ export default function ModuleView({item, onClickFunction}) {
           <TouchableOpacity
             key={key}
             style={styles.content}
-            onPress={() => alert('Id: ' + item.lesson_id + ' val: ' + item.lesson_descrip)}>
+            onPress={() =>  navigation
+              .navigate('LessonCreation', {
+               lessonID : item.lesson_id})
+        //  alert('Id: ' + item.lesson_id + ' val: ' + item.lesson_descrip)
+          }>
             <Text style={styles.text}>
                {item.lesson_name}
             </Text>

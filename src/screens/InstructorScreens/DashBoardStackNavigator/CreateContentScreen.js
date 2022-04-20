@@ -1,6 +1,5 @@
 import React, { Children,useState,useCallback, useContext, useEffect, useLayoutEffect } from 'react';
-import { View,Linking,Text,ScrollView, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
-import CourseGridCard from '../../../component/CourseGridCard';
+import { View,Pressable,Modal,Text,ScrollView, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import { AuthContext } from '../../../store/AuthContext';
 import APIConnection from '../../../utility/APIConnection';
 import { useIsFocused } from "@react-navigation/native";
@@ -9,6 +8,7 @@ import { Video, AVPlaybackStatus } from 'expo-av';
 import { WebView } from 'react-native-webview';
 import ReactPlayer from "react-player";
 import YoutubePlayer from 'react-native-youtube-iframe';
+import Content from '../../../component/CreateComponent';
 
 
 
@@ -30,6 +30,18 @@ export default function CreateContent() {
     const [data, setData] = useState([]);
 
     const video = React.useRef(null);
+
+
+    const [playing, setPlaying] = useState(false);
+
+  
+  
+
+    const [modalVisible, setModalVisible] = useState(false);
+
+
+    const [link, setLink] = useState();
+    const [linkItems, setLinkItems] = useState([]);
 
 
 
@@ -62,78 +74,132 @@ export default function CreateContent() {
     useEffect(() => {
         getContent();
     }, []);
+    function YouTubeGetID(url){
+      url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+      return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
+   }
+  const handleLinks = () => {
+    //setLink(null)
+    setLinkItems([...linkItems, textInput()]);
+    setLink(null);
+   
+    
 
+  }
+ function textInput(){
+      // var test = link;
+      //setLinkItems([...linkItems,link])
+      var linkInput= JSON.stringify(link);
+  
+      
+      //setLinkItems([...linkItems,link])
+      
+      if (Platform.OS === 'web') {
+      
+        return <div>
+          <ReactPlayer
+          url= {linkInput}
+          height={200}
+          width={400}
+          
+          controls={true}/>
+          </div>
+     
+          
+        } else {
+          
+          return  <YoutubePlayer
+            height={270}
+            width={400}
+            play={playing}
+            videoId={YouTubeGetID(linkInput)}
+            //videoId={"iee2TATGMyI"}
+            //https://youtu.be/cBxyB788_5w
+            
+            />
+          }
+   
+   
+          
+         
+        }
 
-
-
-
-
-    function textInput(){
-        if (Platform.OS === 'web') {
-            return <div><ReactPlayer
-      url="https://youtu.be/cBxyB788_5w"/></div>;
-    } else {
-        return <WebView
-        style={{ maxHeight:360, width:360}}
-        javaScriptEnabled={true}
-        source={{uri: 'https://www.youtube.com/embed/cBxyB788_5w'}}
-/>
+//https://www.youtube.com/watch?v=cBxyB788_5w
+//https://www.youtube.com/watch?v=JfVOs4VSpmA
+//https://www.youtube.com/watch?v=jrLhP5sK2wI
+    function unitName(){
 
     }
-
-    }
-
-
-
-
 
 
 
       return (
 
-        
-        
         <View style={styles.container}>
-
-
-        <Text style={styles.title}>Create Content</Text>
+          <Text style={styles.title}>Section</Text>
 
 
 
         <View style={styles.content}>
-            {textInput()}
-            
+
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+                <View style={modalView.centeredView}>
+          <View style={modalView.modalView}>
+            <Text style={modalView.modalText}>Enter a Youtube Link</Text>
+
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <TextInput style={modalView.textInput} placeholder={'Enter URL'} value={link} onChangeText={newText => setLink(newText)}  />
+            </KeyboardAvoidingView>
+
+            <TouchableOpacity
+              style={[modalView.button, modalView.buttonClose]}
+              onPress={() => {handleLinks();setModalVisible(!modalVisible); }}
+            >
+              <Text style={modalView.textStyle}>Save Video</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+
+      <ScrollView contentContainerStyle={styles.scroll}>
+            {
+              
+              linkItems.map((linkItems,index) => {
+          
+           
+                return <Content key={index} text={linkItems}/>
+
+              })
+            }
+      
+            </ScrollView>
 
 
 
-
-
-
-
-
-
-
-  
-
-
-
-            
-
- 
-            
-  
-  
 
             
 
         </View>
 
 
+
  
 
 
         <View style ={styles.bottomContainer}>
-        <TouchableOpacity >
+          <Text style={{alignSelf: 'center', marginBottom:95,fontWeight: "bold",}}>Add Content:</Text>
+
+
+        <TouchableOpacity onPress={() => setModalVisible(true) }>
         <View style={addClass.addURL} >
           <Text style ={addClass.textStyle}>Add Video</Text>
         </View> 
@@ -175,38 +241,41 @@ const styles = StyleSheet.create({
 
   },
 
+  scroll: {
+    //flex:1,
+    alignItems: 'center',
+
+
+  },
+
   content: {
-    flex:3,
+    flex:2,
     alignSelf: 'center',
-      
+      marginBottom: 5,
     justifyContent: 'center',
     alignItems: 'center',
-   
-   
-    
-    
-
-
-    
 
   },
 
 
   bottomContainer: {
       flex:1,
-      //flexDirection:'column',
       justifyContent: 'flex-end',
-      //alignItems:'stretch',
- 
-       // position:'relative',
-        //flexWrap:'wrap',
+    
+      shadowColor: "black",
+      backgroundColor: '#E8EAED',
+     
+      
 
-      //marginVertical: 500,
-      //marginTop:350,
-
- 
-  
-      backgroundColor: 'white'
+      shadowRadius: 7,
+      shadowOffset: {
+        width: 0,
+        height: -10,
+      },
+      shadowOpacity:.99,
+      shadowColor: '#E8EAED',
+      elevation: 1,
+      
 
   },
 
@@ -244,6 +313,64 @@ const styles = StyleSheet.create({
 
 
 
+
+});
+
+const modalView = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    width:300,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+
+  },
+  textInput: {
+    height: 30,
+    width:200,
+    borderColor: '#C0C0C0',
+    borderWidth: 1,
+    borderRadius: 60,
+    marginBottom:10,
+    //paddingVertical: 15,
+    paddingHorizontal:15,
+
+  }
 
 });
 
@@ -341,6 +468,7 @@ const addClass = StyleSheet.create({
 }
         
       );
+
 
       
 

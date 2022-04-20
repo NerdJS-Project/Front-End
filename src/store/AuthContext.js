@@ -6,8 +6,10 @@ export const AuthContext = createContext({
   token: '',
   user_id: null,
   isAuthenticated: false,
+
   user_type: null,
   authenticate: (token, userid, user_type) => {},
+
   logout: () => {},
 });
 
@@ -19,6 +21,7 @@ function AuthContextProvider({ children }) {
 
   //these functions are part of the auth context
   //what happens when users logged in successfully
+
   const authenticate = async(token, userid, user_type)=>{
     try {
      setAuthToken(token);
@@ -45,6 +48,7 @@ function AuthContextProvider({ children }) {
          await AsyncStorage.removeItem('token');
          await AsyncStorage.removeItem('user_id');
          await AsyncStorage.removeItem('user_type');
+
 
          setAuthToken(null);
          setAuthUserid('');

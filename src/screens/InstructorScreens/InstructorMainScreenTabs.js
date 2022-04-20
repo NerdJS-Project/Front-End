@@ -25,7 +25,7 @@ export default function InstructorMainScreenTabs({ navigation }) {
         <Tab.Navigator screenOptions={{
           headerShown: false,
         }}>
-          <Tab.Screen name="Home" component={HomeStackNavigatorInstructor} />
+       
           <Tab.Screen name="Dashboard" component={DashBoardStackNavigatorInstructor} />
           <Tab.Screen name="Profile" component={ProfileStackNavigatorInstructor} />
           <Tab.Screen name="Settings" component={SettingStackNavigatorInstructor} />

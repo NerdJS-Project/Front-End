@@ -23,6 +23,9 @@ import { useContext, useEffect, useState } from "react";
 import AppLoading from "expo-app-loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import InstructorMainScreenTabs from "./src/screens/InstructorScreens/InstructorMainScreenTabs";
+
+import CreateContent from "./src/screens/InstructorScreens/DashBoardStackNavigator/CreateContentScreen";
+
 import StudentMainScreenTabs from "./src/screens/StudentScreens/StudentMainScreenTabs";
 
 const Stack = createNativeStackNavigator();

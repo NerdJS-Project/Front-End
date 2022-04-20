@@ -1,18 +1,22 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import InstructorHome from './InstructorHome'
-import ClassSearchScreenTest from './SearchScreenTest'
+
+import StudentDashboard from './StudentDashboard'
+
 
 const Stack = createNativeStackNavigator()
 
 
-export default function HomeStackNavigatorInstructor()  {
+export default function DashBoardStackNavigatorStudent(navigation) {
   return (
     <Stack.Navigator screenOptions={{
-      headerShown: false,
+      headerShown: true,
     }}>
-      <Stack.Screen name="SearchScreen" component={ClassSearchScreenTest} />
+      <Stack.Screen name="Student Dashboard" component={StudentDashboard} options={{ headerShown: false }}/>
+
+      
+
     </Stack.Navigator>
   )
 }

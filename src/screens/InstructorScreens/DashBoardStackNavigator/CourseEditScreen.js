@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Picker, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
+import { View, Picker, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, ScrollView } from "react-native";
 import Authentication from "../../../utility/Authentication";
 import { Input, Icon, ButtonGroup, Divider } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -34,6 +34,7 @@ function getCategoryPickerItems()
 }
 
     return (
+        <ScrollView>
         <View style={{backgroundColor: "white", flex: 1}}>
             <Input
                 containerStyle={styles.inputContainerStyle}
@@ -103,7 +104,7 @@ function getCategoryPickerItems()
                   paddingTop: 40
                 }}
               />
-        </View>
+        </View></ScrollView>
     )
 
 
@@ -141,8 +142,7 @@ const styles = StyleSheet.create({
 
     inputStyle: {
         borderWidth: 1,
-    }
-    ,
+    },
 
     categoryStyle: {
         alignItems: 'center'

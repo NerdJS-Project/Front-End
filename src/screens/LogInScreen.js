@@ -32,7 +32,8 @@ export default function LogInScreen({ navigation }) {
         const userID = JSON.stringify(user.user_id);
         if (user && user.token) {
           alert("Authorized!");
-          authCtx.authenticate(user.token, userID)
+
+          authCtx.authenticate(user.token, user.user_id, user.user_type)
         }
         else {
           alert("Not Authorized!");

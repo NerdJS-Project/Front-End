@@ -167,6 +167,7 @@ class APIConnection{
 
      async getSingleLessonForLessonCreation(lesson_id){
       try {
+        // class in route worked instead of lesson
         const response = await fetch('http://localhost:3001/api/lesson/findById/'+lesson_id, {
            method: 'GET',
            headers: {
@@ -186,9 +187,9 @@ class APIConnection{
      }
 
      // student route will be moved eventually
-     async getClassByNameForStudentCourseDescription(class_id){
+     async getClassByIdForStudentCourseDescription(classId){
        try{
-      const response = await fetch('http://http://localhost:3001/api/class/findByName/'+class_id, {
+      const response = await fetch('http://localhost:3001/api/class/findById/'+classId, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -232,7 +233,7 @@ class APIConnection{
 
     }
 
-    async addUnitForLessonCreation(lessonID){
+    async addUnitForLessonCreation(lessonID,instID){
       try {
         const response = await fetch('http://localhost:3001/api/unit/create/', {
            method: 'POST',
@@ -245,7 +246,7 @@ class APIConnection{
              unit_name: "new unit",
              unit_content: "content",
             lesson_id: lessonID,
-            instructor_id: 10
+            instructor_id: instID
           })
 
          });
@@ -262,7 +263,7 @@ class APIConnection{
 
     async deleteUnit(unit_id){
       try {
-        const response = await fetch('http://localhost:3001/api/unit/delete/'+unit_id, {
+        const response = await fetch('http://localhost:3001/api/unit/'+unit_id, {
            method: 'DELETE',
            headers: {
              Accept: 'application/json',
@@ -283,7 +284,30 @@ class APIConnection{
 
     }
 
+    //student enroll
+    async signUpForClass(classID){
+      try {
+        const response = await fetch('http://localhost:3001/api/class/signup/'+classID, {
+           method: 'POST',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+             'token': this.token,
+           },
+           body: JSON.stringify({ 
+            
+             class_id: classID
+         })
+         });
+        const json = await response.json();
 
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+      }
+    }
 
 
 

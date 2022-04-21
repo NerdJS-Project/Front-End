@@ -26,9 +26,9 @@ import APIConnection from "../../../utility/APIConnection";
 
 
 
-export default function InstructorCourseView({ navigation, route }) {
+export default function StudentCourseView({ navigation, route }) {
 //retrieving course name and courseID from route.params
-    const {courseID, courseName} = route.params;
+    const {class_id, class_name} = route.params;
 
 
 
@@ -43,13 +43,20 @@ export default function InstructorCourseView({ navigation, route }) {
   useEffect(() => {
     if (isFocused) {
       apiConnection
-        .getModulesAndLessonInstructorCourseViewScreen(courseID)
+        .getModulesAndLessonInstructorCourseViewScreen(class_id)
         .then((json) => {
           let d = processAPIData(json);
           setFinalData(d);
         });
     }
   }, [isFocused]);
+
+  
+  // async function courseView(){
+  //     await 
+  // }
+
+
   //---------------------------------------
 
   //Morph json from API into an array that we can use
@@ -103,7 +110,7 @@ export default function InstructorCourseView({ navigation, route }) {
               fontWeight: "600",
             }}
           >
-            {courseName}
+            {class_name}
           </Text>
         </View>
 
@@ -139,7 +146,7 @@ export default function InstructorCourseView({ navigation, route }) {
           </View>
         </ScrollView>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.editButton}
           onPress={() => navigation.navigate('EditCourseAndModule', {
               courseID: courseID,
@@ -147,7 +154,7 @@ export default function InstructorCourseView({ navigation, route }) {
              })}
         >
           <FontAwesome5 name={"edit"} color={"white"} size={20} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {/* </View> */}
       </SafeAreaView>
       

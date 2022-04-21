@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect,  useState } from 'react';
 import * as React from 'react-native';
 import {
     Text, StyleSheet,
@@ -9,7 +9,6 @@ import {
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Icon } from 'react-native-elements';
 
-import { AuthContext } from '../../../store/AuthContext';
 import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
 
@@ -22,7 +21,7 @@ export default function LessonCreation({ navigation, route }) {
     const [myData, setMyData] = useState([]);
     const[lessonData, setLessonData] = useState([]);
    
-    const {lessonID} = route.params;
+    const {lessonID,instID} = route.params;
 
   // isFocused tells us whether we are on the screen or not 
     const isFocused = useIsFocused();
@@ -65,7 +64,7 @@ export default function LessonCreation({ navigation, route }) {
     }
 
     async function addUnit(){
-        await apiConnection.addUnitForLessonCreation(lessonID);
+        await apiConnection.addUnitForLessonCreation(lessonID,instID);
         refreshPage()
     }
 
@@ -82,7 +81,7 @@ export default function LessonCreation({ navigation, route }) {
 
             <SafeAreaView style={{ flex: 1,alignItems: 'center', justifyContent: 'space-between' }}>
                 <Text style={{ fontSize: 30 }}>
-                    {/* {title} */}
+                    {newLessonName}
                 </Text>
 
 
@@ -109,15 +108,16 @@ export default function LessonCreation({ navigation, route }) {
 
                     </View>
                    
-                    {console.log('LESSON_DESCRIPTION: '+ lessonData.lesson_descrip + 
+                     {/* {console.log('LESSON_DESCRIPTION: '+ lessonData.lesson_descrip + 
                             "\n LESSON_INDEX : " + lessonData.lesson_index + 
-                            " \n LESSON_MODULE_ID: " + lessonData.module_id)}
+                            " \n LESSON_MODULE_ID: " + lessonData.module_id
+                            + "\n Instructor_ID " + instID)}  */}
 
                     <TouchableOpacity style={styles.saveButton} onPress={()=>{
                         changeName(newLessonName, lessonID, lessonData.lesson_descrip,
                             lessonData.lesson_index, lessonData.module_id );   
 
-                            alert('Saved '+newLessonName+ ' as new name')} }>
+                            alert('Saved '+ newLessonName + ' as new name')} }>
                             <Text style={{color:'white'}}> Save Name</Text>
                     </TouchableOpacity>
                 </View>
@@ -143,20 +143,18 @@ export default function LessonCreation({ navigation, route }) {
                                 
                             }}>
 
+                                    <TouchableOpacity style={styles.buttonContainer}
+                                        onPress={() => deleteUnit(item.unit_id)}>
+                      
+                                             <Icon name="delete" size={30} color="#e33057" />
+
+                                        </TouchableOpacity>
                                 <TouchableOpacity style={styles.sectionButton}  onPress={() => {
                                     alert('pressed ' + item.unit_id)
                                 }}>
                                     <Text style={styles.sectionText}>
                                         {item.unit_name} 
                                 
-                                        
-                                        <TouchableOpacity style={styles.buttonContainer}
-                                        onPress={() => deleteUnit(item.unit_id)}>
-                                                
-                                               
-                                             <Icon name="delete" size={30} color="#e33057" />
-
-                                        </TouchableOpacity>
 
                                     </Text>
 
@@ -249,18 +247,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 2,
         shadowOffset: { width: 1, height: 2 }
     },
-    // addQuiz: {
-    //     borderRadius: 2,
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     width: 330,
-    //     height: 175,
-    //     backgroundColor: 'aliceblue',
-    //     shadowColor: 'rgba(0, 0, 0, 0.1)',
-    //     shadowOpacity: 2,
-    //     shadowOffset: { width: 1, height: 2 }
-
-    // },
 
     addTextButton: {
 

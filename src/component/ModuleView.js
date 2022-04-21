@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-export default function ModuleView({item, onClickFunction,route,lessonID,navigation}) {
+export default function ModuleView({item, onClickFunction,instructorID,navigation}) {
     //Custom Component for the Expandable List
     
   const [layoutHeight, setLayoutHeight] = useState(0);
@@ -47,10 +47,7 @@ export default function ModuleView({item, onClickFunction,route,lessonID,navigat
         style={{
           height: layoutHeight,
           overflow: 'hidden',
-         
-          // alignContent:'center',
-          // alignItems:'center',
-          // justifyContent:'center',
+
         
         }}>
         {/*Content under the header of the Expandable List Item*/}
@@ -60,13 +57,15 @@ export default function ModuleView({item, onClickFunction,route,lessonID,navigat
             style={styles.content}
             onPress={() =>  navigation
               .navigate('LessonCreation', {
-               lessonID : item.lesson_id})
+               lessonID : item.lesson_id,
+              instID : instructorID
+              })
         //  alert('Id: ' + item.lesson_id + ' val: ' + item.lesson_descrip)
           }>
             <Text style={styles.text}>
                {item.lesson_name}
             </Text>
-            {/* <View style={styles.separator} /> */}
+         
             
           </TouchableOpacity>
           
@@ -80,7 +79,6 @@ export default function ModuleView({item, onClickFunction,route,lessonID,navigat
 
 const styles = StyleSheet.create({
     classes:{
-      // backgroundColor: 'black',
      
       alignItems:'center',
       padding:5,

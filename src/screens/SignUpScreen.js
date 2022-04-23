@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
 
 const form = StyleSheet.create({
   account: {
-    alignItems: 'left',
+    alignItems: 'flex-start',
     marginTop:25
   },
   

@@ -5,11 +5,11 @@ import APIConnection from '../../../utility/APIConnection';
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video, AVPlaybackStatus } from 'expo-av';
-import { WebView } from 'react-native-webview';
+
 import ReactPlayer from "react-player";
 import YoutubePlayer from 'react-native-youtube-iframe';
 import Content from '../../../component/CreateComponent';
-
+import TextContent from '../../../component/CreateText';
 
 
 
@@ -26,7 +26,7 @@ export default function CreateContent() {
     const token = authCtx.token;
     const [isLoading, setLoading] = useState(true);
     const [text,setText] = useState();
-    const [textItems, setTextItems] =useState();
+    const [textItems, setTextItems] =useState([]);
     const [data, setData] = useState([]);
 
     const video = React.useRef(null);
@@ -36,8 +36,14 @@ export default function CreateContent() {
 
   
   
+    //Youtube URL 
+    const [modalVisible1, setModalVisible1] = useState(false);
+    //bottom modal pop
+    const [modalVisible2, setModalVisible2] = useState(false);
 
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible3, setModalVisible3] = useState(false);
+
+    
 
 
     const [link, setLink] = useState();
@@ -49,54 +55,47 @@ export default function CreateContent() {
 
 
 
-    const getContent = async () => {
-        try {
-        const response = await fetch('http://localhost:3001/api/unit/findByLesson/25', {
-            headers: {
-                'accept': 'application/json'
-            }
-        });
-        const json = await response.json();
-        setData(json);
 
-    } catch (error) {
-        console.error(error);
-        authCtx.logout
-   
-
-    } finally {
-        setLoading(false);
-    }
-
-
-    }
-
-    useEffect(() => {
-        getContent();
-    }, []);
+  
     function YouTubeGetID(url){
       url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
       return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
    }
   const handleLinks = () => {
     //setLink(null)
+    var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    if (link == null || !JSON.stringify(link).match(urlRegex)) {
+      Alert.alert("Wrong Input","Must enter a Youtube URL");
+      setLink(null);
+      
+      return null;
+    }
     setLinkItems([...linkItems, textInput()]);
     setLink(null);
-   
-    
 
   }
- function textInput(){
-      // var test = link;
-      //setLinkItems([...linkItems,link])
-      var linkInput= JSON.stringify(link);
-  
-      
-      //setLinkItems([...linkItems,link])
+
+  const handleText = () => {
+    //setLink(null)
+    if (text == null) {
+      Alert.alert("Wrong Input","Must enter text");
+      setText(null);
+      return null;
+
+    }
+
+    setTextItems([...textItems, text]);
+    setText(null);
+
+
+  }
+ function textInput(linkInput){
+
+    linkInput= JSON.stringify(link);
       
       if (Platform.OS === 'web') {
       
-        return <div>
+        return <div style={{marginTop:10}}>
           <ReactPlayer
           url= {linkInput}
           height={200}
@@ -106,7 +105,7 @@ export default function CreateContent() {
           </div>
      
           
-        } else {
+        } else if (Platform.OS == 'ios' || Platform.OS === 'android') {
           
           return  <YoutubePlayer
             height={270}
@@ -117,7 +116,7 @@ export default function CreateContent() {
             //https://youtu.be/cBxyB788_5w
             
             />
-          }
+        } 
    
    
           
@@ -127,61 +126,140 @@ export default function CreateContent() {
 //https://www.youtube.com/watch?v=cBxyB788_5w
 //https://www.youtube.com/watch?v=JfVOs4VSpmA
 //https://www.youtube.com/watch?v=jrLhP5sK2wI
-    function unitName(){
 
-    }
 
 
 
       return (
-
-        <View style={styles.container}>
-          <Text style={styles.title}>Section</Text>
-
-
-
-        <View style={styles.content}>
+      
+    <View style={styles.container}>
+      <Text style={styles.title}>Section</Text>
+      <View style={styles.content}>
 
         <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={modalVisible1}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
+          setModalVisible1(!modalVisible1);
         }}
-      >
-                <View style={modalView.centeredView}>
+        >
+
+            <TouchableWithoutFeedback>
+
+        <View style={modalView.centeredView}>
           <View style={modalView.modalView}>
             <Text style={modalView.modalText}>Enter a Youtube Link</Text>
 
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <TextInput style={modalView.textInput} placeholder={'Enter URL'} value={link} onChangeText={newText => setLink(newText)}  />
             </KeyboardAvoidingView>
-
+            
             <TouchableOpacity
               style={[modalView.button, modalView.buttonClose]}
-              onPress={() => {handleLinks();setModalVisible(!modalVisible); }}
+              onPress={() => {handleLinks();setModalVisible1(!modalVisible1); }}
             >
               <Text style={modalView.textStyle}>Save Video</Text>
             </TouchableOpacity>
+
           </View>
         </View>
+        </TouchableWithoutFeedback>
+
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible3}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible3(!modalVisible3);
+        }}
+        >
+
+            <TouchableWithoutFeedback>
+
+        <View style={modalView.centeredView}>
+          <View style={modalView.modalView}>
+            <Text style={modalView.modalText}>Enter text</Text>
+
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <TextInput style={modalView.textInput2} multiline={true} editable={true} placeholder={'Enter text'} value={text} onChangeText={newText => setText(newText)}  />
+            </KeyboardAvoidingView>
+            
+            <TouchableOpacity
+              style={[modalView.button, modalView.buttonClose]}
+              onPress={() => {handleText();setModalVisible3(!modalVisible3)} }
+            >
+              <Text style={modalView.textStyle}>Save Text</Text>
+            </TouchableOpacity>
+
+          </View>
+        </View>
+        </TouchableWithoutFeedback>
+    
       </Modal>
 
 
-      <ScrollView contentContainerStyle={styles.scroll}>
-            {
-              
-              linkItems.map((linkItems,index) => {
-          
-           
-                return <Content key={index} text={linkItems}/>
-
-              })
-            }
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible2}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible2(!modalVisible2);
+        }}
+      >
+        <TouchableOpacity 
+            activeOpacity={1} 
+            onPressOut={() => {setModalVisible2(false)}}
+          >
+            <TouchableWithoutFeedback>
+              <View style={bottomModal.centeredView}>
+                <View style={bottomModal.modalView}>
+                  <Text style={bottomModal.modalText}>Choose Content:</Text>
+                  
+                  <TouchableOpacity style={[bottomModal.button, bottomModal.buttonClose]} onPress={() => {setModalVisible1(true); setModalVisible2(!modalVisible2)}}>
+                    <Text style ={addClass.textStyle}>Add Video</Text>
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity style={[bottomModal.button, bottomModal.buttonClose]} onPress={() => {setModalVisible3(!modalVisible3);setModalVisible2(!modalVisible2)}}>
+                    <Text style ={addClass.textStyle}>Add Text</Text>
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity style={[bottomModal.button, bottomModal.buttonClose]} onPress={() => {setModalVisible2(!modalVisible2)}}>
+                    <Text style ={addClass.textStyle}>Add Quiz</Text>
+                  </TouchableOpacity>
+                  
+                  <Text style={bottomModal.textStyle}>Hide Modal</Text>
+                  
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </TouchableOpacity>
+    </Modal>
+    
+    <ScrollView contentContainerStyle={styles.scroll}>
       
-            </ScrollView>
+      { linkItems.map((linkItems,index) => {
+        
+        return <Content key={index} text={linkItems}/>
+              })
+      }
+
+{ textItems.map((textItems,index) => {
+
+
+        
+        return <TextContent key={index} TextInput={textItems} />
+              })
+      }
+
+    
+            
+      </ScrollView>
 
 
 
@@ -196,26 +274,18 @@ export default function CreateContent() {
 
 
         <View style ={styles.bottomContainer}>
-          <Text style={{alignSelf: 'center', marginBottom:95,fontWeight: "bold",}}>Add Content:</Text>
+          <Text style={{alignSelf: 'center', marginBottom:95,fontWeight: "bold",}}></Text>
 
 
-        <TouchableOpacity onPress={() => setModalVisible(true) }>
-        <View style={addClass.addURL} >
-          <Text style ={addClass.textStyle}>Add Video</Text>
-        </View> 
-      </TouchableOpacity>
 
-      <TouchableOpacity >
+
+      <TouchableOpacity onPress={() => setModalVisible2(true)}>
         <View style={addClass.addText} >
-          <Text style ={addClass.textStyle}>Add Text</Text>
+          <Text style ={addClass.textStyle}>Add Content</Text>
         </View> 
       </TouchableOpacity>
 
-      <TouchableOpacity >
-        <View style={addClass.addQuiz} >
-          <Text style ={addClass.textStyle}>Add Quiz</Text>
-        </View> 
-      </TouchableOpacity>
+
 
       </View>
       
@@ -259,23 +329,12 @@ const styles = StyleSheet.create({
 
 
   bottomContainer: {
-      flex:1,
+    //  flex:1,
       justifyContent: 'flex-end',
     
       shadowColor: "black",
       backgroundColor: '#E8EAED',
-     
-      
 
-      shadowRadius: 7,
-      shadowOffset: {
-        width: 0,
-        height: -10,
-      },
-      shadowOpacity:.99,
-      shadowColor: '#E8EAED',
-      elevation: 1,
-      
 
   },
 
@@ -311,17 +370,108 @@ const styles = StyleSheet.create({
     height: 200,
   },
 
+  textStyle: {
+    fontSize: 14,
+    fontWeight: "bold",
 
+  }
+
+
+
+
+});
+
+const bottomModal = StyleSheet.create({
+  centeredView: {
+    //flex: 1,
+
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf:'center',
+    marginTop: Dimensions.get('window').height-300,
+    //marginBottom:800
+  },
+  modalView: {
+  //  flex: 1,
+   // marginBottom: 300,
+    //position:'absolute',
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    width:Dimensions.get('window').width,
+    paddingBottom:500,
+   // maxHeight:Dimensions.get('window').height - 50,
+   // marginBottom: 300,
+   //marginTop: 500,
+    alignItems: "center",
+    shadowColor: "#000",
+  
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    //flex:1,
+    //justifyContent: 'space-between',
+    borderRadius: 10,
+    backgroundColor: '#4970FA',
+    margin:10,
+    padding: 10,
+    elevation: 2,
+    //alignSelf: 'auto'
+    
+    //position:'absolute',
+    
+    
+  },
+  buttonOpen: {
+    //marginBottom:100,
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    width: 200,
+    borderRadius: 10,
+    backgroundColor: '#4970FA',
+    alignItems:'center'
+  },
+  textStyle: {
+    
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    alignSelf:'center'
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    alignSelf:'center'
+
+  },
+  textInput: {
+    height: 30,
+    width:200,
+    borderColor: '#C0C0C0',
+    borderWidth: 1,
+    borderRadius: 60,
+    marginBottom:10,
+    //paddingVertical: 15,
+    paddingHorizontal:15,
+
+  }
 
 
 });
 
 const modalView = StyleSheet.create({
   centeredView: {
-    flex: 1,
+   // flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: Dimensions.get('window').height -600
   },
   modalView: {
     margin: 20,
@@ -370,6 +520,18 @@ const modalView = StyleSheet.create({
     //paddingVertical: 15,
     paddingHorizontal:15,
 
+  },
+
+  textInput2: {
+    height: 100,
+    width:275,
+    borderColor: '#C0C0C0',
+    borderWidth: 1,
+    borderRadius: 20,
+    marginBottom:10,
+    //paddingVertical: 15,
+    paddingHorizontal:15,
+
   }
 
 });
@@ -381,7 +543,7 @@ const addClass = StyleSheet.create({
 
   justifyContent: 'center',
   alignItems: 'center',
-  width:150,
+  width:250,
   height:50,
   paddingBottom:5,
   position: "absolute",
@@ -402,7 +564,7 @@ const addClass = StyleSheet.create({
     width:150,
     height:50,
     paddingBottom:5,
-    position: "absolute",
+    //position: "absolute",
       //height: 60,
   
     borderRadius: 10,
@@ -421,7 +583,7 @@ const addClass = StyleSheet.create({
         width:150,
         height:50,
         paddingBottom:5,
-        position: "absolute",
+        //position: "absolute",
           //height: 60,
       
         borderRadius: 10,
@@ -464,16 +626,14 @@ const addClass = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
 
-  }
+  },
+
+
+
+
 }
         
       );
 
 
       
-
-//class id 58b0a1f3-acd6-4893-afe4-10ef88ab161f
-//user id 5
-//mod id 5
-
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjQ4ODcyNzc4LCJleHAiOjE2NDg5NTkxNzh9.O2VDmIrA5ZmvrebfYhlQbWyhzPmGlF7OTpgkRzJSfvA

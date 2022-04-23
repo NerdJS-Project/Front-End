@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
         marginBottom: 10,
-        paddingButtom: 5,
+        paddingBottom: 5,
         paddingLeft: 10,
         paddingRight:10,
         padding: 20,

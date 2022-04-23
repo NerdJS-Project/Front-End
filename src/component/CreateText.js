@@ -10,9 +10,9 @@ import { AuthContext } from '../store/AuthContext';
 
 
 
-const Content = (props) => {
+const TextContent = (props) => {
     
-  
+    const [height, setHeight] = useState(42);
 
  
 
@@ -27,11 +27,11 @@ const Content = (props) => {
      
 
      
-    
-            <Text selectable={true} style={styles.textStyle}>
-           {props.text}
-            </Text>
 
+
+            <TextInput multiline={true} style={{ height:height, fontSize: 16,fontWeight: "bold",minWidth: Dimensions.get('window').width -20,}} onContentSizeChange={e => setHeight(e.nativeEvent.contentSize.height)} >
+        {props.TextInput}
+         </TextInput>
 
 
 
@@ -46,7 +46,7 @@ const Content = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-      //  flex:1,
+       // flex:1,
         alignItems:'stretch',
        // marginBottom:5,
        // margin:5
@@ -64,10 +64,13 @@ const styles = StyleSheet.create({
     
       },
       textHolder: {
-        flex:1,
+        flex:2,
         fontSize: 16,
         fontWeight: "bold",
         minWidth: Dimensions.get('window').width -20,
+
+   
+        
         //paddingBottom:100,
         //maxHeight: 800,
 
@@ -89,4 +92,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Content;
+export default TextContent;

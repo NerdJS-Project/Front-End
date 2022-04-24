@@ -88,9 +88,7 @@ class APIConnection{
        }
 
        async getUserForProfilePage() {
-
-        
-        console.log("get user for profile page called " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        //console.log("get user for profile page called " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
           try {
            const response = await fetch('http://localhost:3001/api/user/'+ this.user_id, {
               method: 'GET',
@@ -111,23 +109,23 @@ class APIConnection{
        }
 
 
-       async editUserProfile(newName, userType) {
-         console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+       async editUserProfile(newName, userType, newBio) {
           try {
-           const response = await fetch('http://localhost:3001/api/module/update/'+ this.user_id, {
+           const response = await fetch('http://localhost:3001/api/user/update/'+ this.user_id, {
               method: 'PUT',
               headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
                 'token': this.token,
               },
-              body: JSON.stringify({ 
+              body:JSON.stringify({ 
                 user_name: newName,
-                user_type: userType
+                user_type: userType,
+                user_bio: newBio
             })
             });
+            
            const json = await response.json();
-
            return json;
          } catch (error) {
            console.error(error);
@@ -159,33 +157,32 @@ class APIConnection{
       
      async putLessonNameForLessonCreation(lessonName,lessonId,less_description,
         less_index, mod_id){
-      try {
-        const response = await fetch('http://localhost:3001/api/lesson/update/'+lessonId, {
-           method: 'PUT',
-           headers: {
-             Accept: 'application/json',
-             'Content-Type': 'application/json',
-             'token': this.token 
-           },
-           body:JSON.stringify({
-             lesson_name: lessonName,
-             lesson_descrip: less_description,
-             lesson_index: less_index,
-             module_id: mod_id
-           })
+        try {
+          const response = await fetch('http://localhost:3001/api/lesson/update/'+lessonId, {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'token': this.token 
+            },
+            body:JSON.stringify({
+              lesson_name: lessonName,
+              lesson_descrip: less_description,
+              lesson_index: less_index,
+              module_id: mod_id
+            })
 
-           
-         });
-        const json = await response.json();
-        console.log("Json api: " + json);
+            
+          });
+          const json = await response.json();
+          console.log("Json api: " + json);
 
-        return json;
-      } catch (error) {
-        console.error(error);
-        this.authCtx.logout
-      } finally {
-   }
-
+          return json;
+        } catch (error) {
+          console.error(error);
+          this.authCtx.logout
+        } finally {
+        }
      }
 
      async getSingleLessonForLessonCreation(lesson_id){

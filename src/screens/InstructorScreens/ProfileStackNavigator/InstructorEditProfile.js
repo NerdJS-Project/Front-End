@@ -6,7 +6,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 import Icon from 'react-native-vector-icons/AntDesign';
 import APIConnection from "../../../utility/APIConnection";
@@ -18,8 +18,6 @@ export default function InstructorProfile({navigation}) {
     const apiConnection = new APIConnection();
 
 
-    const [newName, setNewName] = useState('');
-
     useLayoutEffect(() => {
         if (isFocused) {
             apiConnection.getUserForProfilePage().then((json) => {
@@ -27,15 +25,26 @@ export default function InstructorProfile({navigation}) {
             });
         }
     }, [isFocused]);
+    
 
-
+    const [newName, setNewName] = useState('');
+    const [newEmail, setNewEmail] = useState('');
+    const [newBio, setNewBio] = useState('');
 
 
     //check to see if there are any changes and pass it on to edit the account 
     async function onSubmit(){
-        alert("Saving data...");
-        await apiConnection.editUserProfile(newName, data.user_type);
-        navigation.navigate('Profile', {Screen: 'Profile'});
+        if(newName.length === 0 && newBio.length != 0){
+            await apiConnection.editUserProfile(data.user_name, data.user_type, newBio).then(
+                navigation.navigate('Profile', {screen: 'Profile'}))
+        }
+        else if(newBio.length === 0 && newName.length != 0){
+            await apiConnection.editUserProfile(newName, data.user_type, data.user_bio).then(
+                navigation.navigate('Profile', {screen: 'Profile'}))
+        }
+        else if(newBio.length === 0 && newName.length === 0){
+            alert("Nothing has changed...");
+        }    
     };
 
     return (
@@ -79,13 +88,13 @@ export default function InstructorProfile({navigation}) {
             <View style={styles.edit}>
                 <Icon name="user" size={40}/>
                 <TextInput
-                    placeholder={data.user_name}
-                    autoCorrect={false}
+                    setData={data.user_name}
                     style={styles.textInput}
-                    onChangeText={newText => setNewName(newText)}    
+                    placeholder={data.user_name}
+                    onChangeText={newText => setNewName(newText)}
                 />
             </View>
-
+            {/*
             <View style={styles.edit}>
                 <Icon name="mail" size={40}/>
                 <TextInput
@@ -93,7 +102,7 @@ export default function InstructorProfile({navigation}) {
                     autoCorrect={false}
                     style={styles.textInput}
                 />
-            </View>
+                </View>*/}
 
 
             <TouchableOpacity onPress={() => navigation.navigate('Edit Password', {screen: 'EditPassword'})}>
@@ -115,6 +124,8 @@ export default function InstructorProfile({navigation}) {
                     placeholder={data.user_bio || "About Me"}
                     autoCorrect={false}
                     multiline={true}
+                    onChangeText={newText => setNewBio(newText)}
+                    editable={true}
                     style={[styles.textInput, {
                         height: 150,
                         borderWidth: 2,
@@ -125,7 +136,7 @@ export default function InstructorProfile({navigation}) {
             </View>
             
             <TouchableOpacity style={styles.submitButtom} onPress={() => onSubmit()}>
-                <Text style={styles.submitText}>Submit</Text>
+                <Text style={styles.submitText}>Save</Text>
             </TouchableOpacity>
 
         </View>
@@ -152,7 +163,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
         marginBottom: 10,
-        paddingButtom: 5,
+        paddingBottom: 5,
         paddingLeft: 10,
         paddingRight:10,
         padding: 20,
@@ -164,7 +175,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingVertical: 15,
         paddingHorizontal: 15,
-        borderRadius: 60,
+        borderRadius: 10,
         borderWidth:2,
         borderColor:'#C0C0C0'
     },

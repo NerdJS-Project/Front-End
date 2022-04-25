@@ -18,7 +18,13 @@ import { Button } from 'react-native-paper';
 ///1ba2a0e8-473d-4410-a5fb-2c8a5299ecb6
 
 
-export default function CreateContent() {
+export default function CreateContent({navigation, route}) {
+
+  const {unitID, unitName} = route.params;
+
+
+
+
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
   const [isLoading, setLoading] = useState(true);
@@ -58,7 +64,7 @@ export default function CreateContent() {
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   function onSaved(content, content2,unit_id) {
-    apiConnection.editUnitContent(content, content2,93).then(() => delay(300)).then((json) => {
+    apiConnection.editUnitContent(content, content2, unitID).then(() => delay(300)).then((json) => {
       setLink(link);
       // navigation.push('Instructor Dashboard');
       ///https://www.youtube.com/watch?v=cBxyB788_5w
@@ -73,7 +79,7 @@ export default function CreateContent() {
 
     
     if (isFocused) {
-      apiConnection.getUnitContent(93).then((json) => {
+      apiConnection.getUnitContent(unitID).then((json) => {
         setData(json);
         let unitContent = json.unit_content;
         setVideoDisplay(json.unit_content);

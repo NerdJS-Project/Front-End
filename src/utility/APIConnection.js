@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import { AuthContext } from '../store/AuthContext';
-var url = "http://localhost:3001/api"
+//var url = "http://localhost:3001/api"
+var url = "http://192.168.0.16:3001/api"
 
 
 
@@ -18,9 +19,9 @@ class APIConnection{
     async getClasses() {
 
         
-        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        console.log("fetch url dash board debug: " +  url + '/class/findByUser/'+this.user_id);
           try {
-           const response = await fetch('http://localhost:3001/api/class/findByUser/'+ this.user_id, {
+           const response = await fetch( url + '/class/findByUser/'+ this.user_id, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -112,12 +113,39 @@ this.authCtx.logout
 }
 }
 
+
+
+       async getUnitContent(unit_id) {
+
+        
+        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+          try {
+           const response = await fetch('http://localhost:3001/api/unit/'+ unit_id, {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              },
+            });
+           const json = await response.json();
+  
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+         }
+    }
+
+
+
+
        async getSearchClassResultSearchScreen(keyword) {
 
         
-        console.log("class search api called: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        console.log("class search api called: " +  url + '/class/findByUser/'+this.user_id);
           try {
-           const response = await fetch('http://localhost:3001/api/class/findByName/'+ keyword, {
+           const response = await fetch( url + '/class/findByName/'+ keyword, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -139,7 +167,8 @@ this.authCtx.logout
            
         try {
             console.log("post class api called: ");
-            const response = await fetch('http://localhost:3001/api/class/create', {
+
+            const response = fetch( url + '/class/create', {
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',
@@ -164,9 +193,9 @@ this.authCtx.logout
        async getUserForProfilePage() {
 
         
-        console.log("get user for profile page called " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        console.log("get user for profile page called " +  url + '/class/findByUser/'+this.user_id);
           try {
-           const response = await fetch('http://localhost:3001/api/user/'+ this.user_id, {
+           const response = await fetch( url + '/user/'+ this.user_id, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -212,8 +241,9 @@ this.authCtx.logout
 
        async getModulesAndLessonInstructorCourseViewScreen(courseID) {
          console.log("get modules and lessons called " + 'http://localhost:3001/api/class/findByUser/'+courseID);
+
           try {
-           const response = await fetch('http://localhost:3001/api/class/modulesAndLessons/'+ courseID, {
+           const response = await fetch( url + '/class/modulesAndLessons/'+ courseID, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -234,7 +264,7 @@ this.authCtx.logout
      async putLessonNameForLessonCreation(lessonName,lessonId,less_description,
         less_index, mod_id){
       try {
-        const response = await fetch('http://localhost:3001/api/lesson/update/'+lessonId, {
+        const response = await fetch( url + '/lesson/update/'+lessonId, {
            method: 'PUT',
            headers: {
              Accept: 'application/json',
@@ -264,7 +294,7 @@ this.authCtx.logout
 
      async getSingleLessonForLessonCreation(lesson_id){
       try {
-        const response = await fetch('http://localhost:3001/api/lesson/findById/'+lesson_id, {
+        const response = await fetch( url + '/lesson/findById/'+lesson_id, {
            method: 'GET',
            headers: {
              Accept: 'application/json',
@@ -307,10 +337,10 @@ this.authCtx.logout
       async getSectionsPerLesson(lesson_id){
         // console.log("token  " + this.token);
         
-       // console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/');
+       // console.log("fetch url dash board debug: " +  url + '/class/findByUser/');
      //  console.log(LessonID);
           try {
-           const response = await fetch('http://localhost:3001/api/unit/findByLesson/'+lesson_id, {
+           const response = await fetch( url + '/unit/findByLesson/'+lesson_id, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -331,7 +361,7 @@ this.authCtx.logout
 
     async addUnitForLessonCreation(lessonID){
       try {
-        const response = await fetch('http://localhost:3001/api/unit/create/', {
+        const response = await fetch( url + '/unit/create/', {
            method: 'POST',
            headers: {
              Accept: 'application/json',
@@ -359,7 +389,7 @@ this.authCtx.logout
 
     async deleteUnit(unit_id){
       try {
-        const response = await fetch('http://localhost:3001/api/unit/delete/'+unit_id, {
+        const response = await fetch( url + '/unit/delete/'+unit_id, {
            method: 'DELETE',
            headers: {
              Accept: 'application/json',
@@ -386,9 +416,12 @@ this.authCtx.logout
 
        async editModule(moduleID, newModuleName, newModuleDescription, classID) {
 
-        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+
+        
+        console.log("fetch url dash board debug: " +  url + '/class/findByUser/'+this.user_id);
+
           try {
-           const response = await fetch('http://localhost:3001/api/module/update/'+ moduleID, {
+           const response = await fetch( url + '/module/update/'+ moduleID, {
               method: 'PUT',
               headers: {
                 Accept: 'application/json',
@@ -415,9 +448,9 @@ this.authCtx.logout
        async deleteModule(moduleID) {
 
         
-        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        console.log("deleting module: " + moduleID);
           try {
-           const response = await fetch('http://localhost:3001/api/module/delete/'+ moduleID, {
+           const response = await fetch( url + '/module/delete/'+ moduleID, {
               method: 'DELETE',
               headers: {
                 Accept: 'application/json',
@@ -439,9 +472,9 @@ this.authCtx.logout
        async createModule(moduleName, description, classID) {
 
         
-        console.log("Creating Module aPI called " );
+        console.log("Creating Module aPI called " + moduleName + " " + description + classID );
           try {
-           const response = await fetch('http://localhost:3001/api/module/create/', {
+           const response = await fetch( url + '/module/create/', {
               method: 'POST',
               headers: {
                 Accept: 'application/json',

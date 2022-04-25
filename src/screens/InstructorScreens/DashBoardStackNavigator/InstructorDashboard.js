@@ -1,80 +1,85 @@
-import React, { Children,useState, useContext, useEffect, useLayoutEffect } from 'react';
+import React, { Children, useState, useContext, useEffect, useLayoutEffect } from 'react';
 import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import CourseGridCard from '../../../component/CourseGridCard';
 import { AuthContext } from '../../../store/AuthContext';
 import APIConnection from '../../../utility/APIConnection';
 import { useIsFocused } from "@react-navigation/native";
+import { useTransition, animated } from 'react-spring/native'
+
+
+const AnimatedView = animated(View);
 
 
 
-export default function InstructorDashboard({navigation}) {
+export default function InstructorDashboard({ navigation }) {
 
 
 
-    
 
-//--------------Copy This Piece Of Code Here------------
+
+  //--------------Copy This Piece Of Code Here------------
 
   const isFocused = useIsFocused();
 
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
-    const apiConnection = new APIConnection();
-          useLayoutEffect(() => {
-            //your code here
-            if(isFocused) {
-              apiConnection.getClasses().then(json => {
-                setData(json);})
-            }
-            
-         },[isFocused]);
+  const apiConnection = new APIConnection();
+  useLayoutEffect(() => {
+    //your code here
+    if (isFocused) {
+      apiConnection.getClasses().then(json => {
+        setData(json);
+      })
+    }
 
- //------------------------------------------
-    function classCardComponent(itemData) {
-        function pressHandler() {
-            console.log("item data debug:", itemData)
-          // navigation.navigate('EditCourseAndModule', {
-          //   courseID: itemData.item.class_id,
-          //   courseName: itemData.item.class_name
-          // });
-          navigation.navigate('Instructor CourseView', {
-            courseID: itemData.item.class_id,
-            courseName: itemData.item.class_name
-          });
-        }
-    
-        return (
-          <CourseGridCard
-            title={itemData.item.class_name}
-            color={"#534789"}
-            onPress={pressHandler}
-          />
-        );
-      }
-     
-      return (
-        
-  
-        <View style={styles.container}>
-        <Text style={styles.title}>Courses</Text>
+  }, [isFocused]);
+
+  //------------------------------------------
+  function classCardComponent(itemData) {
+    function pressHandler() {
+      console.log("item data debug:", itemData)
+      // navigation.navigate('EditCourseAndModule', {
+      //   courseID: itemData.item.class_id,
+      //   courseName: itemData.item.class_name
+      // });
+      navigation.navigate('Instructor CourseView', {
+        courseID: itemData.item.class_id,
+        courseName: itemData.item.class_name
+      });
+    }
+
+    return (
+      <CourseGridCard
+        title={itemData.item.class_name}
+        color={"#534789"}
+        onPress={pressHandler}
+      />
+    );
+  }
+
+  return (
 
 
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.class_id}
-          renderItem={classCardComponent}
-          numColumns={2}
-        />
+    <View style={styles.container}>
+      <Text style={styles.title}>Courses</Text>
 
 
-        <View style ={styles.bottomContainer}>
-        <TouchableOpacity onPress={() =>  navigation.navigate('Create Course', { screen:'CreateCourse'})}>
-        <View style={addClass.addBttn} >
-          <Text style ={addClass.addText}>+</Text>
-        </View> 
-      </TouchableOpacity>
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.class_id}
+        renderItem={classCardComponent}
+        numColumns={2}
+      />
+
+
+      <View style={styles.bottomContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate('Create Course', { screen: 'CreateCourse' })}>
+          <View style={addClass.addBttn} >
+            <Text style={addClass.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
       </View>
-      
+
 
 
 
@@ -101,12 +106,12 @@ const styles = StyleSheet.create({
   },
 
   bottomContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
+    flex: 1,
+    justifyContent: 'flex-end',
 
   },
 
-  
+
 
 
   title: {
@@ -114,21 +119,21 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: 'black',
-    marginTop:50,
+    marginTop: 50,
     marginBottom: 50
 
   },
 
   boxes: {
-      marginTop:10,
-      backgroundColor: 'white',
-      borderColor: '#C0C0C0',
-      borderWidth: 1,
-      borderRadius: 10,
-      width:300,
-      height: 200,
-      textAlign: "center",
-      alignItems: "center"
+    marginTop: 10,
+    backgroundColor: 'white',
+    borderColor: '#C0C0C0',
+    borderWidth: 1,
+    borderRadius: 10,
+    width: 300,
+    height: 200,
+    textAlign: "center",
+    alignItems: "center"
 
   }
 
@@ -140,21 +145,21 @@ const styles = StyleSheet.create({
 const addClass = StyleSheet.create({
 
   addBttn: {
-  alignSelf: 'flex-end',
+    alignSelf: 'flex-end',
 
-  justifyContent: 'center',
-  alignItems: 'center',
-  width:80,
-  height:80,
-  paddingBottom:5,
-  position: "absolute",
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: 80,
+    paddingBottom: 5,
+    position: "absolute",
     //height: 60,
 
-  borderRadius: 50,
-  backgroundColor: '#4970FA',
-  color: 'white',
-  right: 20,
-  bottom:40
+    borderRadius: 50,
+    backgroundColor: '#4970FA',
+    color: 'white',
+    right: 20,
+    bottom: 40
 
   },
 
@@ -166,10 +171,10 @@ const addClass = StyleSheet.create({
 
   }
 }
-        
-      );
 
-      
+);
+
+
 
 //class id 58b0a1f3-acd6-4893-afe4-10ef88ab161f
 //user id 5

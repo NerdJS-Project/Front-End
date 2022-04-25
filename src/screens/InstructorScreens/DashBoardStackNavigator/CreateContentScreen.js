@@ -1,6 +1,5 @@
 import React, { Children, useState, useCallback, useContext, useEffect, useLayoutEffect } from 'react';
 import { View, Pressable, Modal, Text, ScrollView, Alert, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
-
 import { AuthContext } from '../../../store/AuthContext';
 import APIConnection from '../../../utility/APIConnection';
 import { useIsFocused } from "@react-navigation/native";
@@ -19,7 +18,13 @@ import { Button } from 'react-native-paper';
 ///1ba2a0e8-473d-4410-a5fb-2c8a5299ecb6
 
 
-export default function CreateContent() {
+export default function CreateContent({navigation, route}) {
+
+  const {unitID, unitName} = route.params;
+
+
+
+
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
   const [isLoading, setLoading] = useState(true);
@@ -56,11 +61,10 @@ export default function CreateContent() {
 
   const apiConnection = new APIConnection();
 
-
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   function onSaved(content, content2,unit_id) {
-    apiConnection.editUnitContent(content, content2,93).then(() => delay(300)).then((json) => {
+    apiConnection.editUnitContent(content, content2, unitID).then(() => delay(300)).then((json) => {
       setLink(link);
       // navigation.push('Instructor Dashboard');
       ///https://www.youtube.com/watch?v=cBxyB788_5w
@@ -70,13 +74,12 @@ export default function CreateContent() {
 
   const isFocused = useIsFocused();
 
-
   useEffect(() => {
     //your code here
 
     
     if (isFocused) {
-      apiConnection.getUnitContent(93).then((json) => {
+      apiConnection.getUnitContent(unitID).then((json) => {
         setData(json);
         let unitContent = json.unit_content;
         setVideoDisplay(json.unit_content);
@@ -90,11 +93,9 @@ export default function CreateContent() {
 
 
 
-
-  }
+    }
 
   }, [isFocused]);
-
 
 
 
@@ -199,7 +200,6 @@ export default function CreateContent() {
     if (Platform.OS === 'web') {
 
       return <div style={{ marginTop: 10 }}>
-
         <ReactPlayer
           url={linkInput}
           height={200}
@@ -221,7 +221,6 @@ export default function CreateContent() {
       //videoId={"iee2TATGMyI"}
       //https://youtu.be/cBxyB788_5w
 
-
       />
     }
 
@@ -241,7 +240,6 @@ export default function CreateContent() {
     /**/
     <View style={styles.container}>
       <Text style={styles.title}>Section</Text>
-
       <View style={styles.content}>
 
         <Modal
@@ -275,7 +273,6 @@ export default function CreateContent() {
             </View>
           </TouchableWithoutFeedback>
 
-
         </Modal>
 
         <Modal
@@ -297,7 +294,6 @@ export default function CreateContent() {
                 <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
                   <TextInput style={modalView.textInput2} multiline={true} editable={true} placeholder={'Enter text'} value={text} onChangeText={newText => setText(newText)} />
                 </KeyboardAvoidingView>
-
 
                 <TouchableOpacity
                   style={[modalView.button, modalView.buttonClose]}
@@ -356,11 +352,7 @@ export default function CreateContent() {
           
 
 
-          )
-         
-
-        </ScrollView>
-
+            
 
 
            
@@ -385,10 +377,11 @@ export default function CreateContent() {
  
 
 
+
+      </ScrollView>
+
+
       </View>
-
-
-    
 
 
 
@@ -411,7 +404,6 @@ export default function CreateContent() {
 
 
 
-
       </View>
 
 
@@ -428,6 +420,7 @@ export default function CreateContent() {
 
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -455,12 +448,10 @@ const styles = StyleSheet.create({
 
   bottomContainer: {
     //  flex:1,
-
     justifyContent: 'flex-end',
 
     shadowColor: "black",
     backgroundColor: '#E8EAED',
-
 
 
   },
@@ -606,7 +597,6 @@ const modalView = StyleSheet.create({
     borderRadius: 20,
     padding: 35,
     width: 350,
-
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -642,7 +632,6 @@ const modalView = StyleSheet.create({
     height: 40,
     width: 300,
     marginHorizontal:1,
-
     borderColor: '#C0C0C0',
     borderWidth: 1,
     borderRadius: 60,
@@ -658,7 +647,6 @@ const modalView = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     marginBottom: 10,
-
     //paddingVertical: 15,
     paddingHorizontal: 15,
 
@@ -674,7 +662,6 @@ const addClass = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 250,
-
     height: 50,
     paddingBottom: 5,
     position: "absolute",
@@ -686,7 +673,6 @@ const addClass = StyleSheet.create({
     //right: 20,
     bottom: 25
 
-
   },
   addURL: {
     alignSelf: 'flex-start',
@@ -697,7 +683,6 @@ const addClass = StyleSheet.create({
     height: 50,
     paddingBottom: 5,
     //position: "absolute",
-
     //height: 60,
 
     borderRadius: 10,
@@ -717,7 +702,6 @@ const addClass = StyleSheet.create({
     height: 50,
     paddingBottom: 5,
     //position: "absolute",
-
     //height: 60,
 
     borderRadius: 10,
@@ -765,8 +749,8 @@ const addClass = StyleSheet.create({
 
 
 
-
 }
 
 );
+
 

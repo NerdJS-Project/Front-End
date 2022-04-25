@@ -191,13 +191,8 @@ this.authCtx.logout
        }
 
        async getUserForProfilePage() {
-<<<<<<< HEAD
-        //console.log("get user for profile page called " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
-=======
 
-        
         console.log("get user for profile page called " +  url + '/class/findByUser/'+this.user_id);
->>>>>>> 12c70a3f3d39914ebf3eeeff9d23e2772a38d9a6
           try {
            const response = await fetch( url + '/user/'+ this.user_id, {
               method: 'GET',
@@ -295,22 +290,6 @@ this.authCtx.logout
 
      async putLessonNameForLessonCreation(lessonName,lessonId,less_description,
         less_index, mod_id){
-<<<<<<< HEAD
-        try {
-          const response = await fetch('http://localhost:3001/api/lesson/update/'+lessonId, {
-            method: 'PUT',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              'token': this.token 
-            },
-            body:JSON.stringify({
-              lesson_name: lessonName,
-              lesson_descrip: less_description,
-              lesson_index: less_index,
-              module_id: mod_id
-            })
-=======
       try {
         const response = await fetch( url + '/lesson/update/'+lessonId, {
            method: 'PUT',
@@ -325,7 +304,6 @@ this.authCtx.logout
              lesson_index: less_index,
              module_id: mod_id
            })
->>>>>>> 12c70a3f3d39914ebf3eeeff9d23e2772a38d9a6
 
             
           });

@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
     textInput: {
         flex: 1,
         backgroundColor:'#fff',
-        activeOutlineColor: '#4970FA',
     },
 
     submitButtom: {

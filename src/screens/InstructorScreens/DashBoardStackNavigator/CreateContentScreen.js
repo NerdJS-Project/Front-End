@@ -356,8 +356,8 @@ export default function CreateContent() {
           
 
 
-            })
-          }
+          )
+         
 
         </ScrollView>
 
@@ -388,15 +388,7 @@ export default function CreateContent() {
       </View>
 
 
-        </ScrollView>
-
-
-
-
-
-
-      </View>
-
+    
 
 
 

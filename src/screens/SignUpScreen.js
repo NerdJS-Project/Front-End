@@ -152,6 +152,9 @@ export default function SignUpScreen({navigation}) {
           }}
           color={'#4970FA'}
           disabled={!check1}
+          style={{
+            marginTop:15
+          }}
         >
           Create Account
         </Button>
@@ -256,13 +259,13 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    marginTop: 35
+    marginTop: 20
   },
 
   status: {
     fontWeight:"bold",
     textAlign:"center",
-    marginTop: 35
+    marginTop: 20
   },
 
   selector: {
@@ -271,7 +274,7 @@ const styles = StyleSheet.create({
   
   checkbox: {
     flexDirection: 'row',
-    marginTop: 15
+    marginTop: 10
   },
 
   check: {
@@ -279,7 +282,7 @@ const styles = StyleSheet.create({
   },
 
   boxLabel: {
-    marginTop: 10
+    
   },
 
   

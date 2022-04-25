@@ -1,11 +1,9 @@
 import React, { useContext } from 'react'
-import { View, Text } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import InstructorProfile from './StudentProfile'
 import { AuthContext } from '../../../store/AuthContext'
 import IconButton from '../../../component/ui/IconButton'
 import StudentProfile from './StudentProfile'
-
+import StudentEditProfile from'./StudentEditProfile'
 const Stack = createNativeStackNavigator()
 
 
@@ -29,6 +27,9 @@ export default function ProfileStackNavigatorStudent()  {
             />
           ),
         }} />
+        
+        <Stack.Screen name="Edit Profile" component={StudentEditProfile} options={{headerShown:true}}/>
+
     </Stack.Navigator>
   )
 }

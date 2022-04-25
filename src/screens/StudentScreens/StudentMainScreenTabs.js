@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import DashBoardStackNavigatorStudent from "./DashBoardStackNavigator/DashBoardStackNavigatorStudent";
 import HomeStackNavigatorStudent from "./HomeStackNavigator/HomeStackNavigatorStudent";
-import ProfileStackNavigatorStudent from "./ProfileStackNavigator/ProfileStackNavigatorInstructor";
+import ProfileStackNavigatorStudent from "./ProfileStackNavigator/ProfileStackNavigatorStudent";
 import SettingStackNavigatorStudent from "./SettingsStackNavigator/SettingStackNavigatorStudent";
 import React, { useState, useContext } from 'react';
 

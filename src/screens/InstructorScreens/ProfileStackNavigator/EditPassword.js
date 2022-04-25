@@ -3,18 +3,19 @@ import React, { useState, useLayoutEffect } from "react";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground
 } from "react-native";
-import Icon from 'react-native-vector-icons/AntDesign';
+import { TextInput } from "react-native-paper";
 import APIConnection from "../../../utility/APIConnection";
 
 export default function EditPassword({navigation}) {
     const isFocused = useIsFocused();
     const [data, setData] = useState([]);
-    const [classData, setClassData] = useState([]);
+
+    const [currentPW, getCurrentPW] = useState('');
+    const [newPW, getNewPW] = useState('');
+
     const apiConnection = new APIConnection();
 
     useLayoutEffect(() => {
@@ -77,14 +78,7 @@ const styles = StyleSheet.create ({
     },
 
     inputField: {
-        paddingVertical: 15,
-        paddingHorizontal:15,
-        backgroundColor: 'white',
-        borderColor: '#C0C0C0',
-        borderWidth: 1,
-        borderRadius: 60,
-        width: 250,
-        margin: 10
+  
     },
 
     formText: {

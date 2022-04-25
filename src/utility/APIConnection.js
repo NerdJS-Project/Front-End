@@ -134,6 +134,32 @@ class APIConnection{
          }
        }
 
+      async editEmailAndPassword(currentEmail, currentPW, newPW, newEmail){
+        try {
+          const response = await fetch('http://localhost:3001/api/user/changeAuth/'+ this.user_id, {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'token': this.token, 
+            },
+            body:JSON.stringify({
+              
+            })
+
+          });
+
+        }catch(error){
+          console.error(error);
+          this.authCtx.logout
+        } finally { 
+
+        }
+      }
+
+
+
+
        async getModulesAndLessonInstructorCourseViewScreen(courseID) {
          console.log("get modules and lessons called " + 'http://localhost:3001/api/class/findByUser/'+courseID);
           try {
@@ -154,7 +180,9 @@ class APIConnection{
          }
        }
 
-      
+       
+
+
      async putLessonNameForLessonCreation(lessonName,lessonId,less_description,
         less_index, mod_id){
         try {

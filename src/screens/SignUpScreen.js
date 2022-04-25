@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet,TextInput,KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
+import { View, Text, StyleSheet,KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
 import { ButtonGroup, CheckBox } from 'react-native-elements';
-
+import { TextInput, Button} from "react-native-paper";
 
 const API_URL =  'http://localhost:3001/api/user/create';
 
@@ -28,8 +28,6 @@ export default function SignUpScreen({navigation}) {
 
   const onSubmitHandler = () => {
     console.log("email and pass and name: ",user_email, user_password, user_name, user_type);
-
-
 
     const payload = {
         user_name,
@@ -70,29 +68,136 @@ export default function SignUpScreen({navigation}) {
   return (
 
     <View style = {styles.container}>
+      
       <Text style ={styles.title}>Register</Text>
+
       <Text style ={[styles.title, {
         fontSize:14,
         fontWeight: 'normal',
         color: '#000',
         marginVertical: 10
       }]}>Enter the following information to create an account.</Text>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={form.account} > 
-        <TextInput style={form.input}placeholder={'Name'} onChangeText={newText => setName(newText)}/>
-        <TextInput style={form.input}placeholder={'Email'} onChangeText={newText => setEmail(newText)}/>
+
+      <View style={styles.form}>
+        <TextInput 
+            style={styles.input}
+            label={'Name'} 
+            mode={'outlined'}
+            outlineColor={'#4970FA'}
+            onChangeText={newText => setName(newText)}
+          />
+
+        <TextInput 
+            style={styles.input}
+            label={'Email'} 
+            mode={'outlined'}
+            outlineColor={'#4970FA'}
+            onChangeText={newText => setEmail(newText)}
+          />
+
         <TextInput 
           secureTextEntry={true} 
           type={passwordEye === false ? "password" : "text"}
-          style={form.input}placeholder={'Password'} 
+          style={styles.input}
+          label={'Password'} 
+          mode={'outlined'}
+          outlineColor={'#4970FA'}
           onChangeText={newText => setPassword(newText)}
         />
-        <TextInput secureTextEntry={true} style={form.input} placeholder={'Confirm Password'}/>
+        <TextInput 
+          secureTextEntry={true} 
+          type={passwordEye === false ? "password" : "text"}
+          style={styles.input}
+          label={'Confirm Password'} 
+          mode={'outlined'}
+          outlineColor={'#4970FA'}
+        />
+    
+
+
+      <Text style={styles.status}>Are you a:</Text>
+        <ButtonGroup
+          buttons={['Student', 'Educator']}
+          selectedIndex={selectedIndex}
+          buttonContainerStyle={{backgroundColor: '#4970FA'}}
+          onPress={(value) => {
+            setSelectedIndex(value);
+            if(value == 0){
+              setUserType('student');
+            } else if(value == 1 ){
+              setUserType('instructor');
+            }
+          }}
+          containerStyle={styles.selector}
+          textStyle={{color:'#fff'}}
+      />
+
+
+        <View style={styles.checkbox}>
+          <CheckBox
+            color={'#4970FA'}
+            checked={check1}
+            onPress={() => setCheck1(!check1)}
+            style={styles.check}
+          />
+          <Text style={styles.boxLabel}>By checking, you Agree to our Terms of Use and understand our privacy policy. 
+              You may recieve notifications via email.</Text>
+        </View>
+
+        <Button 
+          mode="contained" 
+          onPress={onSubmitHandler} 
+          contentStyle={{
+            height:50,
+          }}
+          color={'#4970FA'}
+          disabled={!check1}
+        >
+          Create Account
+        </Button>
+        
+        
+
+      </View>
+      {/*
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.form}> 
+
+        <TextInput 
+          style={styles.input}
+          label={'Name'} 
+          mode={'outlined'}
+          onChangeText={newText => setName(newText)}
+        />
+
+        <TextInput 
+          style={form.input}
+          label={'Email'} 
+          mode={'outlined'}
+          onChangeText={newText => setEmail(newText)}
+        />
+      
+        
+        <TextInput 
+          secureTextEntry={true} 
+          type={passwordEye === false ? "password" : "text"}
+          style={form.input}
+          label={'Password'} 
+          mode={'outlined'}
+          onChangeText={newText => setPassword(newText)}
+        />
+
+
+        <TextInput 
+          secureTextEntry={true} 
+          style={form.input} 
+          mode={'outlined'}
+          label={'Confirm Password'}
+        />
       </KeyboardAvoidingView>
           
 
      <View style={button.container}>
-      <Text style={form.status}>Are you a:</Text>
+      <Text style={styles.status}>Are you a:</Text>
         <ButtonGroup
           buttons={['Student', 'Educator']}
           selectedIndex={selectedIndex}
@@ -123,7 +228,7 @@ export default function SignUpScreen({navigation}) {
             <Text style ={register.registerText}>Sign Up</Text>
           </View>
       </TouchableOpacity>
-
+        */ }
     </View>
 
 
@@ -134,7 +239,7 @@ const styles = StyleSheet.create({
   container: {
     //alignSelf: 'stretch',
     flex: 1,
-    backgroundColor: '#E8EAED',
+    backgroundColor: '#fff',
   },
 
 
@@ -145,78 +250,39 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
 
-  checkboxContainer: {
-    flexDirection: "row",
-    marginBottom: 20
+  form: {
+    marginLeft: 20,
+    marginRight: 20
   },
-  checkbox:{
-    alignSelf: 'center'
-  },
-  boxLabel:{
-    margin: 8
-  }
 
-});
-
-
-
-const form = StyleSheet.create({
-  account: {
-    marginTop:25
-  },
-  
   input: {
-    position:"relative",
-    paddingVertical: 15,
-    paddingHorizontal:15,
-    backgroundColor: 'white',
-    borderColor: '#C0C0C0',
-    bottom:30,
-    borderWidth: 1,
-    borderRadius: 20,
-    margin: 10
+    marginTop: 35
   },
 
   status: {
     fontWeight:"bold",
     textAlign:"center",
-    bottom: 550
+    marginTop: 35
   },
 
-  
-})
-
-
-const button = StyleSheet.create({
-  container: {
-    alignItems: 'center'
-  },
-  
   selector: {
-    textAlign:'center',
-    borderRadius:80,
-    width: 400,
+  
+  },
+  
+  checkbox: {
+    flexDirection: 'row',
+    marginTop: 15
+  },
 
-  }
-})
+  check: {
 
-const register = StyleSheet.create ({
-  container: {
+  },
+
+  boxLabel: {
     marginTop: 10
   },
-  registerButton: {
 
-    paddingVertical: 15, 
-    paddingHorizontal: 15, 
-    borderRadius: 10,
-    backgroundColor: '#4970FA',
-    color: 'white',
-    alignItems:'center',
-  },
+  
 
-  registerText: {
-    color: 'white', 
-    fontWeight: "bold"
-  }
 })
 

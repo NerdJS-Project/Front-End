@@ -7,13 +7,11 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-
-import {TextInput} from 'react-native-paper';
-
+import { TextInput } from "react-native-paper";
 import Icon from 'react-native-vector-icons/AntDesign';
 import APIConnection from "../../../utility/APIConnection";
 
-export default function InstructorProfile({navigation}) {
+export default function StudentEditProfile({navigation}) {
     const isFocused = useIsFocused();
     const [data, setData] = useState([]);
     const [classData, setClassData] = useState([]);
@@ -38,19 +36,20 @@ export default function InstructorProfile({navigation}) {
     async function onSubmit(){
         if(newName.length === 0 && newBio.length != 0){
             await apiConnection.editUserProfile(data.user_name, data.user_type, newBio).then(
-                navigation.navigate('Profile', {screen: 'InstructorProfile'}))
+                navigation.navigate('Student Profile', {screen: 'StudentProfile'}))
         }
         else if(newBio.length === 0 && newName.length != 0){
             await apiConnection.editUserProfile(newName, data.user_type, data.user_bio).then(
-                navigation.navigate('Profile', {screen: 'InstructorProfile'}))
+                navigation.navigate('Student Profile', {screen: 'StudentProfile'}))
         }
         else if(newBio.length != 0 && newName.length != 0){
             await apiConnection.editUserProfile(newName, data.user_type, newBio).then(
-                navigation.navigate('Profile', {screen: 'InstructorProfile'}))
+                navigation.navigate('Student Profile', {screen: 'StudentProfile'}))
         }
         else if(newBio.length === 0 && newName.length === 0){
             alert("Nothing has changed...");
         }    
+
     };
 
     return (
@@ -97,7 +96,7 @@ export default function InstructorProfile({navigation}) {
                     setData={data.user_name}
                     style={styles.textInput}
                     label={'Username'}
-                    mode={'flat'}
+                    mode={"flat"}
                     value={data.user_name}
                     onChangeText={newText => setNewName(newText)}
                 />
@@ -117,11 +116,10 @@ export default function InstructorProfile({navigation}) {
                 <View style={styles.edit}>
                     <Icon name="lock" size={31} style={{marginTop:20}}/>
                     <TextInput
-                        placeholder={'*******'}
                         autoCorrect={false}
                         secureTextEntry={true}
-                        editable={false}
                         label={'Password'}
+                        editable={false}
                         style={styles.textInput}
                     />
                 </View>
@@ -137,7 +135,7 @@ export default function InstructorProfile({navigation}) {
                     onChangeText={newText => setNewBio(newText)}
                     editable={true}
                     style={[styles.textInput, {
-                        height: 150,
+                        height: 150
                     }]}
                 />
             </View>
@@ -155,7 +153,7 @@ export default function InstructorProfile({navigation}) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
-        flex: 1
+        flex: 1,
     },
 
     profileIcon: {

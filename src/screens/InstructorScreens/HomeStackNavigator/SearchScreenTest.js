@@ -44,7 +44,7 @@ export default function ClassSearchScreenTest() {
           style={search.searchHolder}
           placeholder={"Enter Class"}
           onChangeText={(newText) => setSearchTerm(newText)}
-          defaultValue={searchTerm}
+         // defaultValue={searchTerm}
         />
 
         <TouchableOpacity onPress={() => searchAPI(searchTerm)}>
@@ -56,7 +56,7 @@ export default function ClassSearchScreenTest() {
         <Text style={styles.title}> Discover Classes </Text>
       </View>
 
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView contentContainerStyle ={styles.content}>
         {/* { {Data.filter((val)=>{
             if (searchTerm == "") {
               return val

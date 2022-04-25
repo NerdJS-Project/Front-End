@@ -1,5 +1,5 @@
 import React, { Children,useState,useCallback, useContext, useEffect, useLayoutEffect } from 'react';
-import { View,Pressable,Modal,Text,ScrollView, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
+import { View,Pressable,Modal,Text,ScrollView, Alert, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video, AVPlaybackStatus } from 'expo-av';
@@ -7,17 +7,14 @@ import { WebView } from 'react-native-webview';
 import ReactPlayer from "react-player";
 import YoutubePlayer from 'react-native-youtube-iframe';
 import { AuthContext } from '../store/AuthContext';
+import { Button } from 'react-native-paper';
+
+
 
 
 
 const Content = (props) => {
-    
-  
-
- 
-
-   
-    
+        
     return (
         
 
@@ -35,6 +32,11 @@ const Content = (props) => {
 
 
 
+        
+
+
+
+
         </View>
 
 
@@ -47,9 +49,9 @@ const Content = (props) => {
 const styles = StyleSheet.create({
     container: {
       //  flex:1,
-        alignItems:'stretch',
-       // marginBottom:5,
-       // margin:5
+       // alignItems:'stretch',
+    
+        //margin:5,
        //borderWidth:1,
        borderColor: '#C0C0C0',
       
@@ -57,9 +59,12 @@ const styles = StyleSheet.create({
     
       },
       textStyle: {
+        //  flex:1,
         fontSize: 16,
         fontWeight: "bold",
         marginHorizontal:5,
+        marginBottom:10,
+
         
     
       },
@@ -82,7 +87,8 @@ const styles = StyleSheet.create({
 
       
     
-      }
+      },
+
 
 
 

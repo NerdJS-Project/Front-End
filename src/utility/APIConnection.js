@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import { AuthContext } from '../store/AuthContext';
-//var url = "http://localhost:3001/api"
-var url = "http://192.168.0.16:3001/api"
+var url = "http://localhost:3001/api"
+//var url = "http://192.168.0.16:3001/api"
 
 
 

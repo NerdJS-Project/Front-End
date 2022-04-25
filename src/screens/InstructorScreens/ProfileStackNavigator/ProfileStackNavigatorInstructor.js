@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
-import { View, Text } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import InstructorProfile from './InstructorProfile'
 import { AuthContext } from '../../../store/AuthContext'
 import IconButton from '../../../component/ui/IconButton'
 import InstructorEditProfile from './InstructorEditProfile'
-
+import EditPassword from './EditPassword';
 const Stack = createNativeStackNavigator()
 
 
@@ -28,13 +27,11 @@ export default function ProfileStackNavigatorInstructor()  {
               onPress={authCtx.logout}
             />
           ),
+      }}/>
 
-          
-        }} />
+        <Stack.Screen name="Edit Profile" component={InstructorEditProfile} options={{headerShown:true}}/>
+        <Stack.Screen name='Edit Password' component={EditPassword} options={{headerShown: true}}/>
 
-<Stack.Screen name="Edit Profile" component={InstructorEditProfile} options={{headerShown:true}}/>
-
-        
     </Stack.Navigator>
   )
 }

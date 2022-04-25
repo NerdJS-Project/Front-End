@@ -37,7 +37,81 @@ class APIConnection{
            this.authCtx.logout
          } finally {
          }
+    }
+
+    async postUnit(content,content2) {
+      try {
+        const response = await fetch('http://localhost:3001/api/unit/create', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'token': this.token,
+          'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        'unit_name': 'fast coutning',
+        'unit_content': [content,content2],
+        'unit_content_type': 'string',
+        'lesson_id': 29,
+        'instructor_id': 5
+      })
+    });
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+    this.authCtx.logout
+  } finally {
+
+  }
+
+    }
+    async getUnitContent(unit_id) {
+
+        
+      console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        try {
+         const response = await fetch('http://localhost:3001/api/unit/'+ unit_id, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+          });
+         const json = await response.json();
+
+         return json;
+       } catch (error) {
+         console.error(error);
+         this.authCtx.logout
+       } finally {
        }
+  }
+
+async editUnitContent(content, content2,unit_id) {
+  try {
+    const response = await fetch('http://localhost:3001/api/unit/updateUnitContent/'+unit_id, {
+      method: 'PUT',
+      headers: {
+          'accept': 'application/json',
+          'token': this.token,
+          'Content-Type': 'application/json'
+      },
+      // body: '{\n  "unit_content": "https://www.youtube.com/watch?v=JfVOs4VSpmA",\n  "unit_content_type": "text"\n}',
+      body: JSON.stringify({
+          'unit_content': content,
+          'unit_content_type': content2
+      })
+  });
+const json = await response.json();
+return json;
+} catch (error) {
+console.error(error);
+this.authCtx.logout
+} finally {
+
+}
+}
 
 
 
@@ -93,6 +167,7 @@ class APIConnection{
            
         try {
             console.log("post class api called: ");
+
             const response = fetch( url + '/class/create', {
                 method: 'POST',
                 headers: {
@@ -138,11 +213,35 @@ class APIConnection{
          }
        }
 
+
+       async editUserProfile(newName, userType) {
+         console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+          try {
+           const response = await fetch('http://localhost:3001/api/module/update/'+ this.user_id, {
+              method: 'PUT',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'token': this.token,
+              },
+              body: JSON.stringify({ 
+                user_name: newName,
+                user_type: userType
+            })
+            });
+           const json = await response.json();
+
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+         }
+       }
+
        async getModulesAndLessonInstructorCourseViewScreen(courseID) {
+         console.log("get modules and lessons called " + 'http://localhost:3001/api/class/findByUser/'+courseID);
 
-
-        
-        console.log("get modules and lessons called " +  url + '/class/findByUser/'+courseID);
           try {
            const response = await fetch( url + '/class/modulesAndLessons/'+ courseID, {
               method: 'GET',
@@ -317,8 +416,10 @@ class APIConnection{
 
        async editModule(moduleID, newModuleName, newModuleDescription, classID) {
 
+
         
         console.log("fetch url dash board debug: " +  url + '/class/findByUser/'+this.user_id);
+
           try {
            const response = await fetch( url + '/module/update/'+ moduleID, {
               method: 'PUT',

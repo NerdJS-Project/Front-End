@@ -63,11 +63,11 @@ export default function InstructorProfile({navigation}) {
                 },
               ]}
             >
-              {data.user_name}
+              {data.user_name || 'user_name'}
             </Text>
             <View style={{flexDirection:"row"}}>
               <Icon name="mail" size={20} style={{paddingRight:5}}/>
-              <Text style={styles.caption}>{data.user_email}</Text>
+              <Text style={styles.caption}>{data.user_email || 'user_email'}</Text>
             </View>
               <View style={{flexDirection:"row"}}>
                 <Icon name="user" size={20} style={{paddingRight:5}}/>
@@ -77,7 +77,7 @@ export default function InstructorProfile({navigation}) {
                   },
                 ]}
               >
-              {data.user_type}
+              {data.user_type || 'user_role'}
               </Text>
               </View>
           </View>
@@ -93,7 +93,8 @@ export default function InstructorProfile({navigation}) {
         </View>
         <View style={styles.userClass}>
           <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
-          <View >
+          <View style={{alignItems:'flex-start'}}>
+
             <FlatList
               data={classData}
               numColumns={1}
@@ -111,10 +112,10 @@ export default function InstructorProfile({navigation}) {
             onPress={() => navigation.navigate('Edit Profile', {screen: 'InstructorEditProfile'})}
             style={styles.buttonContainer}
           >
-            <Icon name="edit" size={40} style={[shadowOverlay, {
+            <Icon name="form" size={40} style={[shadowOverlay, {
               color:'#fff',
-              paddingTop:10,
-              paddingLeft:10,
+              paddingTop:12,
+              paddingLeft:15,
               backgroundColor:'#4970FA',
               width:70,
               height:70,

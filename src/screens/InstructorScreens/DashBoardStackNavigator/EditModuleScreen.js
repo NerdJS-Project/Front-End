@@ -22,6 +22,7 @@ import ModuleEditComponent from "../../../component/ModuleEditComponent";
 import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
 import { FAB } from "react-native-elements";
+import ModuleEditComponentContainer from "../../../component/ModuleEditComponentContainer";
 export default function EditModuleScreen({ navigation, route }) {
   const { courseID, courseName } = route.params;
 
@@ -31,10 +32,10 @@ export default function EditModuleScreen({ navigation, route }) {
   const [finalData, setFinalData] = useState([]);
   const [stateData, setStateData] = useState([]);
 
-//--------for some reason i have to have these force update code to force a rerender-----
+  //--------for some reason i have to have these force update code to force a rerender-----
   const [, updateState] = React.useState();
-const forceUpdate = React.useCallback(() => updateState({}), []);
-//--------------no idea why but this fixed it----------
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+  //--------------no idea why but this fixed it----------
 
   const apiConnection = new APIConnection();
   useEffect(() => {
@@ -51,31 +52,28 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
 
   async function onSave() {
     console.log("On save pressed, this new all data is:" + stateData);
-    
-//find which module is needed to delete
+
+    //find which module is needed to delete
     const deleteList = [];
-    for(let i = 0; i < finalData.length; i++)
-    {
+    for (let i = 0; i < finalData.length; i++) {
       let tobeDeleted = true;
-      for(let j = 0; j < stateData.length; j++)
-      {
-        if(finalData[i].module_id == stateData[j].module_id)
-        {
+      for (let j = 0; j < stateData.length; j++) {
+        if (finalData[i].module_id == stateData[j].module_id) {
           tobeDeleted = false;
-          break;
+          j = stateData.length;
         }
 
       }
-      if(tobeDeleted == true){
+      if (tobeDeleted == true) {
         deleteList.push(finalData[i].module_id)
       }
     }
 
 
-     await Promise.all(
+    await Promise.all(
       stateData.map(async (module) => {
 
-        if(module.changeType == "Edited") {
+        if (module.changeType == "Edited") {
           console.log("This module has been changed: " + module.module_name);
           const response = await apiConnection.editModule(module.module_id, module.module_name, module.module_descrip, courseID)
         }
@@ -83,8 +81,7 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
           console.log("This module has been created: " + module.module_name)
           const response = await apiConnection.createModule(module.module_name, module.module_descrip, courseID);
         }
-        else if (deleteList.includes(module.module_id))
-        {
+        else if (deleteList.includes(module.module_id)) {
           console.log("This module has been deleted: " + module.module_name)
 
           const response = await apiConnection.deleteModule(module.module_id);
@@ -93,89 +90,115 @@ const forceUpdate = React.useCallback(() => updateState({}), []);
 
       })
     )
+    await Promise.all(
+      deleteList.map(async (deleteModuleID) => {
+        const response = await apiConnection.deleteModule(deleteModuleID);
+      })
+    )
 
   }
 
 
 
-  function addNewModule()
-  {
+  function addNewModule() {
     let newEmptyModule = {
-    "module_id": null,
-    "changeType": "Created",
-    "module_name": "New Module",
-    "module_descrip": "new description",
-    "instructor_id": null,
-    "lessons": []
+      "module_id": null,
+      "changeType": "Created",
+      "module_name": "New Module",
+      "module_descrip": "new description",
+      "instructor_id": null,
+      "lessons": []
     }
 
     let newStateData = stateData;
     newStateData.push(newEmptyModule);
     setStateData(newStateData);
-    
+
 
     forceUpdate()
 
   }
 
   function getModuleView() {
-    const result = [];
-    for (let i = 0; i < stateData.length; i++) {
-      result.push(
-        <ModuleEditComponent
-          key={i}
+    // const result = [];
+    // for (let i = 0; i < stateData.length; i++) {
+    //   result.push(
+    //     <ModuleEditComponent
+    //       key={i}
+    //       allData={stateData}
+    //       setData={setStateData}
+    //       lessonData={stateData[i]}
+    //     ></ModuleEditComponent>
+    //   );
+    // }
+
+    return (
+      <View
+      >
+        {stateData.map((module, index) => (
+          <ModuleEditComponent
+          
+          key={index}
           allData={stateData}
           setData={setStateData}
-          lessonData={stateData[i]}
-        ></ModuleEditComponent>
-      );
-    }
-    return result;
+          lessonData={module}>
+           
+          </ModuleEditComponent>
+        ))
+        
+        }
+      </View>
+    )
   }
 
 
   return (
     <ScrollView>
       <View style={{ padding: 10, flex: 1, backgroundColor: "white" }}>
-      <Text style={styles.label}>Edit Modules</Text>
-      <ScrollView>{getModuleView()}</ScrollView>
-      
-      <Button
-        onPress={() => onSave()}
-        title="Save"
-        titleStyle={{ fontWeight: "700" }}
-        buttonStyle={{
-          backgroundColor: "rgba(90, 154, 230, 1)",
-          borderColor: "transparent",
-          borderWidth: 0,
-          borderRadius: 100,
+        <Text style={styles.label}>Edit Modules</Text>
+        <ScrollView>
+          <ModuleEditComponentContainer
+          stateData={stateData}
+          setStateData={setStateData}
+          ></ModuleEditComponentContainer>
+        </ScrollView>
+
+        <Button
+          onPress={() => onSave()}
+          title="Save"
+          titleStyle={{ fontWeight: "700" }}
+          buttonStyle={{
+            backgroundColor: "rgba(90, 154, 230, 1)",
+            borderColor: "transparent",
+            borderWidth: 0,
+            borderRadius: 100,
+          }}
+          containerStyle={{
+            width: 100,
+            marginHorizontal: 50,
+            marginVertical: 10,
+            paddingHorizontal: 200,
+            paddingTop: 40,
+          }}
+        />
+
+
+      </View>
+      <FAB
+        style={styles.fab}
+        icon={{
+          name: 'add',
+          color: 'white',
         }}
-        containerStyle={{
-          width: 100,
-          marginHorizontal: 50,
-          marginVertical: 10,
-          paddingHorizontal: 200,
-          paddingTop: 40,
-        }}
-      />
-      
-      
-    </View>
-    <FAB 
-      style={styles.fab}
-      icon={{
-        name: 'add',
-        color: 'white',
-      }}
         color="blue"
-        onPress={() =>addNewModule()}
-        >
+        onPress={() => addNewModule()}
+      >
 
       </FAB>
     </ScrollView>
 
-    
-    
+
+
   );
 }
 

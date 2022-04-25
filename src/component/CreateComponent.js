@@ -2,8 +2,6 @@ import React, { Children,useState,useCallback, useContext, useEffect, useLayoutE
 import { View,Pressable,Modal,Text,ScrollView, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Video, AVPlaybackStatus } from 'expo-av';
-import { WebView } from 'react-native-webview';
 import ReactPlayer from "react-player";
 import YoutubePlayer from 'react-native-youtube-iframe';
 
@@ -11,17 +9,26 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 
 
 const Content = (props) => {
-
-
-   
-    
+        
     return (
         
 
+        
+
         <View style={styles.container}>
-            <Text>
+     
+
+     
+    
+            <Text selectable={true} style={styles.textStyle}>
            {props.text}
             </Text>
+
+
+
+        
+
+
 
 
         </View>
@@ -35,12 +42,47 @@ const Content = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-       // marginBottom:5,
-       // margin:5
+      //  flex:1,
+       // alignItems:'stretch',
+    
+        //margin:5,
+       //borderWidth:1,
+       borderColor: '#C0C0C0',
       
     
     
       },
+      textStyle: {
+        //  flex:1,
+        fontSize: 16,
+        fontWeight: "bold",
+        marginHorizontal:5,
+        marginBottom:10,
+
+        
+    
+      },
+      textHolder: {
+        flex:1,
+        fontSize: 16,
+        fontWeight: "bold",
+        minWidth: Dimensions.get('window').width -20,
+        //paddingBottom:100,
+        //maxHeight: 800,
+
+      
+
+  
+ 
+       
+        //minWidth:Dimensions.get('window').width-15,
+      
+  
+
+      
+    
+      },
+
 
 
 

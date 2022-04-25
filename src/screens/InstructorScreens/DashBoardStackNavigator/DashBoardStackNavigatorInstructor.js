@@ -12,6 +12,7 @@ import CreateContent from './CreateContentScreen'
 
 
 import LessonCreation from './LessonCreationScreen'
+import TabInstructorCourseEdit from './TabsInstructorCourseEdit'
 
 const Stack = createNativeStackNavigator()
 
@@ -23,6 +24,7 @@ export default function DashBoardStackNavigatorInstructor(navigation) {
     }}>
 
        
+<Stack.Screen name="Content Edit" component={TabInstructorCourseEdit} options={{ headerShown: false }}/>
 
       <Stack.Screen name="Instructor Dashboard" component={InstructorDashboard} options={{ headerShown: false }}/>
       <Stack.Screen name="Instructor CourseView" component={InstructorCourseView} options={{ headerShown: true }}/>

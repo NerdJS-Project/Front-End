@@ -12,7 +12,12 @@ export default function HomeStackNavigatorInstructor()  {
     <Stack.Navigator screenOptions={{
       headerShown: false,
     }}>
-      <Stack.Screen name="SearchScreen" component={ClassSearchScreenTest} />
+
+<Stack.Screen name="SearchScreen" component={ClassSearchScreenTest} />
+
+      <Stack.Screen name="InstructorHome" component={InstructorHome} />
+
+
     </Stack.Navigator>
   )
 }

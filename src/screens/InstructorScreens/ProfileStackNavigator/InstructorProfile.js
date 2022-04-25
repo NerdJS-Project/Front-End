@@ -93,7 +93,7 @@ export default function InstructorProfile({navigation}) {
         </View>
         <View style={styles.userClass}>
           <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
-          <View style={{alignItems:'left'}}>
+          <View >
             <FlatList
               data={classData}
               numColumns={1}

@@ -17,15 +17,16 @@ const Tab = createMaterialTopTabNavigator();
 export default function TabInstructorCourseEdit({ navigation, route }) {
 
 
-    //const {unitID, unitName} = route.params;
-    const unitID = 21;
-    const unitName = "Unit name";
+    const {unitID} = route.params;
+    //const unitID = 21;
+    //const unitName = "Unit name";
+
 
 
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Edit Content" component={CreateContent} initialParams={{unitID, unitName}} />
-            <Tab.Screen name="Edit Quiz" component={InstructorQuizEdit}  initialParams={{unitID, unitName}} />
+            <Tab.Screen name="Edit Content"  component={CreateContent} initialParams={{ unitID }} />
+            <Tab.Screen name="Edit Quiz" component={InstructorQuizEdit} initialParams={{ unitID }} />
         </Tab.Navigator>
     );
 

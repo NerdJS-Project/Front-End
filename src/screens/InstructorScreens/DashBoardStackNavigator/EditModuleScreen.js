@@ -38,17 +38,94 @@ export default function EditModuleScreen({ navigation, route }) {
   //--------------no idea why but this fixed it----------
 
   const apiConnection = new APIConnection();
-  useEffect(() => {
-    if (isFocused) {
-      apiConnection
-        .getModulesAndLessonInstructorCourseViewScreen(courseID)
-        .then((json) => {
-          setFinalData(json);
-          setStateData(json);
-        });
-    }
-  }, [isFocused]);
+  // useEffect(() => {
+  //   if (isFocused) {
+  //     apiConnection
+  //       .getModulesAndLessonInstructorCourseViewScreen(courseID)
+  //       .then((json) => {
+  //         setFinalData(json);
+  //         setStateData(json);
+  //       });
+  //   }
+  // }, [isFocused]);
   //---------------------------------------
+
+  useEffect(() => {
+
+
+    async function fetchAPI()
+    {
+      let json = await apiConnection.getAllModulesForClass(courseID);
+      let data = await processAPIModuleData(json);
+       data.forEach(element=>{
+
+        console.log('data :'+ element.module_id);
+         apiConnection.getLessonsInModule(element.module_id).then((json2) => {
+          processAPILesson(element.lessons,json2);
+
+         })
+
+
+       });
+       setStateData(data);
+
+       setFinalData(data);
+
+
+    }
+
+
+
+    if (isFocused) {
+      fetchAPI();
+
+    }
+
+  }, [isFocused]);
+
+
+  function processAPILesson(lessonArr, lessonData){
+
+    for(let i =0; i < lessonData.length; i++){
+      let newLesson={};
+      newLesson['lesson_id'] = lessonData[i].lesson_id;
+      newLesson['lesson_name'] = lessonData[i].lesson_name;
+      newLesson['lesson_descrip'] = lessonData[i].lesson_descrip;
+      newLesson['lesson_index'] = lessonData[i].lesson_index;
+
+      lessonArr[i] = newLesson;
+
+    }
+    return lessonArr;
+  }
+
+
+    //Morph json from API into an array that we can use
+    function processAPIModuleData(json){
+      let returnData=[]
+     for(let i = 0; i <json.length; i++){
+       let newModule = {};
+       newModule['module_name'] = json[i].module_name;
+       newModule['module_id'] = json[i].module_id;
+       newModule['instructor_id'] = json[i].instructor_id;
+      newModule['lessons'] = [];
+
+      returnData[i] = newModule;
+
+
+     }
+
+     return returnData;
+  }
+
+
+
+
+
+
+
+
+  //------------------------------------
 
   async function onSave() {
     console.log("On save pressed, this new all data is:" + stateData);
@@ -160,6 +237,7 @@ export default function EditModuleScreen({ navigation, route }) {
           <ModuleEditComponentContainer
           stateData={stateData}
           setStateData={setStateData}
+          navigation={navigation}
           ></ModuleEditComponentContainer>
         </ScrollView>
 

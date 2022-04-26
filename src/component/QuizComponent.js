@@ -16,40 +16,29 @@ import { Icon } from "react-native-elements/dist/icons/Icon";
 export default function QuizComponent() {
   const data = [
     {
-      question: "What’s the biggest planet in our solar system?",
-      options: ["Jupiter", "Saturn", "Neptune", "Mercury"],
-      correct_option: "Jupiter",
+      quizdata_id: 1,
+      quizdata_question: "Quiz loading...",
+      quizdata_answers: ["Quiz loading...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      correct_option: 0,
     },
     {
-      question: "What attraction in India is one of the famus in the world?",
-      options: ["Chand Minar", "Taj Mahal", "Stadium"],
-      correct_option: "Taj Mahal",
+      quizdata_id: 2,
+      quizdata_question: "Quiz loading...",
+      quizdata_answers: ["HI...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      correct_option: 1,
     },
     {
-      question: "What land animal can open its mouth the widest?",
-      options: ["Alligator", "Crocodile", "Baboon", "Hippo"],
-      correct_option: "Hippo",
+      quizdata_id: 3,
+      quizdata_question: "Quiz loading...",
+      quizdata_answers: ["Quiz loading...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      correct_option: 2,
     },
     {
-      question: "What is the largest animal on Earth?",
-      options: [
-        "The African elephant",
-        "The blue whale",
-        "The sperm whale",
-        "The giant squid",
-      ],
-      correct_option: "The blue whale",
-    },
-    {
-      question: "What is the only flying mammal?",
-      options: [
-        "The bat",
-        "The flying squirrel",
-        "The bald eagle",
-        "The colugo",
-      ],
-      correct_option: "The bat",
-    },
+      quizdata_id: 4,
+      quizdata_question: "Quiz loading...",
+      quizdata_answers: ["Quiz loading...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      correct_option: 3,
+    }
   ];
   const allQuestions = data;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -107,6 +96,11 @@ export default function QuizComponent() {
     }).start();
   };
 
+
+  function saveProgress()
+  {
+  }
+
   const renderQuestion = () => {
     return (
       <View
@@ -143,7 +137,7 @@ export default function QuizComponent() {
             fontSize: 30,
           }}
         >
-          {allQuestions[currentQuestionIndex]?.question}
+          {allQuestions[currentQuestionIndex]?.quizdata_question}
         </Text>
       </View>
     );
@@ -151,25 +145,25 @@ export default function QuizComponent() {
   const renderOptions = () => {
     return (
       <View>
-        {allQuestions[currentQuestionIndex]?.options.map((option) => (
+        {allQuestions[currentQuestionIndex]?.quizdata_answers.map((option, index) => (
           <TouchableOpacity
-            onPress={() => validateAnswer(option)}
+            onPress={() => validateAnswer(index)}
             disabled={isOptionsDisabled}
-            key={option}
+            key={index}
             style={{
               borderWidth: 3,
               borderColor:
-                option == correctOption
+                index == correctOption
                   ? COLORS.success
-                  : option == currentOptionSelected
-                  ? COLORS.error
-                  : COLORS.secondary + "40",
+                  : index == currentOptionSelected
+                    ? COLORS.error
+                    : COLORS.secondary + "40",
               backgroundColor:
-                option == correctOption
+                index == correctOption
                   ? COLORS.success + "20"
-                  : option == currentOptionSelected
-                  ? COLORS.error + "20"
-                  : COLORS.secondary + "20",
+                  : index == currentOptionSelected
+                    ? COLORS.error + "20"
+                    : COLORS.secondary + "20",
               height: 60,
               borderRadius: 20,
               flexDirection: "row",
@@ -182,7 +176,7 @@ export default function QuizComponent() {
             <Text style={{ fontSize: 20, color: COLORS.white }}>{option}</Text>
 
             {/* Show Check Or Cross Icon based on correct answer*/}
-            {option == correctOption ? (
+            {index == correctOption ? (
               <View
                 style={{
                   width: 30,
@@ -201,7 +195,7 @@ export default function QuizComponent() {
                   }}
                 />
               </View>
-            ) : option == currentOptionSelected ? (
+            ) : index == currentOptionSelected ? (
               <View
                 style={{
                   width: 30,
@@ -250,7 +244,7 @@ export default function QuizComponent() {
       return null;
     }
   };
-//--------------------Progress Bar-----------------
+  //--------------------Progress Bar-----------------
   const [progress, setProgress] = useState(new Animated.Value(0));
   const progressAnim = progress.interpolate({
     inputRange: [0, allQuestions.length],
@@ -385,6 +379,32 @@ export default function QuizComponent() {
                   Retry Quiz
                 </Text>
               </TouchableOpacity>
+              {/* Save Progress button */}
+
+              <TouchableOpacity
+                onPress={saveProgress}
+                style={{
+                  backgroundColor: COLORS.accent,
+                  padding: 20,
+                  width: "100%",
+                  borderRadius: 20,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: COLORS.white,
+                    fontSize: 20,
+                  }}
+                >
+                  Save Progress
+                </Text>
+              </TouchableOpacity>
+
+
+
+
+
             </View>
           </View>
         </Modal>

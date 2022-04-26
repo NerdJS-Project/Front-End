@@ -27,8 +27,8 @@ import APIConnection from "../../../utility/APIConnection";
 
 
 export default function InstructorCourseView({ navigation, route }) {
-//retrieving course name and courseID from route.params
-    const {courseID, courseName} = route.params;
+  //retrieving course name and courseID from route.params
+  const { courseID, courseName } = route.params;
 
 
 
@@ -42,14 +42,64 @@ export default function InstructorCourseView({ navigation, route }) {
   const apiConnection = new APIConnection();
   useEffect(() => {
     if (isFocused) {
-      apiConnection
-        .getModulesAndLessonInstructorCourseViewScreen(courseID)
+      apiConnection.getAllModulesForClass(courseID)
         .then((json) => {
-          let d = processAPIData(json);
-          setFinalData(d);
-        });
+
+          let data = processAPIModuleData(json);
+          data.forEach(element => {
+
+            console.log('data :' + element.Module_ID);
+            apiConnection.getLessonsInModule(element.Module_ID)
+              .then((json) => {
+                processAPILesson(element.Lessons, json);
+
+              });
+
+          })
+
+          setFinalData(data);
+
+        })
+
     }
+
   }, [isFocused]);
+
+
+  function processAPILesson(lessonArr, lessonData) {
+
+    for (let i = 0; i < lessonData.length; i++) {
+      let newLesson = {};
+      newLesson['lesson_id'] = lessonData[i].lesson_id;
+      newLesson['lesson_name'] = lessonData[i].lesson_name;
+      newLesson['lesson_descrip'] = lessonData[i].lesson_descrip;
+      newLesson['lesson_index'] = lessonData[i].lesson_index;
+
+      lessonArr[i] = newLesson;
+
+    }
+    return lessonArr;
+  }
+
+
+  //Morph json from API into an array that we can use
+  function processAPIModuleData(json) {
+    let returnData = []
+    for (let i = 0; i < json.length; i++) {
+      let newModule = {};
+      newModule['isExpanded'] = false;
+      newModule['Module_Title'] = json[i].module_name;
+      newModule['Module_ID'] = json[i].module_id;
+      newModule['instructorID'] = json[i].instructor_id;
+      newModule['Lessons'] = [];
+
+      returnData[i] = newModule;
+
+
+    }
+
+    return returnData;
+  }
   //---------------------------------------
 
   //Morph json from API into an array that we can use
@@ -86,13 +136,13 @@ export default function InstructorCourseView({ navigation, route }) {
     setFinalData(array);
   };
 
-  
+
   return (
     <View // onLayout={(event)=>{
       style={{ flex: 2, alignItems: "stretch" }}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        
+
 
         <View style={styles.courseTitleBackground}>
           <Text
@@ -127,9 +177,9 @@ export default function InstructorCourseView({ navigation, route }) {
                     onClickFunction={() => {
                       updateLayout(key);
                     }}
-                    route = {route}
-                    navigation ={navigation}
-                   // lessonID={lessonID}
+                    route={route}
+                    navigation={navigation}
+                    // lessonID={lessonID}
                     item={item}
                   />
                 ))}
@@ -142,15 +192,15 @@ export default function InstructorCourseView({ navigation, route }) {
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => navigation.navigate('EditCourseAndModule', {
-              courseID: courseID,
-              courseName: courseName
-             })}
+            courseID: courseID,
+            courseName: courseName
+          })}
         >
           <FontAwesome5 name={"edit"} color={"white"} size={20} />
         </TouchableOpacity>
         {/* </View> */}
       </SafeAreaView>
-      
+
     </View>
   );
 }
@@ -160,23 +210,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#00bfff",
     padding: 20,
   },
-  
+
   editButton: {
     alignSelf: 'flex-end',
 
-  justifyContent: 'center',
-  alignItems: 'center',
-  width:80,
-  height:80,
-  paddingBottom:5,
-  position: "absolute",
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: 80,
+    paddingBottom: 5,
+    position: "absolute",
     //height: 60,
 
-  borderRadius: 50,
-  backgroundColor: '#4970FA',
-  color: 'white',
-  right: 20,
-  bottom:40
+    borderRadius: 50,
+    backgroundColor: '#4970FA',
+    color: 'white',
+    right: 20,
+    bottom: 40
   },
   titleStyle: {
     color: "white",

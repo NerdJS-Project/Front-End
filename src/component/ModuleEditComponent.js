@@ -19,7 +19,7 @@ import { Input, Icon, ButtonGroup, Divider } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLinkProps } from "@react-navigation/native";
 
-export default function ModuleEditComponent({ allData, setData, lessonData }) {
+export default function ModuleEditComponent({ allData, setData, lessonData, navigation }) {
   const [ModuleName, setModuleName] = useState(lessonData.module_name);
   const moduleID = lessonData.module_id;
 
@@ -34,6 +34,16 @@ export default function ModuleEditComponent({ allData, setData, lessonData }) {
     setData(newAllData);
   }
 
+
+  function onLessonPress(lessonId, lessonName)
+  {
+    navigation.navigate('LessonCreation', {
+      lessonID: lessonId,
+      lessonName: lessonName
+      
+    })
+  }
+
   function deleteModule() {
     let newAllData = allData.filter((module) => module.module_id !== moduleID);
     console.log("New deleted data is" + newAllData);
@@ -45,7 +55,7 @@ export default function ModuleEditComponent({ allData, setData, lessonData }) {
 
     for (let i = 0; i < lessonData["lessons"].length; i++) {
       result.push(
-        <TouchableOpacity key={i} style={[styles.button]}>
+        <TouchableOpacity key={i} style={[styles.button]} onPress={() => onLessonPress(lessonData.lessons[i].lesson_id, lessonData.lessons[i].lesson_name)}>
           <Text style={[styles.buttonLabel]}>
             {lessonData["lessons"][i].lesson_name}
           </Text>

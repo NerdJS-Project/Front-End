@@ -24,7 +24,6 @@ export default function DashBoardStackNavigatorInstructor(navigation) {
     }}>
 
        
-<Stack.Screen name="Content Edit" component={TabInstructorCourseEdit} options={{ headerShown: false }}/>
 
       <Stack.Screen name="Instructor Dashboard" component={InstructorDashboard} options={{ headerShown: false }}/>
       <Stack.Screen name="Instructor CourseView" component={InstructorCourseView} options={{ headerShown: true }}/>
@@ -32,6 +31,7 @@ export default function DashBoardStackNavigatorInstructor(navigation) {
       <Stack.Screen name="LessonCreation" component={LessonCreation}/>
       <Stack.Screen name="EditCourseAndModule" component={EditCourseAndModuleTabScreen} options={{ headerShown: true,headerTitleAlign: 'center' }}/>
       <Stack.Screen name="Create Course" component={CreateCourse} options={{ headerShown: true, title: 'Create Course',headerTitleAlign: 'center' }}/>
+      <Stack.Screen name="Content Edit" component={TabInstructorCourseEdit} options={{ headerShown: true }}/>
 
 
 

@@ -19,61 +19,40 @@ import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 import { color } from "react-native-elements/dist/helpers";
 import { useIsFocused } from "@react-navigation/native";
 import { RadioButton } from 'react-native-paper';
+import APIConnection from "../utility/APIConnection";
 
 
 
 
 
-export default function QuizEditComponent() {
-    const data = [
+export default function QuizEditComponent({unitID}) {
+
+
+
+    const initialdata = [
         {
-            id: 1,
-            question: "What’s the biggest planet in our solar system?",
-            options: ["Jupiter", "Saturn", "Neptune", "Mercury"],
+            changeType: "Created",
+            quizdata_id: 1,
+            quizdata_question: "Default Value",
+            quizdata_answers: ["Default Value", "Default Value", "Default Value", "Default Value"],
             correct_option: 0,
-        },
-        {
-            id: 2,
-
-            question: "What attraction in India is one of the famus in the world?",
-            options: ["Chand Minar", "Taj Mahal", "Stadium"],
-            correct_option: 1,
-        },
-        {
-            id: 3,
-
-            question: "What land animal can open its mouth the widest?",
-            options: ["Alligator", "Crocodile", "Baboon", "Hippo"],
-            correct_option: 3,
-        },
-        {
-            id: 4,
-
-            question: "What is the largest animal on Earth?",
-            options: [
-                "The African elephant",
-                "The blue whale",
-                "The sperm whale",
-                "The giant squid",
-            ],
-            correct_option: 1,
-        },
-        {
-            id: 5,
-            question: "What is the only flying mammal?",
-            options: [
-                "The bat",
-                "The flying squirrel",
-                "The bald eagle",
-                "The colugo",
-            ],
-            correct_option: 0,
-        },
+        }
     ];
+
     const isFocused = useIsFocused();
 
-    const [quizData, setQuizData] = useState(data);
-    const [initialData, setInitialData] = useState(data);
+    const [quizData, setQuizData] = useState([
+        {
+            changeType: "Created",
+            quizdata_id: 1,
+            quizdata_question: "Default Value",
+            quizdata_answers: ["Default Value", "Default Value", "Default Value", "Default Value"],
+            correct_option: 0,
+        }
+    ]);    
+    
+    const [quizID, setQuizID] = useState();
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const [deleteList, setDeleteList] = useState([]);
 
@@ -82,17 +61,81 @@ export default function QuizEditComponent() {
 
 
 
+//----------------------------------------------------------------------------------
+    const [iQuizData, setIQuizData] = useState();
+
+
+    const apiConnection = new APIConnection();
     useEffect(() => {
-        //your code here
-        if (isFocused) {
-            setQuizData(data)
+
+    
+        async function fetchMyAPI() {
+            let response = await apiConnection.getUnitQuizContent(unitID);
+            if(response.status == 400)
+            {
+                //empty unit that needs a new quiz
+                await apiConnection.createNewQuizForUnit(unitID);
+                response = await apiConnection.getUnitQuizContent(unitID);
+
+            }
+            response = await response.json();
+
+            setQuizID(response[0].quiz_id);
+
+            let quizDataResponse = await apiConnection.getQuizData(response[0].quiz_id);
+
+            if(quizDataResponse.status == 400)
+            {
+                // do nothing
+            }
+            else {
+                quizDataResponse = await quizDataResponse.json();
+
+                setIQuizData(quizDataResponse);
+                processJSON(quizDataResponse);
+                console.log("Quiz data fetched is: " + iQuizData)
+            }
+
+          }
+
+          if(isFocused) {
+            fetchMyAPI();
+
+
         }
 
     }, [isFocused]);
 
+
+
+    function processJSON(quizDataResponse)
+    {
+        let json = quizDataResponse;
+        for(let i = 0; i < quizDataResponse.length; i++)
+        {
+            let answers = quizDataResponse[i].quizdata_answers;
+            answers = answers.replace(/[']+/g, '"');
+            let answersJson = JSON.parse(answers);
+            json[i].quizdata_answers = answersJson.choices;
+            json[i].correct_option = answersJson.answer;
+
+            console.log("Quiz data answers" + answersJson.type + answersJson[0]);
+            console.log("Quiz data answers array" + ["hi", "There", "Cutie"]);
+
+
+
+        }
+
+        setQuizData(json);
+    }
+
+
+
+
+
     function updateQuizAnswerToParent(newAnswer, index) {
         let newQuizData = quizData;
-        newQuizData[currentIndex].options[index] = newAnswer;
+        newQuizData[currentIndex].quizdata_answers[index] = newAnswer;
         if (newQuizData[currentIndex].changeType != "Created") {
             newQuizData[currentIndex].changeType = "Edited";
         }
@@ -101,7 +144,7 @@ export default function QuizEditComponent() {
 
     function updateQuizQuestionToParent(newQuestion) {
         let newQuizData = quizData;
-        newQuizData[currentIndex].question = newQuestion;
+        newQuizData[currentIndex].quizdata_question = newQuestion;
         if (newQuizData[currentIndex].changeType != "Created") {
             newQuizData[currentIndex].changeType = "Edited";
         }
@@ -160,7 +203,8 @@ export default function QuizEditComponent() {
 
                     </Button>
                     <Text>
-                        {(currentIndex + 1) + " / " + quizData.length}
+                    {(currentIndex + 1) + " / " + quizData.length}
+
                     </Text>
 
 
@@ -193,7 +237,8 @@ export default function QuizEditComponent() {
         return (
             <View>
                 {
-                    quizData[currentIndex].options.map((answer, index) => (
+
+                    quizData[currentIndex].quizdata_answers.map((answer, index) => (
 
                         <View
                             key={index}
@@ -242,18 +287,34 @@ export default function QuizEditComponent() {
             quizData.map(async (question) => {
 
                 if (question.changeType == "Edited") {
-                    console.log("This question has been changed: " + question.question);
-                    //const response = await apiConnection.editModule(module.module_id, module.module_name, module.module_descrip, courseID)
+                    question.changeType == "None";
+                    console.log("This question has been changed: " + question.quizdata_question);
+                    let quizdata_answersTemporary = {
+                        answer: 0,
+                        choices: ["test", "test", "test", "test"]
+                    }
+                    quizdata_answersTemporary.answer = question.correct_option;
+                    quizdata_answersTemporary.choices = question.quizdata_answers;
+                    let string1 = JSON.stringify(quizdata_answersTemporary);
+                    string1 = string1.replace(/["]+/g, "'");
+                    const response = await apiConnection.editQuizData(quizID,question.quizdata_id, question.quizdata_question, string1);
                 }
                 else if (question.changeType == "Created") {
-                    console.log("This question has been created: " + question.question)
-                    //const response = await apiConnection.createModule(module.module_name, module.module_descrip, courseID);
-                }
-                else if (deleteList.includes(module.module_id)) {
-                    console.log("This question has been deleted: " + module.module_name)
+                    question.changeType == "None";
 
-                    const response = await apiConnection.deleteModule(module.module_id);
+                    console.log("This question has been created: " + question.quizdata_question)
+                    let quizdata_answersTemporary = {
+                        answer: 0,
+                        choices: ["test", "test", "test", "test"]
+                    }
+                    quizdata_answersTemporary.answer = question.correct_option;
+                    quizdata_answersTemporary.choices = question.quizdata_answers;
+                    let string1 = JSON.stringify(quizdata_answersTemporary);
+                    string1 = string1.replace(/["]+/g, "'");
+
+                    const response = await apiConnection.createQuizData(quizID, question.quizdata_question, string1);
                 }
+                
 
 
             })
@@ -262,9 +323,11 @@ export default function QuizEditComponent() {
             deleteList.map(async (deletedQuestionID) => {
                 console.log("This question has been deleted: " + deletedQuestionID)
 
-                //const response = await apiConnection.deleteModule(deleteModuleID);
+                const response = await apiConnection.deleteQuizData(quizID, deletedQuestionID);
+
             })
         )
+        setDeleteList([]);
 
 
 
@@ -275,7 +338,7 @@ export default function QuizEditComponent() {
         //If there are still lesson to be deleted
         if (quizData.length > 1) {
             if (quizData[currentIndex].changeType != "Created") {
-                deleteList.push(quizData[currentIndex].id);
+                deleteList.push(quizData[currentIndex].quizdata_id);
                 setDeleteList(deleteList);
             }
             quizData.splice(currentIndex, 1);
@@ -296,8 +359,8 @@ export default function QuizEditComponent() {
         let newQuizData = quizData;
         let newQuestion = {
             changeType: "Created",
-            question: "New Question?",
-            options: [
+            quizdata_question: "New Question?",
+            quizdata_answers: [
                 "Option 1",
                 "Option 2",
                 "Option 3",
@@ -402,9 +465,9 @@ export default function QuizEditComponent() {
             {renderTopQuizHeader()}
 
             <TextInput
-                key={quizData[currentIndex].question}
+                key={quizData[currentIndex].quizdata_question}
                 style={styles.questionInput}
-                defaultValue={quizData[currentIndex].question}
+                defaultValue={quizData[currentIndex].quizdata_question}
                 onChangeText={(newQuestion) => updateQuizQuestionToParent(newQuestion)}
             >
             </TextInput>

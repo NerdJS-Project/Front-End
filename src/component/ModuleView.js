@@ -43,7 +43,7 @@ export default function ModuleView({item, onClickFunction,instructorID,navigatio
     
       </TouchableOpacity>
        </View>
-      <View
+       <View
         style={{
           height: layoutHeight,
           overflow: 'hidden',
@@ -51,7 +51,7 @@ export default function ModuleView({item, onClickFunction,instructorID,navigatio
         
         }}>
         {/*Content under the header of the Expandable List Item*/}
-        {item.Lessons.map((item, key) => (
+         {item.Lessons.map((item, key) => (
           <TouchableOpacity
             key={key}
             style={styles.content}
@@ -69,9 +69,11 @@ export default function ModuleView({item, onClickFunction,instructorID,navigatio
             
           </TouchableOpacity>
           
-        ))}
+        ))} 
         
       </View>
+
+
     </View>
   );
 };

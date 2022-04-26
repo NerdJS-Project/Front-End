@@ -21,14 +21,12 @@ export default function SingleClass({navigation}){
         console.log(json);
         setClassName(json.result.class_name.toString());
         setClassDesc(json.result.class_descrip.toString());
-        setClassDesc(json.result.class_id.toString());
+        setClassID(json.result.class_id.toString());
 
-        console.log(className);
         console.log(classDesc);
+        console.log(classID);
         console.log(className);
-        //  console.log(json.result.class_name);
-        //  console.log(Object.keys(json).find(key=>json[key]));
-         // console.log(data.result.class_name)
+      
         }
       )};
     }, [isFocused]);

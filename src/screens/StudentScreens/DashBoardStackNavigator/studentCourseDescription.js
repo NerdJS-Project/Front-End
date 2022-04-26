@@ -2,36 +2,88 @@ import * as React from 'react-native';
 import { NavigationHelpersContext, useIsFocused } from "@react-navigation/native";
 import { useState, useEffect } from 'react';
 import APIConnection from "../../../utility/APIConnection";
-import { Avatar } from "react-native-elements";
+import { Avatar } from "react-native-paper";
 import {Text, View,TouchableOpacity, StyleSheet, SafeAreaView,ScrollView} from 'react-native';
+import {Divider} from 'react-native-paper';
+import SingleClass from './classes';
 
 export default function CourseDescriptionScreen({ navigation,route}){
     
     const {class_descrip,class_id,class_name} =route.params;
 
-    const [classID, setClassID] = ('');
+    //const [classID, setClassID] = ('');
+    const [isEnrolled, setIsEnrolled] = useState(false);
+    const [toBeEnrolled,setToBeEnrolled] =useState([]);
+    const [usersClasses,setUserClasses] = useState([]);
     const isFocused = useIsFocused();
     const apiConnection = new APIConnection();
+   
+
     useEffect(() => {
+      
         if (isFocused) {
-            apiConnection.signUpForClass(class_id)
-            .then((json)=>{
-                let data = json;
-            });
-
+            getClasses();
+         
         }
+       // enrolled();
     }, [isFocused]);
+    
+    
+    function signUp(){
+        apiConnection.signUpForClass(class_id)
+        .then((json)=>{
+            let data = json;
+            setToBeEnrolled(data);
+        
+        
+         });
+        }
 
-    // function getCourseDescription(){
 
-    // }
+    function getClasses(){
+        apiConnection.getClasses()
+        .then((json)=>{
+           //console.log(json);
+             setUserClasses(json);
+            // console.log("CLASSES" +usersClasses.class_id);
+        }) ;       
+    }
+    
+   
+    
+    function enrolled(){
+        for(let i =0; i < usersClasses.length; i++){
+        //console.log("userClasses : "+ usersClasses[i].class_id);
 
+                if(usersClasses[i].class_id == class_id)
+                {       
+                    setIsEnrolled(true);
+                    alert('already enrolled');
+                    return isEnrolled;
+                }
+                // else if (usersClasses[i].class_id !=class_id){
+                //     alert('Enrolled')
+                //     setIsEnrolled(false);
+                //     return isEnrolled;
+                // }
+                
+            }
+           // console.log("THIS STUDENT ENROLLMENT STATUS: "+ isEnrolled);
+            return isEnrolled;
+        
+    }
+    // console.log("THIS IS CLASS DESCRIPTION "+ class_descrip);
+    
+    // console.log("THIS IS CLASS ID "+ class_id);
+    
+    // console.log("THIS IS CLASS NAME "+ class_name);
 
     return(
         
-        
+       
         <View style={{flex:1,backgroundColor:'#3385ff', 
         justifyContent:'center',  alignItems:'center'}}>
+        
             <SafeAreaView>
 
                 {/* White card container View */}
@@ -39,10 +91,10 @@ export default function CourseDescriptionScreen({ navigation,route}){
                         {/* View container for avatar and instructor name  */}
                 <View style={{flexDirection:'column', marginLeft: 20, marginTop: 40, maxWidth:90, height: 120}}>
 
-                <Avatar
-                rounded
+                <Avatar.Image
+                // rounded
                 size={90}
-                containerStyle={styles.shadowOverlay}
+                style={styles.shadowOverlay}
                 source={ require('./icons/profile.png')}
                 /> 
                     <Text> Instructor Name is Albert and I will be teaching you </Text>
@@ -56,16 +108,15 @@ export default function CourseDescriptionScreen({ navigation,route}){
                     marginBottom:10, marginLeft: 30}}>
 
                     <Text  style={styles.courseDescript}>Course Description</Text>
-
+                    <Divider/>
 
                 <ScrollView>
                            
                     <View >
 
-                        <Text style={{fontSize:14, fontWeight:'normal'}}> {/*A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs. This is because paragraphs show a reader where the subdivisions of an essay begin and end, and thus help the reader see the organization of the essay and grasp its main points.
-
-    Paragraphs can contain many different kinds of information. A paragraph could contain a series of brief examples or a single long illustration of a general point. It might describe a place, character, or */} {class_descrip}
-    </Text>
+                        <Text style={{fontSize:14, fontWeight:'normal'}}> 
+                         {class_descrip}
+                          </Text>
                     </View>
                             </ScrollView>
                        
@@ -75,11 +126,25 @@ export default function CourseDescriptionScreen({ navigation,route}){
                     {/* *button so student can enroll in a specific course */}
                     <View style ={{marginLeft: 40,
                             marginTop:5, flexDirection:'column'}}>
-                    <TouchableOpacity style ={styles.enroll} onPress={()=>{{navigation.navigate('CourseView'),{
-                        class_id:class_id,
-                        class_name: class_name
-                    }};
-                    alert('Enrolled accepted')}}>
+                    <TouchableOpacity  style ={styles.enroll} onPress={()=>
+                    { 
+                        enrolled();
+                        if(isEnrolled== true) {
+                        
+                        navigation.navigate('Course View',{
+                       classDesc: class_descrip,
+                       classId:class_id,
+                        className: class_name
+                    });
+                }
+                else{
+                    signUp();
+                    navigation.navigate('Course View',{
+                        classDesc: class_descrip,
+                        classId:class_id,
+                         className: class_name
+                });
+                   }}}>
                             <Text style={styles.text}>
                                 Enroll
                             </Text>
@@ -99,10 +164,12 @@ export default function CourseDescriptionScreen({ navigation,route}){
 
 const styles = StyleSheet.create({
     card:{
-        width: 450, 
+        alignSelf:'center',
+         width: 350, 
         height: 300, 
         borderRadius: 40,
         marginLeft:50, 
+        marginRight:50,
         marginTop:50, 
         backgroundColor:'white',
         flexDirection:'row',
@@ -127,7 +194,7 @@ const styles = StyleSheet.create({
     },
     courseDescript:{
         fontWeight:"500",
-        fontSize:30,
+        fontSize:20,
        
     },
     text:{
@@ -139,8 +206,8 @@ const styles = StyleSheet.create({
     enroll:{
         alignItems:'center',
         backgroundColor:'blue',
-        borderRadius:5,
+        borderRadius:25,
         width: 100,
-        height: 40,
+        height: 50,
     }
 })

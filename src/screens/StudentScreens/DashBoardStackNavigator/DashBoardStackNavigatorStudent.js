@@ -5,6 +5,8 @@ import CourseDescription from './studentCourseDescription'
 import StudentDashboard from './StudentDashboard'
 import GeomClass from "./classes"
 import StudentCourseView from './studentCourseView'
+import StudentLessonView from './StudentLessonView'
+
 const Stack = createNativeStackNavigator()
 
 
@@ -14,10 +16,11 @@ export default function DashBoardStackNavigatorStudent(navigation) {
       headerShown: true,
     }}>
 
-     <Stack.Screen name="Geometry Class" component={GeomClass}/>
-      <Stack.Screen name="Course Description" component={CourseDescription}/>
-     <Stack.Screen name="CourseView" component={StudentCourseView}/>
       <Stack.Screen name="Student Dashboard" component={StudentDashboard} options={{ headerShown: false }}/>
+     {/* <Stack.Screen name="Geometry Class" component={GeomClass}/> */}
+      <Stack.Screen name="Course Description" component={CourseDescription}/>
+     <Stack.Screen name="Student Course View" component={StudentCourseView} />
+     <Stack.Screen name="Lesson View" component={StudentLessonView}/>
       
 
     </Stack.Navigator>

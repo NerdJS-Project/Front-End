@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext, useLayoutEffect } from "react";
 import * as React from "react-native";
-import { BottomSheet, Button, ListItem } from "react-native-elements";
 
 import { Component } from "react";
 //import { render } from 'react-dom';
@@ -19,18 +18,17 @@ import {
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 // import {AuthContext} from '../store/AuthContext';
-import ModuleView from "../../../component/ModuleView";
+import StudentModuleView from "../../../component/StudentModuleView";
 import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
+
 //  import Course from '../component/course';
 
 
 
 export default function StudentCourseView({ navigation, route }) {
 //retrieving course name and courseID from route.params
-    const {class_id, class_name} = route.params;
-
-
+    const {classId, className} = route.params;
 
 
   //-----------API Connection Code----------
@@ -42,41 +40,87 @@ export default function StudentCourseView({ navigation, route }) {
   const apiConnection = new APIConnection();
   useEffect(() => {
     if (isFocused) {
-      apiConnection
-        .getModulesAndLessonInstructorCourseViewScreen(class_id)
-        .then((json) => {
-          let d = processAPIData(json);
-          setFinalData(d);
-        });
+      apiConnection.getAllModulesForClass(classId)
+      .then((json)=>{
+ 
+        let data = processAPIModuleData(json);
+        data.forEach(element=>{
+
+         console.log('data :'+ element.Module_ID);
+          apiConnection.getLessonsInModule(element.Module_ID)
+          .then((json)=>{
+             processAPILesson(element.Lessons,json);
+          
+          });
+          
+        })
+       
+        setFinalData(data);
+
+      })
+
     }
+
   }, [isFocused]);
 
   
-  // async function courseView(){
-  //     await 
-  // }
+  function processAPILesson(lessonArr, lessonData){
 
+    for(let i =0; i < lessonData.length; i++){
+      let newLesson={};
+      newLesson['lesson_id'] = lessonData[i].lesson_id;
+      newLesson['lesson_name'] = lessonData[i].lesson_name;
+      newLesson['lesson_descrip'] = lessonData[i].lesson_descrip;
+      newLesson['lesson_index'] = lessonData[i].lesson_index;
+
+      lessonArr[i] = newLesson;
+      
+    }
+    return lessonArr;
+  }
+
+
+    //Morph json from API into an array that we can use
+    function processAPIModuleData(json){
+      let returnData=[]
+     for(let i = 0; i <json.length; i++){
+       let newModule = {};
+       newModule['isExpanded'] = false;
+       newModule['Module_Title'] = json[i].module_name;
+       newModule['Module_ID'] = json[i].module_id;
+       newModule['instructorID'] = json[i].instructor_id;
+      newModule['Lessons'] = [];
+  
+      returnData[i] = newModule;
+  
+      
+     }
+   
+     return returnData;
+  }
+  
+ 
 
   //---------------------------------------
 
   //Morph json from API into an array that we can use
-  function processAPIData(json) {
-    let returnData = [];
-    for (let i = 0; i < json.length; i++) {
-      let newModule = {};
-      newModule["isExpanded"] = false;
-      newModule["Module_Title"] = json[i].module_name;
-      newModule['instructorID'] = json[i].instructor_id;
-      let newLessonArray = [];
-      for (let j = 0; j < json[i].lessons.length; j++) {
-        newLessonArray[j] = json[i].lessons[j];
-        setLessonID(newLessonArray[j].lesson_id);
-      }
-      newModule["Lessons"] = newLessonArray;
-      returnData[i] = newModule;
-    }
-    return returnData;
-  }
+  // function processAPIData(json) {
+  //   let returnData = [];
+  //   for (let i = 0; i < json.length; i++) {
+  //     let newModule = {};
+  //     newModule["isExpanded"] = false;
+  //     newModule["Module_Title"] = json[i].module_name;
+  //     newModule['instructorID'] = json[i].instructor_id;
+  //     let newLessonArray = [];
+  //     for (let j = 0; j < json[i].lessons.length; j++) {
+  //       newLessonArray[j] = json[i].lessons[j];
+  //       setLessonID(newLessonArray[j].lesson_id);
+  //     }
+  //     newModule["Lessons"] = newLessonArray;
+  //     returnData[i] = newModule;
+  //   }
+  //   return returnData;
+  // }
 
 
   if (Platform.OS == "android") {
@@ -110,7 +154,7 @@ export default function StudentCourseView({ navigation, route }) {
               fontWeight: "600",
             }}
           >
-            {class_name}
+            {className}
           </Text>
         </View>
 
@@ -129,7 +173,7 @@ export default function StudentCourseView({ navigation, route }) {
               </View>
               <ScrollView>
                 {finalData.map((item, key) => (
-                  <ModuleView
+                  <StudentModuleView
                     key={key}
                     onClickFunction={() => {
                       updateLayout(key);
@@ -139,6 +183,7 @@ export default function StudentCourseView({ navigation, route }) {
                     instructorID = {finalData[0].instructorID}
                     item={item}
                   />
+                  
                 ))}
               </ScrollView>
             </View>
@@ -146,16 +191,7 @@ export default function StudentCourseView({ navigation, route }) {
           </View>
         </ScrollView>
 
-        {/* <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => navigation.navigate('EditCourseAndModule', {
-              courseID: courseID,
-              courseName: courseName
-             })}
-        >
-          <FontAwesome5 name={"edit"} color={"white"} size={20} />
-        </TouchableOpacity> */}
-        {/* </View> */}
+       
       </SafeAreaView>
       
     </View>

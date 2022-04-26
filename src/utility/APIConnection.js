@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import { AuthContext } from '../store/AuthContext';
-var url = "http://localhost:3001/api"
-
+//var url = "${url}"
+var url = "http://192.168.1.229:3001/api"
+//var url = "http://10.117.160.154:3001/api";
 
 
 
@@ -15,12 +16,92 @@ class APIConnection{
         this.user_id = this.authCtx.user_id;
     }
 
+    async getUnitProgress(unit_id){
+      try {
+        const response = await fetch(`${url}/progress/findByUnit/${unit_id}/${this.user_id}`, {
+           method: 'GET',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+             'token': this.token,
+           },
+         });
+        const json = await response.json();
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+      }
+    }
+
+    async getLessonProgress(lesson_id){
+      try {
+        const response = await fetch(`${url}/progress/findByLessonAndUser/${lesson_id}/${this.user_id}`, {
+           method: 'GET',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+             'token': this.token,
+           },
+         });
+        const json = await response.json();
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+      }
+    }
+
+    async getModuleProgress(module_id){
+      try {
+        const response = await fetch(`${url}/progress/findByModuleAndUser/${module_id}/${this.user_id}`, {
+           method: 'GET',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+             'token': this.token,
+           },
+         });
+        const json = await response.json();
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+      }
+    }
+
+    async getClassProgress(class_id){
+      try {
+        const response = await fetch(`${url}/progress/findByClassAndUser/${class_id}/${this.user_id}`, {
+           method: 'GET',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+             'token': this.token,
+           },
+         });
+        const json = await response.json();
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+      }
+    }
+
     async getClasses() {
 
         
-        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        console.log("fetch url dash board debug: " + `${url}/class/findByUser/`+this.user_id);
           try {
-           const response = await fetch('http://localhost:3001/api/class/findByUser/'+ this.user_id, {
+           const response = await fetch(`${url}/class/findByUser/`+ this.user_id, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -38,12 +119,15 @@ class APIConnection{
          }
        }
 
+
+
+
        async getSearchClassResultSearchScreen(keyword) {
 
         
-        console.log("class search api called: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        console.log("class search api called: " + `${url}/class/findByUser/`+this.user_id);
           try {
-           const response = await fetch('http://localhost:3001/api/class/findByName/'+ keyword, {
+           const response = await fetch(`${url}/class/findByName/`+ keyword, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -65,7 +149,7 @@ class APIConnection{
            
         try {
             console.log("post class api called: ");
-            const response = fetch('http://localhost:3001/api/class/create', {
+            const response = fetch(`${url}/class/create`, {
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',
@@ -90,9 +174,9 @@ class APIConnection{
        async getUserForProfilePage() {
 
         
-        console.log("get user for profile page called " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+       // console.log("get user for profile page called " + `${url}/class/findByUser/`+this.user_id);
           try {
-           const response = await fetch('http://localhost:3001/api/user/'+ this.user_id, {
+           const response = await fetch(`${url}/user/`+ this.user_id, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -114,9 +198,9 @@ class APIConnection{
 
 
         
-        console.log("get modules and lessons called " + 'http://localhost:3001/api/class/findByUser/'+courseID);
+        console.log("get modules and lessons called " + `${url}/class/findByUser/`+courseID);
           try {
-           const response = await fetch('http://localhost:3001/api/class/modulesAndLessons/'+ courseID, {
+           const response = await fetch(`${url}/class/modulesAndLessons/`+ courseID, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -133,11 +217,51 @@ class APIConnection{
          }
        }
 
+      async getAllModulesForClass(courseID){
+              try {
+           const response = await fetch(`${url}/module/findByClass/`+ courseID, {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            });
+           const json = await response.json();
+
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+         }
+      }
+
+      async getLessonsInModule(moduleID){
+        try {
+          const response = await fetch(`${url}/lesson/findByModule/`+ moduleID, {
+             method: 'GET',
+             headers: {
+               Accept: 'application/json',
+               'Content-Type': 'application/json',
+             },
+           });
+          const json = await response.json();
+           
+          return json;
+        } catch (error) {
+          console.error(error);
+          this.authCtx.logout
+        
+        } finally {
+        }
+      }
+
+
       
      async putLessonNameForLessonCreation(lessonName,lessonId,less_description,
         less_index, mod_id){
       try {
-        const response = await fetch('http://localhost:3001/api/lesson/update/'+lessonId, {
+        const response = await fetch(`${url}/lesson/update/`+lessonId, {
            method: 'PUT',
            headers: {
              Accept: 'application/json',
@@ -168,7 +292,7 @@ class APIConnection{
      async getSingleLessonForLessonCreation(lesson_id){
       try {
         // class in route worked instead of lesson
-        const response = await fetch('http://localhost:3001/api/lesson/findById/'+lesson_id, {
+        const response = await fetch(`${url}/lesson/findById/`+lesson_id, {
            method: 'GET',
            headers: {
              Accept: 'application/json',
@@ -189,7 +313,7 @@ class APIConnection{
      // student route will be moved eventually
      async getClassByIdForStudentCourseDescription(classId){
        try{
-      const response = await fetch('http://localhost:3001/api/class/findById/'+classId, {
+      const response = await fetch(`${url}/class/findById/`+classId, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -209,12 +333,9 @@ class APIConnection{
      }
 
       async getSectionsPerLesson(lesson_id){
-        // console.log("token  " + this.token);
         
-       // console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/');
-     //  console.log(LessonID);
           try {
-           const response = await fetch('http://localhost:3001/api/unit/findByLesson/'+lesson_id, {
+           const response = await fetch(`${url}/unit/findByLesson/`+lesson_id, {
               method: 'GET',
               headers: {
                 Accept: 'application/json',
@@ -235,7 +356,7 @@ class APIConnection{
 
     async addUnitForLessonCreation(lessonID,instID){
       try {
-        const response = await fetch('http://localhost:3001/api/unit/create/', {
+        const response = await fetch(`${url}/unit/create/`, {
            method: 'POST',
            headers: {
              Accept: 'application/json',
@@ -263,7 +384,7 @@ class APIConnection{
 
     async deleteUnit(unit_id){
       try {
-        const response = await fetch('http://localhost:3001/api/unit/'+unit_id, {
+        const response = await fetch(`${url}/unit/`+unit_id, {
            method: 'DELETE',
            headers: {
              Accept: 'application/json',
@@ -287,17 +408,17 @@ class APIConnection{
     //student enroll
     async signUpForClass(classID){
       try {
-        const response = await fetch('http://localhost:3001/api/class/signup/'+classID, {
+        const response = await fetch(`${url}/class/signup/`+classID, {
            method: 'POST',
            headers: {
              Accept: 'application/json',
              'Content-Type': 'application/json',
              'token': this.token,
            },
-           body: JSON.stringify({ 
-            
-             class_id: classID
-         })
+        //    body: JSON.stringify({ 
+          
+        //      class_id: classID
+        //  })
          });
         const json = await response.json();
 
@@ -309,14 +430,18 @@ class APIConnection{
       }
     }
 
+   
+
+
+
 
 
        async editModule(moduleID, newModuleName, newModuleDescription, classID) {
 
         
-        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        console.log("fetch url dash board debug: " + `${url}/class/findByUser/`+this.user_id);
           try {
-           const response = await fetch('http://localhost:3001/api/module/update/'+ moduleID, {
+           const response = await fetch('${url}/module/update/'+ moduleID, {
               method: 'PUT',
               headers: {
                 Accept: 'application/json',
@@ -343,9 +468,9 @@ class APIConnection{
        async deleteModule(moduleID) {
 
         
-        console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/'+this.user_id);
+        console.log("fetch url dash board debug: " + `${url}/class/findByUser/`+this.user_id);
           try {
-           const response = await fetch('http://localhost:3001/api/module/delete/'+ moduleID, {
+           const response = await fetch('${url}/module/delete/'+ moduleID, {
               method: 'DELETE',
               headers: {
                 Accept: 'application/json',
@@ -369,7 +494,7 @@ class APIConnection{
         
         console.log("Creating Module aPI called " );
           try {
-           const response = await fetch('http://localhost:3001/api/module/create/', {
+           const response = await fetch(`${url}/module/create/`, {
               method: 'POST',
               headers: {
                 Accept: 'application/json',

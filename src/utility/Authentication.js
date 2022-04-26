@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-var url = "http://localhost:3001/api"
+//var url = "http://localhost:3001/api"
+var url = "http://192.168.1.229:3001/api"
+//var url = "http://10.117.160.154:3001/api";
 class Authentication{
     async signIn(user_email, user_password){
         console.log(user_email, user_password);

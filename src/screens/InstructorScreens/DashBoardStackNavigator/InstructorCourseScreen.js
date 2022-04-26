@@ -37,39 +37,90 @@ export default function InstructorCourseView({ navigation, route }) {
   const isFocused = useIsFocused();
 
   const [finalData, setFinalData] = useState([]);
+  const [moduleID, setModuleID] = useState('');
   const [lessonID, setLessonID] = useState(0);
 
   const apiConnection = new APIConnection();
   useEffect(() => {
     if (isFocused) {
-      apiConnection
-        .getModulesAndLessonInstructorCourseViewScreen(courseID)
-        .then((json) => {
-          let d = processAPIData(json);
-          setFinalData(d);
+
+      apiConnection.getAllModulesForClass(courseID)
+      .then((json)=>{
+ 
+        let data = processAPIModuleData(json);
+        data.forEach(element=>{
+    
+            apiConnection.getLessonsInModule(element.Module_ID)
+            .then((json)=>{
+              processAPILesson(element.Lessons,json);
+            
+            });
+         
         });
+       
+        setFinalData(data);
+
+      })
+
     }
   }, [isFocused]);
+
+
+  function processAPILesson(lessonArr, lessonData){
+
+    for(let i =0; i < lessonData.length; i++){
+      let newLesson={};
+      newLesson['lesson_id'] = lessonData[i].lesson_id;
+      newLesson['lesson_name'] = lessonData[i].lesson_name;
+      newLesson['lesson_descrip'] = lessonData[i].lesson_descrip;
+      newLesson['lesson_index'] = lessonData[i].lesson_index;
+
+      lessonArr[i] = newLesson;
+      
+    }
+    return lessonArr;
+  }
+
+
   //---------------------------------------
 
   //Morph json from API into an array that we can use
-  function processAPIData(json) {
-    let returnData = [];
-    for (let i = 0; i < json.length; i++) {
-      let newModule = {};
-      newModule["isExpanded"] = false;
-      newModule["Module_Title"] = json[i].module_name;
-      newModule['instructorID'] = json[i].instructor_id;
-      let newLessonArray = [];
-      for (let j = 0; j < json[i].lessons.length; j++) {
-        newLessonArray[j] = json[i].lessons[j];
-        setLessonID(newLessonArray[j].lesson_id);
-      }
-      newModule["Lessons"] = newLessonArray;
-      returnData[i] = newModule;
-    }
-    return returnData;
-  }
+  function processAPIModuleData(json){
+    let returnData=[]
+   for(let i = 0; i <json.length; i++){
+     let newModule = {};
+     newModule['isExpanded'] = false;
+     newModule['Module_Title'] = json[i].module_name;
+     newModule['Module_ID'] = json[i].module_id;
+     newModule['instructorID'] = json[i].instructor_id;
+    newModule['Lessons'] = [];
+
+    returnData[i] = newModule;
+
+    
+   }
+ 
+   return returnData;
+}
+
+
+  // function processAPIData(json) {
+  //   let returnData = [];
+  //   for (let i = 0; i < json.length; i++) {
+  //     let newModule = {};
+  //     newModule["isExpanded"] = false;
+  //     newModule["Module_Title"] = json[i].module_name;
+  //     newModule['instructorID'] = json[i].instructor_id;
+  //     let newLessonArray = [];
+  //     for (let j = 0; j < json[i].lessons.length; j++) {
+  //       newLessonArray[j] = json[i].lessons[j];
+  //       setLessonID(newLessonArray[j].lesson_id);
+  //     }
+  //     newModule["Lessons"] = newLessonArray;
+  //     returnData[i] = newModule;
+  //   }
+  //   return returnData;
+  // }
 
 
   if (Platform.OS == "android") {
@@ -83,7 +134,7 @@ export default function InstructorCourseView({ navigation, route }) {
 
     array[index]["isExpanded"] = !array[index]["isExpanded"];
 
-    setFinalData(array);
+   setFinalData(array);
   };
 
   
@@ -121,7 +172,7 @@ export default function InstructorCourseView({ navigation, route }) {
                 ></TouchableOpacity>
               </View>
               <ScrollView>
-                {finalData.map((item, key) => (
+                 {finalData.map((item, key) => (
                   <ModuleView
                     key={key}
                     onClickFunction={() => {
@@ -132,7 +183,7 @@ export default function InstructorCourseView({ navigation, route }) {
                     instructorID = {finalData[0].instructorID}
                     item={item}
                   />
-                ))}
+                ))} 
               </ScrollView>
             </View>
             {/* </SafeAreaView> */}

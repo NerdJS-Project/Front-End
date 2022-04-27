@@ -14,12 +14,7 @@ export default function SettingStackNavigatorInstructor()  {
     <Stack.Navigator screenOptions={{
       headerShown: false,
     }}>
-      <Stack.Screen name="Quiz Edit Component" component={QuizEditComponent} />
-
-      <Stack.Screen name="Create Content" component={CreateContent} />
       <Stack.Screen name="Setting" component={InstructorSetting} />
-
-
     </Stack.Navigator>
   )
 }

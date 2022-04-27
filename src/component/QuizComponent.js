@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,46 +12,49 @@ import {
 import { COLORS, SIZES } from "../constants/themes";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Icon } from "react-native-elements/dist/icons/Icon";
+import APIConnection from "../utility/APIConnection";
+import { useIsFocused } from "@react-navigation/native";
 
-export default function QuizComponent() {
+export default function QuizComponent({unitID, navigation}) {
+
+
+
   const data = [
     {
-      question: "What’s the biggest planet in our solar system?",
-      options: ["Jupiter", "Saturn", "Neptune", "Mercury"],
-      correct_option: "Jupiter",
+      quizdata_id: 1,
+      quizdata_question: "Quiz loading...",
+      quizdata_answers: ["Quiz loading...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      correct_option: 0,
     },
     {
-      question: "What attraction in India is one of the famus in the world?",
-      options: ["Chand Minar", "Taj Mahal", "Stadium"],
-      correct_option: "Taj Mahal",
+      quizdata_id: 2,
+      quizdata_question: "Quiz loading...",
+      quizdata_answers: ["HI...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      correct_option: 1,
     },
     {
-      question: "What land animal can open its mouth the widest?",
-      options: ["Alligator", "Crocodile", "Baboon", "Hippo"],
-      correct_option: "Hippo",
+      quizdata_id: 3,
+      quizdata_question: "Quiz loading...",
+      quizdata_answers: ["Quiz loading...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      correct_option: 2,
     },
     {
-      question: "What is the largest animal on Earth?",
-      options: [
-        "The African elephant",
-        "The blue whale",
-        "The sperm whale",
-        "The giant squid",
-      ],
-      correct_option: "The blue whale",
-    },
-    {
-      question: "What is the only flying mammal?",
-      options: [
-        "The bat",
-        "The flying squirrel",
-        "The bald eagle",
-        "The colugo",
-      ],
-      correct_option: "The bat",
-    },
+      quizdata_id: 4,
+      quizdata_question: "Quiz loading...",
+      quizdata_answers: ["Quiz loading...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      correct_option: 3,
+    }
   ];
-  const allQuestions = data;
+
+
+
+
+
+
+
+
+
+  const [allQuestions, setAllQuestions] = useState(data);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
   const [correctOption, setCorrectOption] = useState(null);
@@ -59,6 +62,93 @@ export default function QuizComponent() {
   const [score, setScore] = useState(0);
   const [showNextButton, setShowNextButton] = useState(false);
   const [showScoreModal, setShowScoreModal] = useState(false);
+
+
+
+
+//not needed, just being used for printing
+  const [iQuizData, setIQuizData] = useState();
+// also not needed as well
+  const [quizID, setQuizID] = useState();
+  const isFocused = useIsFocused();
+
+
+
+  const apiConnection = new APIConnection();
+  useEffect(() => {
+
+  
+      async function fetchMyAPI() {
+          let response = await apiConnection.getUnitQuizContent(unitID);
+          if(response.status == 400)
+          {
+            //do nothing, for now
+              
+
+          }
+          response = await response.json();
+
+          setQuizID(response[0].quiz_id);
+
+          let quizDataResponse = await apiConnection.getQuizData(response[0].quiz_id);
+
+          if(quizDataResponse.status == 400)
+          {
+              // do nothing
+          }
+          else {
+              quizDataResponse = await quizDataResponse.json();
+
+              setIQuizData(quizDataResponse);
+              processJSON(quizDataResponse);
+              console.log("Quiz data fetched is: " + iQuizData)
+          }
+
+        }
+
+        if(isFocused) {
+          fetchMyAPI();
+
+
+      }
+
+  }, [isFocused]);
+
+
+
+  function processJSON(quizDataResponse)
+  {
+      let json = quizDataResponse;
+      for(let i = 0; i < quizDataResponse.length; i++)
+      {
+          let answers = quizDataResponse[i].quizdata_answers;
+          answers = answers.replace(/[']+/g, '"');
+          let answersJson = JSON.parse(answers);
+          json[i].quizdata_answers = answersJson.choices;
+          json[i].correct_option = answersJson.answer;
+
+          console.log("Quiz data answers" + answersJson.type + answersJson[0]);
+          console.log("Quiz data answers array" + ["hi", "There", "Cutie"]);
+
+
+
+      }
+
+      setAllQuestions(json);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const validateAnswer = (selectedOption) => {
     let correct_option = allQuestions[currentQuestionIndex]["correct_option"];
@@ -107,6 +197,14 @@ export default function QuizComponent() {
     }).start();
   };
 
+
+  async function saveProgressAndNext()
+  {
+    await apiConnection.postProgress(unitID);
+    setShowScoreModal(false);
+
+  }
+
   const renderQuestion = () => {
     return (
       <View
@@ -143,7 +241,7 @@ export default function QuizComponent() {
             fontSize: 30,
           }}
         >
-          {allQuestions[currentQuestionIndex]?.question}
+          {allQuestions[currentQuestionIndex]?.quizdata_question}
         </Text>
       </View>
     );
@@ -151,25 +249,25 @@ export default function QuizComponent() {
   const renderOptions = () => {
     return (
       <View>
-        {allQuestions[currentQuestionIndex]?.options.map((option) => (
+        {allQuestions[currentQuestionIndex]?.quizdata_answers.map((option, index) => (
           <TouchableOpacity
-            onPress={() => validateAnswer(option)}
+            onPress={() => validateAnswer(index)}
             disabled={isOptionsDisabled}
-            key={option}
+            key={index}
             style={{
               borderWidth: 3,
               borderColor:
-                option == correctOption
+                index == correctOption
                   ? COLORS.success
-                  : option == currentOptionSelected
-                  ? COLORS.error
-                  : COLORS.secondary + "40",
+                  : index == currentOptionSelected
+                    ? COLORS.error
+                    : COLORS.secondary + "40",
               backgroundColor:
-                option == correctOption
+                index == correctOption
                   ? COLORS.success + "20"
-                  : option == currentOptionSelected
-                  ? COLORS.error + "20"
-                  : COLORS.secondary + "20",
+                  : index == currentOptionSelected
+                    ? COLORS.error + "20"
+                    : COLORS.secondary + "20",
               height: 60,
               borderRadius: 20,
               flexDirection: "row",
@@ -182,7 +280,7 @@ export default function QuizComponent() {
             <Text style={{ fontSize: 20, color: COLORS.white }}>{option}</Text>
 
             {/* Show Check Or Cross Icon based on correct answer*/}
-            {option == correctOption ? (
+            {index == correctOption ? (
               <View
                 style={{
                   width: 30,
@@ -201,7 +299,7 @@ export default function QuizComponent() {
                   }}
                 />
               </View>
-            ) : option == currentOptionSelected ? (
+            ) : index == currentOptionSelected ? (
               <View
                 style={{
                   width: 30,
@@ -250,7 +348,7 @@ export default function QuizComponent() {
       return null;
     }
   };
-//--------------------Progress Bar-----------------
+  //--------------------Progress Bar-----------------
   const [progress, setProgress] = useState(new Animated.Value(0));
   const progressAnim = progress.interpolate({
     inputRange: [0, allQuestions.length],
@@ -385,6 +483,32 @@ export default function QuizComponent() {
                   Retry Quiz
                 </Text>
               </TouchableOpacity>
+              {/* Save Progress button */}
+
+              <TouchableOpacity
+                onPress={() =>saveProgressAndNext()}
+                style={{
+                  backgroundColor: COLORS.accent,
+                  padding: 20,
+                  width: "100%",
+                  borderRadius: 20,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: COLORS.white,
+                    fontSize: 20,
+                  }}
+                >
+                  Save Progress
+                </Text>
+              </TouchableOpacity>
+
+
+
+
+
             </View>
           </View>
         </Modal>

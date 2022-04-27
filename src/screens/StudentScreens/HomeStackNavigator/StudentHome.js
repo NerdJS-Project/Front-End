@@ -17,7 +17,7 @@ import {
 } from "react-native";
 import APIConnection from "../../../utility/APIConnection";
 
-export default function StudentClassSearchScreenTest() {
+export default function StudentClassSearchScreenTest({ navigation }) {
   //-------------------API Fetch code-------------------------
 
   const isFocused = useIsFocused();
@@ -31,10 +31,21 @@ export default function StudentClassSearchScreenTest() {
 
   function searchAPI(keyword) {
     apiConnection.getSearchClassResultSearchScreen(keyword).then((json) => {
-        console.log("Class search debug " + json);
+      console.log("Class search debug " + json);
 
-        setData(json);
+      setData(json);
     });
+  }
+  function onCoursePress(course_id, course_name, course_descrip) {
+    navigation.navigate("Dashboard",
+      {
+        screen: 'Course Description',
+        params: { 
+          class_id: course_id, 
+          class_name: course_name, 
+          class_descrip: course_descrip }
+      })
+      
   }
 
   const [searchTerm, setSearchTerm] = useState("Trigonometry");
@@ -77,9 +88,11 @@ export default function StudentClassSearchScreenTest() {
             </TouchableOpacity>
             )})} }  */}
 
-        {data.length > 0 &&  data.map((item, key) => {
+        {data.length > 0 && data.map((item, key) => {
           return (
-            <TouchableOpacity key={key}>
+            <TouchableOpacity key={key}
+              onPress={() => onCoursePress(item.class_id, item.class_name, item.class_descrip)}
+            >
               <Text style={styles.boxes}>
                 {item.class_name + item.class_descrip + item.instructor_name}
               </Text>

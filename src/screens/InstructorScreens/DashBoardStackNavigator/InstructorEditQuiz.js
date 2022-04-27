@@ -13,12 +13,14 @@ const AnimatedView = animated(View);
 
 
 
-export default function InstructorQuizEdit({ navigation, route }) {
+export default function InstructorQuizEdit({ navigation, route, quizJSONData, setQuizJSONData }) {
     const {unitID, unitName} = route.params;
 
 return(
     <SafeAreaView>
-        <QuizEditComponent>
+        <QuizEditComponent
+        unitID={unitID}
+        >
 
         </QuizEditComponent>
 

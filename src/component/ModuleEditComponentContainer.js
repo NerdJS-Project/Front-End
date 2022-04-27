@@ -25,7 +25,7 @@ import { useTransition, animated } from 'react-spring/native'
 const AnimatedView = animated(View);
 
 
-export default function ModuleEditComponentContainer({ stateData, setStateData }) {
+export default function ModuleEditComponentContainer({ stateData, setStateData, navigation }) {
 
     //take in 3 arguments
 
@@ -44,7 +44,8 @@ export default function ModuleEditComponentContainer({ stateData, setStateData }
                         key={key}
                         allData={stateData}
                         setData={setStateData}
-                        lessonData={module}>
+                        lessonData={module}
+                        navigation={navigation}>
 
                     </ModuleEditComponent>
 

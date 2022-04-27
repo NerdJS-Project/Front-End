@@ -18,10 +18,12 @@ import Authentication from "../utility/Authentication";
 import { Input, Icon, ButtonGroup, Divider } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLinkProps } from "@react-navigation/native";
+import APIConnection from "../utility/APIConnection";
 
-export default function ModuleEditComponent({ allData, setData, lessonData }) {
+export default function ModuleEditComponent({ allData, setData, lessonData, navigation }) {
   const [ModuleName, setModuleName] = useState(lessonData.module_name);
   const moduleID = lessonData.module_id;
+  const apiConnection = new APIConnection();
 
   function updateModuleNameToParent(newModuleName) {
     let index = allData.findIndex((module) => module.module_id === moduleID);
@@ -32,6 +34,37 @@ export default function ModuleEditComponent({ allData, setData, lessonData }) {
       newAllData[index].changeType = "Edited";
     }
     setData(newAllData);
+  }
+
+
+  async function addNewLesson()
+  {
+
+    let response = await apiConnection.postLesson(moduleID);
+    let lessonID = response.result[0].lesson_id;
+    let lessonName = response.result[0].lesson_name;
+
+    navigation.navigate(
+
+      'LessonCreation', {
+        lessonID: lessonID,
+        lessonName: lessonName
+        
+      }
+    )
+
+
+
+  }
+
+
+  function onLessonPress(lessonId, lessonName)
+  {
+    navigation.navigate('LessonCreation', {
+      lessonID: lessonId,
+      lessonName: lessonName
+      
+    })
   }
 
   function deleteModule() {
@@ -45,7 +78,7 @@ export default function ModuleEditComponent({ allData, setData, lessonData }) {
 
     for (let i = 0; i < lessonData["lessons"].length; i++) {
       result.push(
-        <TouchableOpacity key={i} style={[styles.button]}>
+        <TouchableOpacity key={i} style={[styles.button]} onPress={() => onLessonPress(lessonData.lessons[i].lesson_id, lessonData.lessons[i].lesson_name)}>
           <Text style={[styles.buttonLabel]}>
             {lessonData["lessons"][i].lesson_name}
           </Text>
@@ -84,6 +117,11 @@ export default function ModuleEditComponent({ allData, setData, lessonData }) {
 
       <View>
         <TouchableOpacity
+        onPress={() => addNewLesson()}
+
+
+
+
           style={{
             alignSelf: "center",
           }}

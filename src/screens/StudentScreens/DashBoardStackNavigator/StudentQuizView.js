@@ -17,6 +17,8 @@ import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 import { color } from "react-native-elements/dist/helpers";
 import { useIsFocused } from "@react-navigation/native";
 import { RadioButton } from 'react-native-paper';
+import APIConnection from "../../../utility/APIConnection";
+import QuizComponent from "../../../component/QuizComponent";
 
 
 
@@ -27,34 +29,13 @@ export default function StudentQuizView({ navigation, route }) {
 
 
 
-    const [data, setData] = useState([]);
 
-    const apiConnection = new APIConnection();
-    const isFocused = useIsFocused();
-
-
-
-
-    useEffect(() => {
-        //your code here
-        if (isFocused) {
-            apiConnection.getUnitContent(unitID).then((json) => {
-                setData(json);
-                let newVideoData = json.unit_content;
-                setUnitContent(newVideoData);
-            })
-
-
-        }
-
-    }, [isFocused]);
-
-
-    
 
     return(
         <View>
-            
+            <QuizComponent
+            unitID={unitID}
+            ></QuizComponent>
         </View>
     )
 

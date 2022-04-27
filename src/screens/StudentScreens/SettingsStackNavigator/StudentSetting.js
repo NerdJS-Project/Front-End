@@ -7,8 +7,7 @@ import QuizComponent from '../../../component/QuizComponent';
 export default function StudentSetting({}) {
 return (
     <View>
-    <QuizComponent></QuizComponent>
-    <Text>Student Setting</Text>
+     <Text>Student Setting</Text>
 
     </View>
 )

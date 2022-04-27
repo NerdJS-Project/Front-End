@@ -175,13 +175,7 @@ class APIConnection {
           }
         }
 
-<<<<<<< HEAD
-       async getUserForProfilePage() {
-
-        console.log("get user for profile page called " +  url + '/class/findByUser/'+this.user_id);
-=======
         async postLesson(ModuleID){
->>>>>>> 4f6f2c242c67dff15c5a994f3ef98b40a9d527ad
           try {
             const response = await fetch(`${url}/lesson/create`, {
                method: 'POST',
@@ -210,8 +204,7 @@ class APIConnection {
         }
 
 
-<<<<<<< HEAD
-       async editUserProfile(newName, userType, newBio) {
+       async editUserProfile(newName, userType, newBio, newPic) {
           try {
            const response = await fetch('http://localhost:3001/api/user/update/'+ this.user_id, {
               method: 'PUT',
@@ -223,6 +216,7 @@ class APIConnection {
               body:JSON.stringify({ 
                 user_name: newName,
                 user_type: userType,
+                user_pp: newPic,
                 user_bio: newBio
             })
             });
@@ -262,9 +256,6 @@ class APIConnection {
 
 
 
-       async getModulesAndLessonInstructorCourseViewScreen(courseID) {
-         console.log("get modules and lessons called " + 'http://localhost:3001/api/class/findByUser/'+courseID);
-=======
   async getClasses() {
 
 
@@ -279,7 +270,6 @@ class APIConnection {
         },
       });
       const json = await response.json();
->>>>>>> 4f6f2c242c67dff15c5a994f3ef98b40a9d527ad
 
       return json;
     } catch (error) {
@@ -291,72 +281,12 @@ class APIConnection {
 
   async getUnitQuizContent(unitID) {
 
-<<<<<<< HEAD
-       
-
-
-     async putLessonNameForLessonCreation(lessonName,lessonId,less_description,
-        less_index, mod_id){
-      try {
-        const response = await fetch( url + '/lesson/update/'+lessonId, {
-           method: 'PUT',
-           headers: {
-             Accept: 'application/json',
-             'Content-Type': 'application/json',
-             'token': this.token 
-           },
-           body:JSON.stringify({
-             lesson_name: lessonName,
-             lesson_descrip: less_description,
-             lesson_index: less_index,
-             module_id: mod_id
-           })
-
-            
-          });
-          const json = await response.json();
-          console.log("Json api: " + json);
-
-          return json;
-        } catch (error) {
-          console.error(error);
-          this.authCtx.logout
-        } finally {
-        }
-     }
-
-     async getSingleLessonForLessonCreation(lesson_id){
-      try {
-        const response = await fetch( url + '/lesson/findById/'+lesson_id, {
-           method: 'GET',
-           headers: {
-             Accept: 'application/json',
-             'Content-Type': 'application/json',
-           },
-         });
-        const json = await response.json();
-        console.log("Json api: " + json);
-
-        return json;
-      } catch (error) {
-        console.error(error);
-        this.authCtx.logout
-      } finally {
-   }
-     }
-
-     // student route will be moved eventually
-     async getClassByNameForStudentCourseDescription(class_id){
-       try{
-      const response = await fetch('http://http://localhost:3001/api/class/findByName/'+class_id, {
-=======
 
     console.log("fetch unit content quiz " + url + '/quiz/findByUnitId/' + unitID);
     let response = "initial response";
 
     try {
       response = await fetch(url + '/quiz/findByUnitId/' + unitID, {
->>>>>>> 4f6f2c242c67dff15c5a994f3ef98b40a9d527ad
         method: 'GET',
         headers: {
           Accept: 'application/json',

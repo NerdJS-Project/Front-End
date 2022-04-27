@@ -7,16 +7,14 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-
 import {TextInput} from 'react-native-paper';
-
 import Icon from 'react-native-vector-icons/AntDesign';
-import APIConnection from "../../../utility/APIConnection";
+
+import APIConnection from "../../../utility//APIConnection";
 
 export default function InstructorProfile({navigation}) {
     const isFocused = useIsFocused();
     const [data, setData] = useState([]);
-    const [classData, setClassData] = useState([]);
     const apiConnection = new APIConnection();
 
 
@@ -30,22 +28,21 @@ export default function InstructorProfile({navigation}) {
     
 
     const [newName, setNewName] = useState('');
-    const [newEmail, setNewEmail] = useState('');
     const [newBio, setNewBio] = useState('');
 
 
     //check to see if there are any changes and pass it on to edit the account 
     async function onSubmit(){
         if(newName.length === 0 && newBio.length != 0){
-            await apiConnection.editUserProfile(data.user_name, data.user_type, newBio).then(
+            await apiConnection.editUserProfile(data.user_name, data.user_type, newBio, data.user_pp).then(
                 navigation.navigate('Profile', {screen: 'InstructorProfile'}))
         }
         else if(newBio.length === 0 && newName.length != 0){
-            await apiConnection.editUserProfile(newName, data.user_type, data.user_bio).then(
+            await apiConnection.editUserProfile(newName, data.user_type, data.user_bio, data.user_pp).then(
                 navigation.navigate('Profile', {screen: 'InstructorProfile'}))
         }
         else if(newBio.length != 0 && newName.length != 0){
-            await apiConnection.editUserProfile(newName, data.user_type, newBio).then(
+            await apiConnection.editUserProfile(newName, data.user_type, newBio, data.user_pp).then(
                 navigation.navigate('Profile', {screen: 'InstructorProfile'}))
         }
         else if(newBio.length === 0 && newName.length === 0){

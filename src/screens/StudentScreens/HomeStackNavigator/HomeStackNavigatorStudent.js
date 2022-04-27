@@ -8,7 +8,7 @@ import StudentClassSearchScreenTest from './StudentHome'
 const Stack = createNativeStackNavigator()
 
 
-export default function HomeStackNavigatorStudent()  {
+export default function HomeStackNavigatorStudent({navigation})  {
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false,

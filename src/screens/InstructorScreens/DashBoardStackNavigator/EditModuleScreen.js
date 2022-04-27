@@ -32,6 +32,11 @@ export default function EditModuleScreen({ navigation, route }) {
   const [finalData, setFinalData] = useState([]);
   const [stateData, setStateData] = useState([]);
 
+  const [dummyState, setDummyState] = useState(true);
+
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+
   //--------for some reason i have to have these force update code to force a rerender-----
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -57,7 +62,7 @@ export default function EditModuleScreen({ navigation, route }) {
     {
       let json = await apiConnection.getAllModulesForClass(courseID);
       let data = await processAPIModuleData(json);
-       data.forEach(element=>{
+       await data.forEach(element=>{
 
         console.log('data :'+ element.module_id);
          apiConnection.getLessonsInModule(element.module_id).then((json2) => {
@@ -67,9 +72,17 @@ export default function EditModuleScreen({ navigation, route }) {
 
 
        });
-       setStateData(data);
+
+     
+
 
        setFinalData(data);
+       setStateData(data);
+
+
+
+     
+
 
 
     }
@@ -96,6 +109,8 @@ export default function EditModuleScreen({ navigation, route }) {
       lessonArr[i] = newLesson;
 
     }
+
+
     return lessonArr;
   }
 
@@ -120,6 +135,11 @@ export default function EditModuleScreen({ navigation, route }) {
 
 
 
+  function refresh()
+  {
+    setDummyState(!dummyState);
+
+  }
 
 
 
@@ -231,6 +251,7 @@ export default function EditModuleScreen({ navigation, route }) {
 
   return (
     <ScrollView>
+      {dummyState}
       <View style={{ padding: 10, flex: 1, backgroundColor: "white" }}>
         <Text style={styles.label}>Edit Modules</Text>
         <ScrollView>

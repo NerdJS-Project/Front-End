@@ -15,6 +15,195 @@ class APIConnection {
     this.user_id = this.authCtx.user_id;
   }
 
+
+
+  async getUnitProgress(unit_id){
+    try {
+      const response = await fetch(`${url}/progress/findByUnit/${unit_id}/${this.user_id}`, {
+         method: 'GET',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json',
+           'token': this.token,
+         },
+       });
+      const json = await response.json();
+
+      return json;
+    } catch (error) {
+      console.error(error);
+      this.authCtx.logout
+    } finally {
+    }
+  }
+
+  async getLessonProgress(lesson_id){
+    try {
+      const response = await fetch(`${url}/progress/findByLessonAndUser/${lesson_id}/${this.user_id}`, {
+         method: 'GET',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json',
+           'token': this.token,
+         },
+       });
+      const json = await response.json();
+
+      return json;
+    } catch (error) {
+      console.error(error);
+      this.authCtx.logout
+    } finally {
+    }
+  }
+
+  async getModuleProgress(module_id){
+    try {
+      const response = await fetch(`${url}/progress/findByModuleAndUser/${module_id}/${this.user_id}`, {
+         method: 'GET',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json',
+           'token': this.token,
+         },
+       });
+      const json = await response.json();
+
+      return json;
+    } catch (error) {
+      console.error(error);
+      this.authCtx.logout
+    } finally {
+    }
+  }
+
+  async getClassProgress(class_id){
+    try {
+      const response = await fetch(`${url}/progress/findByClassAndUser/${class_id}/${this.user_id}`, {
+         method: 'GET',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json',
+           'token': this.token,
+         },
+       });
+      const json = await response.json();
+
+      return json;
+    } catch (error) {
+      console.error(error);
+      this.authCtx.logout
+    } finally {
+    }
+  }
+
+
+    //student enroll
+    async signUpForClass(classID){
+      try {
+        const response = await fetch(`${url}/class/signup/`+classID, {
+           method: 'POST',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+             'token': this.token,
+           },
+        //    body: JSON.stringify({ 
+          
+        //      class_id: classID
+        //  })
+         });
+        const json = await response.json();
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+      }
+    }
+
+
+    async editCourseForInstructor(classID, class_name, class_descrip){
+      try {
+        const response = await fetch(`${url}/class/update/`+classID, {
+           method: 'PUT',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+             'token': this.token,
+           },
+           body: JSON.stringify({ 
+          
+             class_name: class_name,
+             class_descrip: class_descrip
+         })
+         });
+        const json = await response.json();
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+      }
+    }
+
+
+        
+        async postProgress(unitID){
+          try {
+            const response = await fetch(`${url}/progress/create`, {
+               method: 'POST',
+               headers: {
+                 Accept: 'application/json',
+                 'Content-Type': 'application/json',
+                 'token': this.token,
+               },
+               body: JSON.stringify({ 
+              
+                 unit_id: unitID
+             })
+             });
+            const json = await response.json();
+    
+            return json;
+          } catch (error) {
+            console.error(error);
+            this.authCtx.logout
+          } finally {
+          }
+        }
+
+        async postLesson(ModuleID){
+          try {
+            const response = await fetch(`${url}/lesson/create`, {
+               method: 'POST',
+               headers: {
+                 Accept: 'application/json',
+                 'Content-Type': 'application/json',
+                 'token': this.token,
+               },
+               body: JSON.stringify({ 
+              
+                 module_id: ModuleID,
+                 lesson_name: "New Lesson",
+                 lesson_descrip: "New lesson description",
+                 lesson_index: 0,
+                 instructor_id: this.user_id
+             })
+             });
+            const json = await response.json();
+    
+            return json;
+          } catch (error) {
+            console.error(error);
+            this.authCtx.logout
+          } finally {
+          }
+        }
+
+
   async getClasses() {
 
 

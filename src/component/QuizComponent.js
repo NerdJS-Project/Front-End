@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,13 @@ import {
 import { COLORS, SIZES } from "../constants/themes";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Icon } from "react-native-elements/dist/icons/Icon";
+import APIConnection from "../utility/APIConnection";
+import { useIsFocused } from "@react-navigation/native";
 
-export default function QuizComponent() {
+export default function QuizComponent({unitID, navigation}) {
+
+
+
   const data = [
     {
       quizdata_id: 1,
@@ -40,7 +45,16 @@ export default function QuizComponent() {
       correct_option: 3,
     }
   ];
-  const allQuestions = data;
+
+
+
+
+
+
+
+
+
+  const [allQuestions, setAllQuestions] = useState(data);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
   const [correctOption, setCorrectOption] = useState(null);
@@ -48,6 +62,93 @@ export default function QuizComponent() {
   const [score, setScore] = useState(0);
   const [showNextButton, setShowNextButton] = useState(false);
   const [showScoreModal, setShowScoreModal] = useState(false);
+
+
+
+
+//not needed, just being used for printing
+  const [iQuizData, setIQuizData] = useState();
+// also not needed as well
+  const [quizID, setQuizID] = useState();
+  const isFocused = useIsFocused();
+
+
+
+  const apiConnection = new APIConnection();
+  useEffect(() => {
+
+  
+      async function fetchMyAPI() {
+          let response = await apiConnection.getUnitQuizContent(unitID);
+          if(response.status == 400)
+          {
+            //do nothing, for now
+              
+
+          }
+          response = await response.json();
+
+          setQuizID(response[0].quiz_id);
+
+          let quizDataResponse = await apiConnection.getQuizData(response[0].quiz_id);
+
+          if(quizDataResponse.status == 400)
+          {
+              // do nothing
+          }
+          else {
+              quizDataResponse = await quizDataResponse.json();
+
+              setIQuizData(quizDataResponse);
+              processJSON(quizDataResponse);
+              console.log("Quiz data fetched is: " + iQuizData)
+          }
+
+        }
+
+        if(isFocused) {
+          fetchMyAPI();
+
+
+      }
+
+  }, [isFocused]);
+
+
+
+  function processJSON(quizDataResponse)
+  {
+      let json = quizDataResponse;
+      for(let i = 0; i < quizDataResponse.length; i++)
+      {
+          let answers = quizDataResponse[i].quizdata_answers;
+          answers = answers.replace(/[']+/g, '"');
+          let answersJson = JSON.parse(answers);
+          json[i].quizdata_answers = answersJson.choices;
+          json[i].correct_option = answersJson.answer;
+
+          console.log("Quiz data answers" + answersJson.type + answersJson[0]);
+          console.log("Quiz data answers array" + ["hi", "There", "Cutie"]);
+
+
+
+      }
+
+      setAllQuestions(json);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const validateAnswer = (selectedOption) => {
     let correct_option = allQuestions[currentQuestionIndex]["correct_option"];
@@ -97,8 +198,11 @@ export default function QuizComponent() {
   };
 
 
-  function saveProgress()
+  async function saveProgressAndNext()
   {
+    await apiConnection.postProgress(unitID);
+    setShowScoreModal(false);
+
   }
 
   const renderQuestion = () => {
@@ -382,7 +486,7 @@ export default function QuizComponent() {
               {/* Save Progress button */}
 
               <TouchableOpacity
-                onPress={saveProgress}
+                onPress={() =>saveProgressAndNext()}
                 style={{
                   backgroundColor: COLORS.accent,
                   padding: 20,

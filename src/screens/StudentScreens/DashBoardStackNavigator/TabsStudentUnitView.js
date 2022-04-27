@@ -7,9 +7,8 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function TabsStudentUnitView({ route, navigation }) {
 
-    //const {unitID, unitName} = route.params;
-    const unitID = 93;
-    const unitName = "Unit name";
+    const {unitID, unitName} = route.params;
+
 
 
     return (

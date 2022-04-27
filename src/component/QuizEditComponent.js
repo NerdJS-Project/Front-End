@@ -51,6 +51,8 @@ export default function QuizEditComponent({unitID}) {
         }
     ]);    
     
+
+    //used for posting and editting quiz
     const [quizID, setQuizID] = useState();
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -154,8 +156,10 @@ export default function QuizEditComponent({unitID}) {
     function updateCorrectAnswer(index) {
         setCorrectAnswer(index);
         let newQuizData = quizData;
-        newQuizData[currentIndex].changeType = "Edited";
-        newQuizData[currentIndex].correct_option = index;
+        if (newQuizData[currentIndex].changeType != "Created") {
+            newQuizData[currentIndex].changeType = "Edited";
+        }
+         newQuizData[currentIndex].correct_option = index;
         setQuizData(newQuizData);
 
 

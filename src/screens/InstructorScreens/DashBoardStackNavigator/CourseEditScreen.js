@@ -3,6 +3,7 @@ import { View, Picker, Text, Alert, StyleSheet, Button, TextInput, TouchableWith
 import Authentication from "../../../utility/Authentication";
 import { Input, Icon, ButtonGroup, Divider } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import APIConnection from '../../../utility/APIConnection';
 
 
 export default function CourseEditScreen({ route, navigation }) {
@@ -17,6 +18,7 @@ export default function CourseEditScreen({ route, navigation }) {
 
     const categoryData = ["Mathematic", "Physics", "English", "Computer Science"];
 
+    const apiConnection = new APIConnection();
 
 
 function getCategoryPickerItems()
@@ -32,6 +34,12 @@ function getCategoryPickerItems()
         }
         return result
 }
+
+async function onSave()
+{
+ await apiConnection.editCourseForInstructor(courseID, className, courseDescription)
+}
+
 
     return (
         <ScrollView>
@@ -87,6 +95,8 @@ function getCategoryPickerItems()
             <Divider width={5} color={'#27A9FF'} style={{marginBottom: 40}} />
 
             <Button
+
+                onPress={() => onSave()}
                 title="Save"
                 
                 titleStyle={{ fontWeight: '700' }}

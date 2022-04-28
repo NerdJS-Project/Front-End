@@ -1296,6 +1296,11 @@
     "@types/yargs" "^15.0.0"
     "chalk" "^4.0.0"
 
+"@mdi/font@^6.6.96":
+  "integrity" "sha512-FbcvG9z17hwZ7IwX5XeOR1UYGoLq+gTKq6XNPvJFuCpn599GdiPCJbAmmDBJb+jMYXjKYr0lCxfouWGxDA82sA=="
+  "resolved" "https://registry.npmjs.org/@mdi/font/-/font-6.6.96.tgz"
+  "version" "6.6.96"
+
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
   "resolved" "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"

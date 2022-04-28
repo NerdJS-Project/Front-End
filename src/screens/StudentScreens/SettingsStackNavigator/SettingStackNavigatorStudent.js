@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
 import StudentSetting from './StudentSetting'
+import ChangePassword from './ChangePassword'
+import ChangeEmail from './changeEmail'
 
 const Stack = createNativeStackNavigator()
 
@@ -13,6 +13,8 @@ export default function SettingStackNavigatorStudent()  {
       headerShown: false,
     }}>
       <Stack.Screen name="Setting" component={StudentSetting} />
+      <Stack.Screen name="Change Password" component={ChangePassword} />
+      <Stack.Screen name="Change Email" component={ChangeEmail} />
     </Stack.Navigator>
   )
 }

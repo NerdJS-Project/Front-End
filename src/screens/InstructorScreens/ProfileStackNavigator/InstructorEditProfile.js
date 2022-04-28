@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import {TextInput} from 'react-native-paper';
+import {TextInput, Avatar, Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import APIConnection from "../../../utility//APIConnection";
@@ -36,6 +36,7 @@ export default function InstructorProfile({navigation}) {
         if(newName.length === 0 && newBio.length != 0){
             await apiConnection.editUserProfile(data.user_name, data.user_type, newBio, data.user_pp).then(
                 navigation.navigate('Profile', {screen: 'InstructorProfile'}))
+            alert("New Bio..." + newBio)
         }
         else if(newBio.length === 0 && newName.length != 0){
             await apiConnection.editUserProfile(newName, data.user_type, data.user_bio, data.user_pp).then(
@@ -53,8 +54,21 @@ export default function InstructorProfile({navigation}) {
     return (
         <View style={styles.container}>
             {/*Avatar Icon change*/}
-            <View style={{alignItems: 'center'}}>
-                <TouchableOpacity onPress={() => {}}>
+            <View style={{alignItems: 'center', marginTop: 15}}>
+                <Avatar.Image 
+                    size={80} 
+                    source={data.user_pp || require('./icons/defaultAvatar.png')} 
+                    style={{backgroundColor: '#fff'}}
+                />
+                
+                
+                <Button 
+                    icon="account-circle-outline" 
+                    mode="contained" 
+                    style={styles.avatarButton}
+                    onPress={() => console.log('hello') }
+                >Change Avatar</Button>
+                {/*<TouchableOpacity onPress={() => {}}>
                     <View style={styles.profileIcon}>
                         <ImageBackground
                             source={data.user_img || require('./icons/defaultAvatar.png')}
@@ -77,7 +91,10 @@ export default function InstructorProfile({navigation}) {
                             </View>
                         </ImageBackground>
                     </View>
-                </TouchableOpacity>
+                            </TouchableOpacity>
+
+
+
                 <Text
                     style={{
                         marginTop: 5,
@@ -85,7 +102,7 @@ export default function InstructorProfile({navigation}) {
                         fontWeight: 'bold'
                     }}
                 >
-                {data.user_name || "<user_name>"}</Text>
+                {data.user_name || "<user_name>"}</Text>*/}
             </View>
         
             <View style={styles.edit}>
@@ -94,7 +111,7 @@ export default function InstructorProfile({navigation}) {
                     setData={data.user_name}
                     style={styles.textInput}
                     label={'Username'}
-                    mode={'flat'}
+                    mode={'outlined'}
                     value={data.user_name}
                     onChangeText={newText => setNewName(newText)}
                 />
@@ -107,7 +124,7 @@ export default function InstructorProfile({navigation}) {
                     autoCorrect={false}
                     style={styles.textInput}
                 />
-                </View>*/}
+                </View>
 
 
             <TouchableOpacity onPress={() => navigation.navigate('Edit Password', {screen: 'EditPassword'})}>
@@ -122,7 +139,7 @@ export default function InstructorProfile({navigation}) {
                         style={styles.textInput}
                     />
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
 
             <View style={styles.edit}>
                 <Icon name="filetext1" size={30} style={{marginTop: 30}}/>
@@ -130,6 +147,7 @@ export default function InstructorProfile({navigation}) {
                     autoCorrect={false}
                     multiline={true}
                     label={'About Me'}
+                    mode={'outlined'}
                     value={data.user_bio}
                     onChangeText={newText => setNewBio(newText)}
                     editable={true}
@@ -192,6 +210,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: 'white'
+    },
+
+    avatarButton: {
+        marginTop: 15,
+        marginLeft: 45,
+        marginRight:45,
+        backgroundColor: "#4970FA"
     }
     
 });

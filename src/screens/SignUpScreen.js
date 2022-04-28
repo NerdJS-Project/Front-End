@@ -1,11 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet,KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
 import { ButtonGroup, CheckBox } from 'react-native-elements';
-import { TextInput, Button} from "react-native-paper";
+import { TextInput, Button, HelperText} from "react-native-paper";
 
 const API_URL =  'http://localhost:3001/api/user/create';
+//import APIConnection from "../../../utility/APIConnection";
 
 export default function SignUpScreen({navigation}) {
+
+
 
   const [selectedIndex, setSelectedIndex] = useState();
   const [check1, setCheck1] = useState(false);
@@ -28,6 +31,23 @@ export default function SignUpScreen({navigation}) {
 
   const onSubmitHandler = () => {
     console.log("email and pass and name: ",user_email, user_password, user_name, user_type);
+    
+    if(user_name === null){
+      alert("Name cannot be empty");
+      return; 
+    }
+
+    if(!user_email.includes('@')){
+      alert("Not a valid email");
+      return; 
+    }
+    if(user_password.length < 8){
+      alert("Password needs to be at least 8 characters");
+      return;
+    }
+      
+
+
 
     const payload = {
         user_name,
@@ -62,6 +82,13 @@ export default function SignUpScreen({navigation}) {
 };
 
 
+  const emailError = () => {
+    return !user_email.includes('@');
+  }
+
+  const passwordError = () => {
+    return (user_password.length < 8); 
+  }
 
 
 
@@ -84,6 +111,7 @@ export default function SignUpScreen({navigation}) {
             label={'Name'} 
             mode={'outlined'}
             outlineColor={'#4970FA'}
+            left={<TextInput.Icon name='account'/>}
             onChangeText={newText => setName(newText)}
           />
 
@@ -92,8 +120,12 @@ export default function SignUpScreen({navigation}) {
             label={'Email'} 
             mode={'outlined'}
             outlineColor={'#4970FA'}
+            left={<TextInput.Icon name='email'/>}
             onChangeText={newText => setEmail(newText)}
           />
+          <HelperText type='error' visible={emailError()}>
+            Email Address is invalid
+          </HelperText>
 
         <TextInput 
           secureTextEntry={true} 
@@ -101,25 +133,23 @@ export default function SignUpScreen({navigation}) {
           style={styles.input}
           label={'Password'} 
           mode={'outlined'}
+          left={<TextInput.Icon name='lock'/>}
+          right={<TextInput.Icon name="eye"/>}
           outlineColor={'#4970FA'}
           onChangeText={newText => setPassword(newText)}
         />
-        <TextInput 
-          secureTextEntry={true} 
-          type={passwordEye === false ? "password" : "text"}
-          style={styles.input}
-          label={'Confirm Password'} 
-          mode={'outlined'}
-          outlineColor={'#4970FA'}
-        />
+        <HelperText type='info' visible={passwordError()} style={{color:'#000'}}>
+            Password needs to be at least 8 characters long.
+          </HelperText>
+        
     
 
 
-      <Text style={styles.status}>Are you a:</Text>
+      <Text style={styles.status}>Are you a...</Text>
         <ButtonGroup
           buttons={['Student', 'Educator']}
           selectedIndex={selectedIndex}
-          buttonContainerStyle={{backgroundColor: '#4970FA'}}
+          
           onPress={(value) => {
             setSelectedIndex(value);
             if(value == 0){
@@ -128,9 +158,10 @@ export default function SignUpScreen({navigation}) {
               setUserType('instructor');
             }
           }}
-          containerStyle={styles.selector}
-          textStyle={{color:'#fff'}}
-      />
+          textStyle={{color:'#000'}}
+          selectedTextStyle={{color:'#fff'}}
+          selectedButtonStyle={{backgroundColor: '#4970FA'}}
+          />
 
 
         <View style={styles.checkbox}>
@@ -139,6 +170,8 @@ export default function SignUpScreen({navigation}) {
             checked={check1}
             onPress={() => setCheck1(!check1)}
             style={styles.check}
+            checkedColor={'#4970FA'}
+            uncheckedColor={'#000'}
           />
           <Text style={styles.boxLabel}>By checking, you Agree to our Terms of Use and understand our privacy policy. 
               You may recieve notifications via email.</Text>
@@ -268,9 +301,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
 
-  selector: {
-  
-  },
+
   
   checkbox: {
     flexDirection: 'row',

@@ -37,6 +37,9 @@ class APIConnection {
     }
   }
 
+
+
+
   async getLessonProgress(lesson_id){
     try {
       const response = await fetch(`${url}/progress/findByLessonAndUser/${lesson_id}/${this.user_id}`, {
@@ -202,6 +205,36 @@ class APIConnection {
           } finally {
           }
         }
+
+
+       async editUserProfile(newName, userType, newBio, newPic) {
+          try {
+           const response = await fetch('http://localhost:3001/api/user/update/'+ this.user_id, {
+              method: 'PUT',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'token': this.token,
+              },
+              body:JSON.stringify({ 
+                user_name: newName,
+                user_type: userType,
+                user_pp: newPic,
+                user_bio: newBio
+            })
+            });
+           const json = await response.json();
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+         }
+       }
+
+
+       
+
 
 
   async getClasses() {
@@ -597,30 +630,6 @@ class APIConnection {
   }
 
 
-  async editUserProfile(newName, userType) {
-    console.log("fetch url dash board debug: " + 'http://localhost:3001/api/class/findByUser/' + this.user_id);
-    try {
-      const response = await fetch('http://localhost:3001/api/module/update/' + this.user_id, {
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'token': this.token,
-        },
-        body: JSON.stringify({
-          user_name: newName,
-          user_type: userType
-        })
-      });
-      const json = await response.json();
-
-      return json;
-    } catch (error) {
-      console.error(error);
-      this.authCtx.logout
-    } finally {
-    }
-  }
 
   async getModulesAndLessonInstructorCourseViewScreen(courseID) {
     console.log("get modules and lessons called " + 'http://localhost:3001/api/class/findByUser/' + courseID);

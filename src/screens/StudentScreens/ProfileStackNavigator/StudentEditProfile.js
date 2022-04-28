@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import {TextInput, Avatar, Button} from 'react-native-paper';
+import { TextInput,Avatar, Button } from "react-native-paper";
 import Icon from 'react-native-vector-icons/AntDesign';
+import APIConnection from "../../../utility/APIConnection";
 
-import APIConnection from "../../../utility//APIConnection";
-
-export default function InstructorProfile({navigation}) {
+export default function StudentEditProfile({navigation}) {
     const isFocused = useIsFocused();
     const [data, setData] = useState([]);
     const apiConnection = new APIConnection();
@@ -35,16 +34,16 @@ export default function InstructorProfile({navigation}) {
     async function onSubmit(){
         if(newName.length === 0 && newBio.length != 0){
             await apiConnection.editUserProfile(data.user_name, data.user_type, newBio, data.user_pp).then(
-                navigation.navigate('Profile', {screen: 'InstructorProfile'}))
+                navigation.navigate('Student Profile', {screen: 'StudentProfile'}))
             alert("New Bio..." + newBio)
         }
         else if(newBio.length === 0 && newName.length != 0){
             await apiConnection.editUserProfile(newName, data.user_type, data.user_bio, data.user_pp).then(
-                navigation.navigate('Profile', {screen: 'InstructorProfile'}))
+                navigation.navigate('Student Profile', {screen: 'StudentProfile'}))
         }
         else if(newBio.length != 0 && newName.length != 0){
             await apiConnection.editUserProfile(newName, data.user_type, newBio, data.user_pp).then(
-                navigation.navigate('Profile', {screen: 'InstructorProfile'}))
+                navigation.navigate('Student Profile', {screen: 'StudentProfile'}))
         }
         else if(newBio.length === 0 && newName.length === 0){
             alert("Nothing has changed...");
@@ -106,13 +105,13 @@ export default function InstructorProfile({navigation}) {
             </View>
         
             <View style={styles.edit}>
-                <Icon name="user" size={30} style={{marginTop:20}}/>
                 <TextInput
                     setData={data.user_name}
                     style={styles.textInput}
                     label={'Username'}
                     mode={'outlined'}
                     value={data.user_name}
+                    left={<TextInput.Icon name='account'/>}
                     onChangeText={newText => setNewName(newText)}
                 />
             </View>
@@ -142,12 +141,12 @@ export default function InstructorProfile({navigation}) {
             </TouchableOpacity>*/}
 
             <View style={styles.edit}>
-                <Icon name="filetext1" size={30} style={{marginTop: 30}}/>
                 <TextInput
                     autoCorrect={false}
                     multiline={true}
                     label={'About Me'}
                     mode={'outlined'}
+                    left={<TextInput.Icon name='file-document'/>}
                     value={data.user_bio}
                     onChangeText={newText => setNewBio(newText)}
                     editable={true}

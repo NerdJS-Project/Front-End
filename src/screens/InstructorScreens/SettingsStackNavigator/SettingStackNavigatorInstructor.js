@@ -1,10 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
 import InstructorSetting from './InstructorSetting'
-import CreateContent from '../DashBoardStackNavigator/CreateContentScreen'
-import QuizEditComponent from '../../../component/QuizEditComponent'
+import ChangePassword from './ChangePassword'
+import ChangeEmail from './changeEmail'
 
 const Stack = createNativeStackNavigator()
 
@@ -15,6 +13,8 @@ export default function SettingStackNavigatorInstructor()  {
       headerShown: false,
     }}>
       <Stack.Screen name="Setting" component={InstructorSetting} />
+      <Stack.Screen name="Change Password" component={ChangePassword} />
+      <Stack.Screen name="Change Email" component={ChangeEmail} />
     </Stack.Navigator>
   )
 }

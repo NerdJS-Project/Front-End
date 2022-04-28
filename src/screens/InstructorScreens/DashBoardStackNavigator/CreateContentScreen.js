@@ -378,15 +378,10 @@ export default function CreateContent({navigation, route}) {
 
 
 
-        </ScrollView>
-
-
-
-
+      </ScrollView>
 
 
       </View>
-
 
 
 
@@ -425,6 +420,7 @@ export default function CreateContent({navigation, route}) {
 
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

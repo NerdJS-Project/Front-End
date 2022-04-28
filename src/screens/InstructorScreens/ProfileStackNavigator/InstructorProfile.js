@@ -2,13 +2,12 @@ import { useIsFocused } from "@react-navigation/native";
 import React, { useState, useLayoutEffect } from "react";
 import {
   View,
-  ScrollView,
   Text,
   StyleSheet,
   FlatList,
-  TouchableOpacity
 } from "react-native";
 import { Avatar } from "react-native-elements";
+import { FAB} from 'react-native-paper'; 
 import Icon from 'react-native-vector-icons/AntDesign';
 import APIConnection from "../../../utility/APIConnection";
 
@@ -44,7 +43,7 @@ export default function InstructorProfile({navigation}) {
 
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.userInfo}>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
           <Avatar
@@ -105,25 +104,14 @@ export default function InstructorProfile({navigation}) {
           </View>
         </View>
       </View>
-                
 
-      <View style={styles.bottom}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Edit Profile', {screen: 'InstructorEditProfile'})}
-            style={styles.buttonContainer}
-          >
-            <Icon name="form" size={40} style={[shadowOverlay, {
-              color:'#fff',
-              paddingTop:12,
-              paddingLeft:15,
-              backgroundColor:'#4970FA',
-              width:70,
-              height:70,
-              borderRadius:60
-            }]}/>
-          </TouchableOpacity>
-        </View>
-    </ScrollView>
+      <FAB
+        style={styles.fab}
+        icon="file-document-edit-outline"
+        onPress={() => navigation.navigate('Edit Profile', {screen: 'InstructorEditProfile'})}
+      />
+                
+    </View>
   );
 }
 
@@ -192,20 +180,12 @@ const styles = StyleSheet.create({
     padding:15,
   },
 
-  bottom:{
-    justifyContent: 'center',
-    alignContent: 'center',
-    flex:1,
-    marginTop: 130
-  },
-
-  buttonContainer: {
-    position:'absolute',
-    alignItems:"center",
-    justifyContent:'flex-end',
-    right: 30,
-    bottom:30,
-    flex:1
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0, 
+    bottom: 0,
+    backgroundColor:'#4970FA'
   }
 
 });

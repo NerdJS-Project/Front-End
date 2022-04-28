@@ -1,9 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import DashBoardStackNavigatorStudent from "./DashBoardStackNavigator/DashBoardStackNavigatorStudent";
 import HomeStackNavigatorStudent from "./HomeStackNavigator/HomeStackNavigatorStudent";
-import ProfileStackNavigatorStudent from "./ProfileStackNavigator/ProfileStackNavigatorInstructor";
+import ProfileStackNavigatorStudent from "./ProfileStackNavigator/ProfileStackNavigatorStudent";
 import SettingStackNavigatorStudent from "./SettingsStackNavigator/SettingStackNavigatorStudent";
 import React, { useState, useContext } from 'react';
+
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator()
 
@@ -14,10 +16,47 @@ export default function StudentMainScreenTabs({ navigation }) {
         <Tab.Navigator screenOptions={{
           headerShown: false,
         }}>
-          <Tab.Screen name="Home" component={HomeStackNavigatorStudent} />
-          <Tab.Screen name="Dashboard" component={DashBoardStackNavigatorStudent} />
-          <Tab.Screen name="Profile" component={ProfileStackNavigatorStudent} />
-          <Tab.Screen name="Settings" component={SettingStackNavigatorStudent} />
+          
+
+          <Tab.Screen 
+            name="Dashboard" 
+            component={DashBoardStackNavigatorStudent} 
+            options={{
+              tabBarIcon: ({focused}) => (
+                <MaterialCommunityIcons name='view-dashboard' color={'#000'} size={20}/>
+              ),
+            }}
+
+          />
+
+          <Tab.Screen 
+            name="Search" 
+            component={HomeStackNavigatorStudent} 
+            options={{
+              tabBarIcon: ({focused}) => (
+                <MaterialCommunityIcons name='magnify' color={'#000'} size={20}/>
+              ),
+            }}
+          />
+        
+          <Tab.Screen 
+            name="Profile" 
+            component={ProfileStackNavigatorStudent} 
+            options={{
+              tabBarIcon: ({focused}) => (
+                <MaterialCommunityIcons name='account-circle-outline' color={'#000'} size={20}/>
+              ),
+            }}
+          />
+          <Tab.Screen 
+            name="Settings" 
+            component={SettingStackNavigatorStudent} 
+            options={{
+              tabBarIcon: ({focused}) => (
+                <MaterialCommunityIcons name='cog-outline' color={'#000'} size={20}/>
+              ),
+            }}
+          />
 
         </Tab.Navigator>
       )

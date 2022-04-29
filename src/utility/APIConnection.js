@@ -233,6 +233,55 @@ class APIConnection {
        }
 
 
+
+       async changeEmail(newEmail, currentPassword){
+        try{
+          const response = await fetch(`${url}/user/changeAuth/${this.user_id}`, {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'token': this.token,
+            },
+            body:JSON.stringify({ 
+              user_email: newEmail,
+              user_password: currentPassword
+            })
+          });
+          const json = await response.json(); 
+          return json; 
+        }catch (error){
+          console.error(error);
+          this.authCtx.logout
+        }finally {
+        }
+      }
+
+
+      async changePassword(currentEmail, newPassword){
+        try{
+          const response = await fetch(`${url}/user/changeAuth/${this.user_id}`, {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'token': this.token,
+            },
+            body:JSON.stringify({ 
+              user_email: currentEmail,
+              user_password: newPassword
+            })
+          });
+          const json = await response.json(); 
+          return json; 
+        }catch (error){
+          console.error(error);
+          this.authCtx.logout
+        }finally {
+        }
+      }
+
+
        
 
 
@@ -891,6 +940,9 @@ class APIConnection {
     } finally {
     }
   }
+
+
+  
 
 
 

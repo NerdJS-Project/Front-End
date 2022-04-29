@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
+import { TextInput } from 'react-native-paper';
 import Authentication from "../utility/Authentication";
 import { AuthContext } from '../store/AuthContext';
 const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
@@ -13,7 +14,7 @@ export default function LogInScreen({ navigation }) {
   const [user_email, setEmail] = useState('');
   const [user_password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-
+  const [isSecureEntry, setSecureEntry] = useState(true);
 
   const authCtx = useContext(AuthContext);
 
@@ -64,14 +65,19 @@ export default function LogInScreen({ navigation }) {
         style={login.email} >
 
         <TextInput
-          style={login.emailHolder}
-          placeholder={'Email'}
+          style={login.input}
+          label={'Email'}
+          mode={'outlined'}
+          left={<TextInput.Icon name='email'/>}
           onChangeText={setEmail} />
 
         <TextInput
           secureTextEntry={true}
-          style={login.pwHolder}
-          placeholder={'Password'}
+          style={login.input}
+          label={'Password'}
+          mode={'outlined'}
+          left={<TextInput.Icon name='lock'/>}
+          
           onChangeText={setPassword} />
         <Text >{message ? message : null}</Text>
 
@@ -89,7 +95,7 @@ export default function LogInScreen({ navigation }) {
 
 
       <View style={signup.divider}>
-        <Text style={signup.divider}>-or-</Text>
+        <Text style={signup.divider}>don't have an account? Sign up!</Text>
       </View>
 
       <TouchableOpacity
@@ -103,13 +109,6 @@ export default function LogInScreen({ navigation }) {
 
 
 
-      <TouchableOpacity>
-        <View style={forgotPsswrd.forgotText}>
-          <Text style={forgotPsswrd.forgotText}>Forgot password?</Text>
-        </View>
-
-
-      </TouchableOpacity>
 
     </View>
 
@@ -191,15 +190,10 @@ const login = StyleSheet.create({
 
   },
 
-  emailHolder: {
+  input: {
     position: "relative",
-    paddingVertical: 15,
-    paddingHorizontal: 15,
     backgroundColor: 'white',
-    borderColor: '#C0C0C0',
     bottom: 30,
-    borderWidth: 1,
-    borderRadius: 60,
     width: 250
 
 
@@ -303,5 +297,3 @@ const forgotPsswrd = StyleSheet.create({
   }
 
 })
-
-

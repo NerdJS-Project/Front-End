@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { AuthContext } from '../../../store/AuthContext'
 import IconButton from '../../../component/ui/IconButton'
-import StudentProfile from './StudentProfile'
-import StudentEditProfile from'./StudentEditProfile'
+import Profile from './StudentProfile'
+import StudentEditProfile from '../../UserProfile/EditProfile';
 const Stack = createNativeStackNavigator()
 
 
@@ -16,7 +16,7 @@ export default function ProfileStackNavigatorStudent()  {
     <Stack.Navigator screenOptions={{
       headerShown: false,
     }}>
-      <Stack.Screen name="Student Profile" component={StudentProfile}  options={{
+      <Stack.Screen name="Profile" component={Profile}  options={{
         headerShown: true,
           headerRight: ({ tintColor }) => (
             <IconButton

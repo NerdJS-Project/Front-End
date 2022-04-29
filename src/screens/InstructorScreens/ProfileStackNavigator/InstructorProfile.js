@@ -50,7 +50,7 @@ export default function InstructorProfile({navigation}) {
             rounded
             size={100}
             containerStyle={shadowOverlay}
-            source={data.user_img || require('./icons/defaultAvatar.png')}
+            source={data.user_pp || require('../../UserProfile/icons/defaultAvatar.png')}
           />      
           <View style={{ marginLeft: 20 }}>
             <Text

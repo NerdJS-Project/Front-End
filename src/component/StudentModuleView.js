@@ -83,12 +83,8 @@ export default function StudentModuleView({item, onClickFunction,instructorID,na
           else lessonProg = 0
           lesson.lProg = (lessonProg * 100).toFixed(2) 
          setProgress(!progress )
-        // setlessArr(arr);
         }
         
-        //console.log(lesson.lesson_id)
-          //setLessonData(json);
-          //console.log("THIS IS LESSONDATA: "+ json);
       })
     })
   

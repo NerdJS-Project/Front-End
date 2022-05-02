@@ -84,7 +84,7 @@ export default function LessonCreation({ navigation, route }) {
 
     return (
         //   <View style={{flex:2}}>
-        <SafeAreaView>
+        <SafeAreaView style={{backgroundColor:'#d3d3d3'}}>
         <View style={{ alignItems:'center',justifyContent: 'center', marginTop: 50 }}>
             {/* <ScrollView> */}
             <SafeAreaView style={{ alignItems: 'center' }}>

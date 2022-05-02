@@ -17,7 +17,6 @@ import {
 
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
-// import {AuthContext} from '../store/AuthContext';
 import StudentModuleView from "../../../component/StudentModuleView";
 import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
@@ -46,7 +45,7 @@ export default function StudentCourseView({ navigation, route }) {
         let data = processAPIModuleData(json);
         data.forEach(element=>{
 
-         console.log('data :'+ element.Module_ID);
+        
           apiConnection.getLessonsInModule(element.Module_ID)
           .then((json)=>{
              processAPILesson(element.Lessons,json);
@@ -104,23 +103,6 @@ export default function StudentCourseView({ navigation, route }) {
   //---------------------------------------
 
   //Morph json from API into an array that we can use
-  // function processAPIData(json) {
-  //   let returnData = [];
-  //   for (let i = 0; i < json.length; i++) {
-  //     let newModule = {};
-  //     newModule["isExpanded"] = false;
-  //     newModule["Module_Title"] = json[i].module_name;
-  //     newModule['instructorID'] = json[i].instructor_id;
-  //     let newLessonArray = [];
-  //     for (let j = 0; j < json[i].lessons.length; j++) {
-  //       newLessonArray[j] = json[i].lessons[j];
-  //       setLessonID(newLessonArray[j].lesson_id);
-  //     }
-  //     newModule["Lessons"] = newLessonArray;
-  //     returnData[i] = newModule;
-  //   }
-  //   return returnData;
-  // }
 
 
   if (Platform.OS == "android") {

@@ -1,8 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Pressable, View, Text, StyleSheet, Platform } from 'react-native';
+import { Pressable, View, Text, 
+  StyleSheet, Platform, 
+  TouchableOpacity, Alert } from 'react-native';
 import APIConnection from '../utility/APIConnection';
 import { useIsFocused } from "@react-navigation/native";
-import {Badge,Card, Title} from 'react-native-paper';
+import {Badge,Button,Card, Dialog} from 'react-native-paper';
+
+
+ const showAlert = () =>
+ Alert.alert(
+  "Alert Title",
+  "My Alert Msg")
+  ;
 
 
 function StudentCourseGridCard({ classID, title, color, onPress }) {
@@ -39,8 +48,15 @@ function StudentCourseGridCard({ classID, title, color, onPress }) {
   }, []);
 
 
-  return (
+  function dropClass(){
+    apiConnection.dropClass(classID);
+  }
 
+ 
+ 
+
+  return (
+ 
     // <View style={styles.gridItem}>
     <Card style={styles.gridItem}>
 
@@ -60,19 +76,47 @@ function StudentCourseGridCard({ classID, title, color, onPress }) {
 
         
      
-          {/* <View style={{width:165,height:114, backgroundColor:'silver', justifyContent:'center'}}> */}
-        <Card.Cover style={{height:80, width:165}}source={{uri: 'https://picsum.photos/700'}}/>
-          <Card.Content>
+      
+           {/* <View style={{width:165,height:114, backgroundColor:'silver', justifyContent:'center'}}> */}
+        <Card.Cover style={{height:80, width:'100%', resizeMode:"stretch"}}source={{uri: 'https://picsum.photos/700'}}/>
+          <Card.Content >
             <Badge style={{fontSize:9, fontWeight:'bold', backgroundColor:'blue'}}>{state}%</Badge>
+         
               {/* <Title >{title}</Title>  */}
+             <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+
               <Text adjustsFontSizeToFit numberOfLines={2}>{title}</Text>
+              <TouchableOpacity onPress={ showAlert
+    // [
+    //   {
+    //     text: "Cancel",
+    //     onPress: () => Alert.alert("Cancel Pressed"),
+    //     style: "cancel",
+    //   },
+    // ],
+   /* {
+      cancelable: true,
+      onDismiss: () =>
+        Alert.alert(
+          "This alert was dismissed by tapping outside of the alert dialog."
+        ),
+    })*/ }>
+              
+              <Text style={{color:'red', fontWeight:'500'}}>DROP Class</Text>
+           </TouchableOpacity>
+             
+             </View>
+            
           </Card.Content>
+          
           {/* </View> */}
   
         {/* </View> */}
 
       </Pressable>
+     
       </Card>
+      
     /* // </View> */
   );
 }

@@ -1,52 +1,65 @@
-import * as React from 'react-native'
 import { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, FlatList, StyleSheet, SafeAreaView } from 'react-native'
+import * as React from 'react-native'
+import { Text, View, Button, TouchableOpacity, FlatList, StyleSheet, SafeAreaView } from 'react-native'
 import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
-
+import { Badge } from 'react-native-paper';
+import { Icon } from 'react-native-elements';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 export default function StudentLessonView({ navigation, route }) {
 
     const { lessonID, instID, lesson_name/*, lessArr */ } = route.params;
     const isFocused = useIsFocused();
     const [LessonData, setLessonData] = useState([]);
+    const [dummy, setDummy] = useState(true);
+
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 
     const apiConnection = new APIConnection();
 
+
+
+
     useEffect(() => {
-        if (isFocused) {
-            apiConnection.getSectionsPerLesson(lessonID)
-                .then((json) => {
-                     //let data = json;
-                    //console.log("THIS FIRST JSON: "+ JSON.stringify(json));
-                    json.map((item, key) => {
-                        
-                        // data.forEach(element=>{  
-                        apiConnection.getUnitProgress(item.unit_id)
-                            .then((result) => {
-                                console.log("RESULT" + JSON.stringify(result));
+        if (isFocused) 
+        {
+            fetchData();
+        }
 
-                                var thisOne = false
-
-                                console.log("RESULT.RESULT.LENGTH :" + result.result.length)
-                                console.log("RESULT.RESULT[0]: " + JSON.stringify(result.result));
-
-                                if (result.result.length > 0) { thisOne = result.result[0] }
-                                console.log("THIS ONE : "+thisOne)
-                                if (thisOne === false) { item['completed'] = '2' }
-                                else { item['completed'] = '1'}
-
-                                
-                            }).then(()=>{  setLessonData(json)})
-                          
-                        })
-                        
-                    })
+        async function fetchData()
+        {
+            let json = await apiConnection.getSectionsPerLesson(lessonID);
+            for (let i = 0; i < json.length; i++)
+            {
+         //  json.forEach((item) => {
+             let item = json[i];
+                let result = await apiConnection.getUnitProgress(item.unit_id);
+                if(result.result.length >0){
+                    json[i]['completed'] =1;
+                
+                }
+                else{
+                   json[i]['completed']  = 0;
+                
+                }
+                // setLessonData(json)
+                
+                //  }
+            }
+            setLessonData(json);
 
         }
 
-
+   
     }, [isFocused]);
+
+
+    function debugDummy()
+    {
+        setDummy(!dummy);
+    }
+    
 
 
     function onUnitPress(unitID)
@@ -70,7 +83,7 @@ export default function StudentLessonView({ navigation, route }) {
                 <Text style={styles.lessonName}>{lesson_name}</Text>
 
             </View>
-            <Text style={{ textAlign: 'center', }}> Units</Text>
+            {/* <Text style={{ textAlign: 'center', }}> Units</Text> */}
 
 
             <View style={{ alignItems: 'center' }}>
@@ -88,10 +101,13 @@ export default function StudentLessonView({ navigation, route }) {
                                 <TouchableOpacity style={styles.unitTouch} onPress={() => onUnitPress(item.unit_id)}>
 
                                     <Text adjustsFontSizeToFit numberOfLines={2}  style={styles.unitText}>
-                                        {item.completed ? item.completed : "X"}
+                                    <Text >
+                                        {item.completed ===1 ? <Icon style={{borderRadius:15, padding:2,backgroundColor:'green'}} color={'white'} name={"check"} size={12} />: 
+                                        <FontAwesome5Icon style={{borderRadius:15, padding:2, paddingLeft:4, paddingRight:4, backgroundColor:'red'}} color={'white'} size={12} name={'times'} />}
+                                        </Text>
                                      
-                                    </Text>
-                                    <Text adjustsFontSizeToFit style={styles.unitText}>
+                                 
+                                 
                                         {item.unit_name}
 
                                     </Text>
@@ -153,9 +169,9 @@ const styles = StyleSheet.create({
 
         width: 100,
         height: 60,
-        backgroundColor: '#00bfff',
+        backgroundColor: 'white'/*#00bfff'*/,
         borderRadius: 5,
-        borderColor: 'black',
+        borderColor: '#00bfff'/*'black'*/,
         borderWidth: 2,
         margin: 10,
         textAlign: 'center',
@@ -177,6 +193,7 @@ const styles = StyleSheet.create({
     },
     entireView: {
         flex: 1,
+        backgroundColor:'#d3d3d3'
         //    justifyContent:'center',
         // alignItems: 'center'
 

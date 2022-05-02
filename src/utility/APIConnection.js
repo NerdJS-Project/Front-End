@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import { AuthContext } from '../store/AuthContext';
 var url = "http://localhost:3001/api"
+//var url ="http://10.117.255.254:3001/api"
 //var url = "http://192.168.0.16:3001/api"
 
 
@@ -16,7 +17,27 @@ class APIConnection {
   }
 
 
+  async dropClass(class_id){
+    try {
+      const response = await fetch(`${url}/class/drop/${class_id}`, {
+         method: 'GET',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json',
+           'token': this.token,
+         },
+       });
+      const json = await response.json();
 
+      return json;
+    } catch (error) {
+      console.error(error);
+      this.authCtx.logout
+    } finally {
+    }
+  }
+
+ 
   async getUnitProgress(unit_id){
     try {
       const response = await fetch(`${url}/progress/findByUnit/${unit_id}/${this.user_id}`, {

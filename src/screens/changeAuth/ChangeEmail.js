@@ -6,17 +6,22 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { TextInput, Button} from "react-native-paper";
-import APIConnection from "../../../utility/APIConnection";
+import { TextInput, Button, HelperText} from "react-native-paper";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import APIConnection from "../../utility/APIConnection";
+import Authentication from "../../utility/Authentication"
 
 export default function ChangeEmail({navigation}) {
+    const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
     const isFocused = useIsFocused();
     const [data, setData] = useState([]);
-
     const [currPW, getCurrPW] = useState('');
     const [newEmail, getNewEmail] = useState('');
+    const [isSecureEntry, setSecureEntry] = useState(true);    
 
     const apiConnection = new APIConnection();
+    const auth = new Authentication();
 
     useLayoutEffect(() => {
         if (isFocused) {
@@ -26,8 +31,46 @@ export default function ChangeEmail({navigation}) {
         }
     }, [isFocused]);
 
+
+    const checkEmail = (newEmail) => {
+        if(newEmail.match(mailFormat)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     async function onSubmit(){
-        let accessGranted = false; 
+
+        if(currPW === ''){
+            alert('need password to verify');
+            return; 
+        }
+
+        var emailCheck = checkEmail(newEmail);
+        
+        if(emailCheck != true){
+            alert('Email is not valid. Try again.');
+            return; 
+        }
+        
+
+        //check to see if type password matches with current
+        auth.signIn(data.user_email, currPW).then(() => {
+            //if matches, authorize and allow the user to change the email
+            AsyncStorage.getItem('@user_info').then((data) => {
+                const user = JSON.parse(data);
+                if (user && user.token) {
+                  apiConnection.changeEmail(newEmail, currPW).then(navigation.goBack());
+                }
+                else {
+                  alert("Incorrect Password");
+                  AsyncStorage.clear();
+                }
+              }).catch((reason) => {
+                console.log(reason);
+              })
+        });
 
 
 
@@ -42,14 +85,20 @@ export default function ChangeEmail({navigation}) {
                     value={data.user_email} 
                     mode={'outlined'}     
                     label={'Email'}
+                    left={<TextInput.Icon name='email'/>}
                     onChangeText={newText => getNewEmail(newText)}
                 />
          
                 <TextInput            
                     style={styles.inputField}
                     mode={'outlined'}   
-                    secureTextEntry={true}
+                    secureTextEntry={isSecureEntry}
                     label={'Password'}
+                    left={<TextInput.Icon name='lock'/>}
+                    right={  
+                        <TextInput.Icon name="eye"
+                          onPress={() => setSecureEntry(prev => !prev)}
+                        />}
                     onChangeText={newText => getCurrPW(newText)}
                      />
             </View>

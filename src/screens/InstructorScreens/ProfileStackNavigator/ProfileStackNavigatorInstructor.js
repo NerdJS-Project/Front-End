@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import InstructorProfile from './InstructorProfile'
+import Profile from './InstructorProfile'
 import { AuthContext } from '../../../store/AuthContext'
 import IconButton from '../../../component/ui/IconButton'
-import InstructorEditProfile from './InstructorEditProfile'
+import EditProfile from '../../UserProfile/EditProfile'
 const Stack = createNativeStackNavigator()
 
 
@@ -16,7 +16,7 @@ export default function ProfileStackNavigatorInstructor()  {
     <Stack.Navigator screenOptions={{
       headerShown: false,
     }}>
-      <Stack.Screen name="Profile" component={InstructorProfile}  options={{
+      <Stack.Screen name="Profile" component={Profile}  options={{
         headerShown: true,
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -28,7 +28,7 @@ export default function ProfileStackNavigatorInstructor()  {
           ),
       }}/>
 
-        <Stack.Screen name="Edit Profile" component={InstructorEditProfile} options={{headerShown:true}}/>
+        <Stack.Screen name="Edit Profile" component={EditProfile} options={{headerShown:true}}/>
 
 
     </Stack.Navigator>

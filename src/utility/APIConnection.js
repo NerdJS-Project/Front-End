@@ -199,6 +199,32 @@ class APIConnection {
           }
         }
 
+
+        async editUnitName(unitID, newName){
+          try {
+            const response = await fetch(`${url}/unit/update/`+unitID, {
+               method: 'PUT',
+               headers: {
+                 Accept: 'application/json',
+                 'Content-Type': 'application/json',
+                 'token': this.token,
+               },
+               body: JSON.stringify({ 
+              
+                 unit_name: newName,
+                 unit_index: 0
+             })
+             });
+            const json = await response.json();
+    
+            return json;
+          } catch (error) {
+            console.error(error);
+            this.authCtx.logout
+          } finally {
+          }
+        }
+
         async postLesson(ModuleID){
           try {
             const response = await fetch(`${url}/lesson/create`, {
@@ -820,6 +846,57 @@ class APIConnection {
     }
 
   }
+
+  async getUnitByID(unitID) {
+    // console.log("token  " + this.token);
+
+    // console.log("fetch url dash board debug: " +  url + '/class/findByUser/');
+    //  console.log(LessonID);
+    try {
+      const response = await fetch(url + '/unit/' + unitID, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      const json = await response.json();
+      console.log("Json api: " + json);
+
+      return json;
+    } catch (error) {
+      console.error(error);
+      this.authCtx.logout
+    } finally {
+    }
+
+  }
+
+  async getClassByID(classID) {
+    // console.log("token  " + this.token);
+
+    // console.log("fetch url dash board debug: " +  url + '/class/findByUser/');
+    //  console.log(LessonID);
+    try {
+      const response = await fetch(url + '/class/findById/' + classID, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      const json = await response.json();
+      console.log("Json api: " + json);
+
+      return json;
+    } catch (error) {
+      console.error(error);
+      this.authCtx.logout
+    } finally {
+    }
+
+  }
+
 
   async addUnitForLessonCreation(lessonID) {
     try {

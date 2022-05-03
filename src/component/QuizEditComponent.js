@@ -17,7 +17,7 @@ import { Icon } from "react-native-elements/dist/icons/Icon";
 import { Button } from "react-native-elements";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
 import { color } from "react-native-elements/dist/helpers";
-import { useIsFocused } from "@react-navigation/native";
+import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import { RadioButton } from 'react-native-paper';
 import APIConnection from "../utility/APIConnection";
 
@@ -25,9 +25,10 @@ import APIConnection from "../utility/APIConnection";
 
 
 
-export default function QuizEditComponent({unitID}) {
+export default function QuizEditComponent({navigation, unitID}) {
 
 
+    const invalidChars = ["'", '"']
 
     const initialdata = [
         {
@@ -287,6 +288,32 @@ export default function QuizEditComponent({unitID}) {
 
     async function onSave() {
 
+        let valid = true;
+        for(let i = 0; i < quizData.length; i++)
+        {
+            //combining all string in quiz to do test at once
+            let allStringInQuestion = quizData[i].quizdata_question;
+
+            for(let i2 = 0; i2 < quizData[i].quizdata_answers.length; i2++)
+            {
+                allStringInQuestion += quizData[i].quizdata_answers[i2];
+            }
+
+
+            for(let j = 0; j < invalidChars.length; j++)
+            {
+                if(allStringInQuestion.includes(invalidChars[j]))
+                {
+                    alert("Your quiz data contain invalid characters such as ' or '', please remove them and try again");
+                    valid = false;
+                }
+
+            }
+        }
+
+        if(valid){
+
+        
         await Promise.all(
             quizData.map(async (question) => {
 
@@ -332,6 +359,9 @@ export default function QuizEditComponent({unitID}) {
             })
         )
         setDeleteList([]);
+
+        navigation.goBack();
+    }
 
 
 

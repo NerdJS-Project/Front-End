@@ -1,10 +1,11 @@
 import React, { Children, useState, useCallback, useContext, useEffect, useLayoutEffect } from 'react';
-import { View, Pressable, Modal, Text, ScrollView, Alert, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
+import { View, Pressable, Modal, Text, ScrollView, Alert, StyleSheet, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import { AuthContext } from '../../../store/AuthContext';
 import APIConnection from '../../../utility/APIConnection';
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video, AVPlaybackStatus } from 'expo-av';
+import { TextInput } from 'react-native-paper';
 
 
 import ReactPlayer from "react-player";
@@ -33,6 +34,7 @@ export default function CreateContent({navigation, route}) {
   const [data, setData] = useState();
 
   const video = React.useRef(null);
+  const [unitNameEntry, setUnitNameEntry] = useState(unitName);
 
 
   const [playing, setPlaying] = useState(false);
@@ -63,10 +65,19 @@ export default function CreateContent({navigation, route}) {
 
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-  function onSaved(content, content2,unit_id) {
+  async function onSaved(content, content2,unit_id) {
+
+
+    if(unitNameEntry != unitName)
+    {
+      await apiConnection.editUnitName(unitID, unitNameEntry)
+    }
+
+
     apiConnection.editUnitContent(content, content2, unitID).then(() => delay(300)).then((json) => {
       setLink(link);
       // navigation.push('Instructor Dashboard');
+      navigation.goBack();
       ///https://www.youtube.com/watch?v=cBxyB788_5w
     })
   }
@@ -79,6 +90,9 @@ export default function CreateContent({navigation, route}) {
 
     
     if (isFocused) {
+      apiConnection.getUnitByID(unitID).then((unitjson) => {
+        setUnitNameEntry(unitjson.unit_name)
+      })
       apiConnection.getUnitContent(unitID).then((json) => {
         setData(json);
         let unitContent = json.unit_content;
@@ -239,7 +253,12 @@ export default function CreateContent({navigation, route}) {
   return (
     /**/
     <View style={styles.container}>
-      <Text style={styles.title}>Section</Text>
+      <TextInput
+      label="Unit Name:"
+      defaultValue={unitNameEntry}
+      value={unitNameEntry}
+      onChangeText={text => setUnitNameEntry(text)}
+    />
       <View style={styles.content}>
 
         <Modal

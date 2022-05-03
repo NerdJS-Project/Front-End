@@ -23,6 +23,7 @@ import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
 import { FAB } from "react-native-elements";
 import ModuleEditComponentContainer from "../../../component/ModuleEditComponentContainer";
+import { ActivityIndicator } from "react-native-paper";
 export default function EditModuleScreen({ navigation, route }) {
   const { courseID, courseName } = route.params;
 
@@ -31,6 +32,7 @@ export default function EditModuleScreen({ navigation, route }) {
 
   const [finalData, setFinalData] = useState([]);
   const [stateData, setStateData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [dummyState, setDummyState] = useState(true);
 
@@ -56,28 +58,38 @@ export default function EditModuleScreen({ navigation, route }) {
   //---------------------------------------
 
   useEffect(() => {
+    setIsLoading(true);
 
 
     async function fetchAPI()
     {
       let json = await apiConnection.getAllModulesForClass(courseID);
       let data = await processAPIModuleData(json);
-       await data.forEach(element=>{
-
+      for(let i = 0; i< data.length; i++)
+      {
+        let element = data[i];
         console.log('data :'+ element.module_id);
-         apiConnection.getLessonsInModule(element.module_id).then((json2) => {
-          processAPILesson(element.lessons,json2);
-
-         })
+        let json2 = await apiConnection.getLessonsInModule(element.module_id);
+        processAPILesson(data[i].lessons,json2);
 
 
-       });
+      }
+      //  await data.forEach(element=>{
+
+      //    apiConnection.getLessonsInModule(element.module_id).then((json2) => {
+      //     processAPILesson(element.lessons,json2);
+
+      //    })
+
+
+      //  });
 
      
 
 
        setFinalData(data);
        setStateData(data);
+       setIsLoading(false);
 
 
 
@@ -251,7 +263,16 @@ export default function EditModuleScreen({ navigation, route }) {
 
   return (
     <ScrollView>
-      {dummyState}
+      {isLoading ? <ActivityIndicator 
+      size={"large"}
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10
+      }}
+      ></ActivityIndicator> : <View>
       <View style={{ padding: 10, flex: 1, backgroundColor: "white" }}>
         <Text style={styles.label}>Edit Modules</Text>
         <ScrollView>
@@ -294,6 +315,9 @@ export default function EditModuleScreen({ navigation, route }) {
       >
 
       </FAB>
+        </View>}
+
+      
     </ScrollView>
 
 

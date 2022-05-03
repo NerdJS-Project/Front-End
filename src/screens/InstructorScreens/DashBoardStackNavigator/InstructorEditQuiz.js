@@ -20,6 +20,7 @@ return(
     <SafeAreaView>
         <QuizEditComponent
         unitID={unitID}
+        navigation={navigation}
         >
 
         </QuizEditComponent>

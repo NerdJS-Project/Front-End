@@ -39,19 +39,24 @@ export default function ModuleEditComponent({ allData, setData, lessonData, navi
 
   async function addNewLesson()
   {
+    if(moduleID != null)
+    {let response = await apiConnection.postLesson(moduleID);
+      let lessonID = response.result[0].lesson_id;
+      let lessonName = response.result[0].lesson_name;
+  
+      navigation.navigate(
+  
+        'LessonCreation', {
+          lessonID: lessonID,
+          lessonName: lessonName
+          
+        }
+      )
+    }
 
-    let response = await apiConnection.postLesson(moduleID);
-    let lessonID = response.result[0].lesson_id;
-    let lessonName = response.result[0].lesson_name;
+    else alert("Please press save first before continuing")
 
-    navigation.navigate(
-
-      'LessonCreation', {
-        lessonID: lessonID,
-        lessonName: lessonName
-        
-      }
-    )
+    
 
 
 

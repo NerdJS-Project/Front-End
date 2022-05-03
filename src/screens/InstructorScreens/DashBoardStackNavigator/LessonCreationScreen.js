@@ -56,10 +56,11 @@ export default function LessonCreation({ navigation, route }) {
             })
     }
 
-    function onUnitPress(unitID)
+    function onUnitPress(unitID, unitName)
     {
         navigation.navigate('Content Edit', {
-            unitID: unitID
+            unitID: unitID,
+            unitName: unitName,
             
           })
     }
@@ -161,7 +162,7 @@ export default function LessonCreation({ navigation, route }) {
 
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.sectionButton} onPress={() => {
-                                        onUnitPress(item.unit_id)
+                                        onUnitPress(item.unit_id, item.unit_name)
                                     }}>
                                         <Text style={styles.sectionText}>
                                             {item.unit_name}

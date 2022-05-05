@@ -3,22 +3,22 @@
 <summary>Table of Contents</summary>
 <ol>
   <li>
-    <a href="about-the-project">About the Project</a>
+    <a href="#about-the-project">About the Project</a>
     <ul>
         <li><a href="#built-with">Built With</a></li>
     </ul>
   </li>
   <li>
-    <a href="usage">Usage</a>
+    <a href="#usage">Usage</a>
   </li>
   <li>
-    <a href="roadmap">Roadmap</a>
+    <a href="#roadmap">Roadmap</a>
   </li>
   <li>
-    <a href="the-team">The Team</a>
+    <a href="#the-team">The Team</a>
   </li>
   <li>
-    <a href="acknowledgments">Acknowledgments</a>
+    <a href="#acknowledgments">Acknowledgments</a>
   </li>
 </ol>
 

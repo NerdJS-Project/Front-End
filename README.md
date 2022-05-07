@@ -78,7 +78,6 @@
     <ul>App is being polished and optimized. Will get some visual updates and will start testing the app and write up the necessary manuals for the client.</ul>
 </ul>
 
-## Contributing
 
 ## The Team
 <ul>
@@ -90,5 +89,7 @@
   <li>Victor Peraza</li>
   <li>Emmanuel Silva</li>
 </ul>
+
+
 
 ## Acknowledgments 

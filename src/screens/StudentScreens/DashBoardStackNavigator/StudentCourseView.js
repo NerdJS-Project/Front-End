@@ -1,7 +1,6 @@
-import { useEffect, useState, useContext, useLayoutEffect } from "react";
+import { useEffect, useState } from "react";
 import * as React from "react-native";
 
-import { Component } from "react";
 //import { render } from 'react-dom';
 import {
   View,
@@ -15,14 +14,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import Icon from "react-native-vector-icons/SimpleLineIcons";
 import StudentModuleView from "../../../component/StudentModuleView";
 import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
-
-//  import Course from '../component/course';
-
 
 
 export default function StudentCourseView({ navigation, route }) {
@@ -121,7 +115,7 @@ export default function StudentCourseView({ navigation, route }) {
 
   
   return (
-    <View // onLayout={(event)=>{
+    <View 
       style={{ flex: 2, alignItems: "stretch" }}
     >
       <SafeAreaView style={{ flex: 1 }}>
@@ -140,12 +134,9 @@ export default function StudentCourseView({ navigation, route }) {
           </Text>
         </View>
 
-        {/* <View onLayout={(event)=>{
-            var{x,y,width,Viewheight} = event.nativeEvent.layout; cheight =Viewheight}} > */}
+ 
         <ScrollView>
           <View style={styles.lessContainer}>
-            {/* {getLesson()}  */}
-            {/* <SafeAreaView style={{ }}> */}
 
             <View style={styles.container}>
               <View style={{ flexDirection: "row", padding: 10 }}>
@@ -169,7 +160,7 @@ export default function StudentCourseView({ navigation, route }) {
                 ))}
               </ScrollView>
             </View>
-            {/* </SafeAreaView> */}
+
           </View>
         </ScrollView>
 
@@ -195,7 +186,6 @@ const styles = StyleSheet.create({
   height:80,
   paddingBottom:5,
   position: "absolute",
-    //height: 60,
 
   borderRadius: 50,
   backgroundColor: '#4970FA',
@@ -208,8 +198,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // borderWidth: 3,
-    // borderColor:'black',
     width: 350,
   },
   titleText: {
@@ -218,8 +206,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   menu: {
-    // alignItems:'flex-start',
-
     alignSelf: "flex-start",
     justifyContent: "center",
   },
@@ -246,25 +232,14 @@ const styles = StyleSheet.create({
     height: 75,
     borderRadius: 75 / 2,
     alignSelf: "center",
-    // justifyContent:'space-between'
   },
   lessContainer: {
-    // backgroundColor: 'gray',
-    // shadowColor:'#171717',
-    // shadowOffset: {width: -2, height: 4},
-    // shadowOpacity: 0.2,
-    // shadowRadius: 3,
     flex: 20,
     marginTop: 10,
     width: 350,
-
     alignSelf: "center",
-    // borderColor:'#3385ff',
-    // borderWidth:3,
-    // borderRadius:20,
     flexWrap: "wrap",
     flexDirection: "row",
-
     alignContent: "center",
     justifyContent: "space-evenly",
   },

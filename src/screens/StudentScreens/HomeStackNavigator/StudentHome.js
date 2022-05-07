@@ -15,7 +15,9 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { Card } from "react-native-paper";
 import APIConnection from "../../../utility/APIConnection";
+
 
 export default function StudentClassSearchScreenTest({ navigation }) {
   //-------------------API Fetch code-------------------------
@@ -30,25 +32,32 @@ export default function StudentClassSearchScreenTest({ navigation }) {
   //--------------------------------------------
 
   function searchAPI(keyword) {
-    apiConnection.getSearchClassResultSearchScreen(keyword).then((json) => {
-      console.log("Class search debug " + json);
+    if (keyword == "") {
+      alert('Enter class name');
+    }
+    else {
+      apiConnection.getSearchClassResultSearchScreen(keyword).then((json) => {
+        console.log("Class search debug " + json);
 
-      setData(json);
-    });
+        setData(json);
+      });
+    }
   }
-  function onCoursePress(course_id, course_name, course_descrip) {
+  function onCoursePress(course_id, course_name, course_descrip, instructor_name) {
     navigation.navigate("Dashboard",
       {
         screen: 'Course Description',
-        params: { 
-          class_id: course_id, 
-          class_name: course_name, 
-          class_descrip: course_descrip }
+        params: {
+          class_id: course_id,
+          class_name: course_name,
+          class_descrip: course_descrip,
+          instructor_name: instructor_name
+        }
       })
-      
+
   }
 
-  const [searchTerm, setSearchTerm] = useState("Trigonometry");
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <View style={styles.container}>
@@ -60,16 +69,16 @@ export default function StudentClassSearchScreenTest({ navigation }) {
           defaultValue={searchTerm}
         />
 
-        <TouchableOpacity onPress={() => searchAPI(searchTerm)}>
-          <View style={search.searchBttn}>
+        <View >
+          <TouchableOpacity style={search.searchBttn}onPress={() => searchAPI(searchTerm)}>
             <Text style={search.searchText}>Search</Text>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
 
         <Text style={styles.title}> Discover Classes </Text>
       </View>
 
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView style={{ backgroundColor: '#4970FA' }} contentContainerStyle={styles.content}>
         {/* { {Data.filter((val)=>{
             if (searchTerm == "") {
               return val
@@ -90,13 +99,37 @@ export default function StudentClassSearchScreenTest({ navigation }) {
 
         {data.length > 0 && data.map((item, key) => {
           return (
-            <TouchableOpacity key={key}
-              onPress={() => onCoursePress(item.class_id, item.class_name, item.class_descrip)}
-            >
-              <Text style={styles.boxes}>
-                {item.class_name + item.class_descrip + item.instructor_name}
-              </Text>
-            </TouchableOpacity>
+            // <TouchableOpacity key={key}
+            // onPress={() => onCoursePress(item.class_id, item.class_name, item.class_descrip, item.instructor_name)}
+            // >
+
+            //   <Text style={styles.boxes}>
+            //     {'Class Name: '+item.class_name +'\n' +
+            //     '--------------------'+'\n'+
+            //     'Class description: '+ item.class_descrip +'\n'+ 
+            //     '--------------------'+'\n'+
+            //     'instructor: '+ item.instructor_name + '\n' + "the end of this "}
+            //   </Text>
+
+            // </TouchableOpacity>
+            <Card key={item.class_id} style={styles.gridItem} >
+              <TouchableOpacity onPress={() => onCoursePress(item.class_id, item.class_name, item.class_descrip, item.instructor_name)}>
+
+              <Card.Cover style={{height:'50%'}} source={{uri: 'https://picsum.photos/700' }}/>
+                <Card.Content  adjustsFontSizeToFit>
+              
+
+                  <Text  style={{textAlign:'center',fontSize:16}}adjustsFontSizeToFit>
+                    { item.class_name +'\n' +
+                      'instructor: ' + item.instructor_name}
+                  </Text>
+
+                </Card.Content>
+
+              </TouchableOpacity>
+    
+
+            </Card>
           );
         })}
       </ScrollView>
@@ -104,32 +137,46 @@ export default function StudentClassSearchScreenTest({ navigation }) {
   );
 }
 const styles = StyleSheet.create({
+  gridItem: {
+    flex: 1,
+    margin: 16,
+    width: '65%',
+    height: 150,
+    borderRadius: 8,
+    elevation: 4,
+    backgroundColor: 'white',
+    color: 'white',
+    shadowColor: 'black',
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
+  },
   container: {
     flex: 1,
     backgroundColor: "#E8EAED",
   },
 
   content: {
-    alignItems: "center",
+     alignItems: "center",
+
   },
 
   title: {
-    //paddingHorizontal:11,
+
     textAlign: "center",
     fontSize: 30,
     fontWeight: "bold",
     color: "black",
-
     marginTop: 50,
     marginBottom: 50,
-    //top: 100
-    // bottom: 1000
+
   },
 
   boxes: {
     //padding: 30,
     marginTop: 10,
-
+    fontWeight: 'bold',
     backgroundColor: "white",
     borderColor: "#C0C0C0",
     borderWidth: 1,
@@ -162,26 +209,19 @@ const search = StyleSheet.create({
   searchBttn: {
     width: 100,
     position: "absolute",
-    //height: 60,
     paddingVertical: 15,
     paddingHorizontal: 15,
     borderRadius: 60,
     backgroundColor: "#4970FA",
-    //marginTop: 10,
-    //top: 10,
-    //textAlign: 'center',
     color: "white",
-    //color: 'white',
     alignItems: "center",
     left: 80,
     bottom: 0,
 
-    //bottom: 45
   },
 
   searchText: {
     color: "white",
-    //fontSize: 22,
     fontWeight: "bold",
   },
 });

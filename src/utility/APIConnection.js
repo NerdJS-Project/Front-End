@@ -2,9 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import { AuthContext } from '../store/AuthContext';
 var url = "http://localhost:3001/api"
-//var url ="http://10.117.255.254:3001/api"
-//var url = "http://192.168.0.16:3001/api"
-
 
 
 
@@ -20,7 +17,7 @@ class APIConnection {
   async dropClass(class_id){
     try {
       const response = await fetch(`${url}/class/drop/${class_id}`, {
-         method: 'GET',
+         method: 'DELETE',
          headers: {
            Accept: 'application/json',
            'Content-Type': 'application/json',
@@ -29,6 +26,7 @@ class APIConnection {
        });
       const json = await response.json();
 
+      console.log("THIS IS DROP CLASS " + json);
       return json;
     } catch (error) {
       console.error(error);

@@ -3,10 +3,9 @@ import * as React from 'react-native';
 import {
     Text, StyleSheet,
     View, TouchableOpacity, SafeAreaView,
-    FlatList, TextInput, ScrollView
+    FlatList, TextInput
 } from 'react-native';
 
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Icon } from 'react-native-elements';
 
 import { useIsFocused } from "@react-navigation/native";
@@ -16,7 +15,6 @@ import APIConnection from "../../../utility/APIConnection";
 
 export default function LessonCreation({ navigation, route }) {
 
-    //  const {lesssonID} = route.params;
     const [newLessonName, setLessonName] = useState('');
     const [myData, setMyData] = useState([]);
     const [lessonData, setLessonData] = useState([]);
@@ -56,13 +54,12 @@ export default function LessonCreation({ navigation, route }) {
             })
     }
 
-    function onUnitPress(unitID, unitName)
-    {
+    function onUnitPress(unitID, unitName) {
         navigation.navigate('Content Edit', {
             unitID: unitID,
             unitName: unitName,
-            
-          })
+
+        })
     }
 
 
@@ -84,20 +81,16 @@ export default function LessonCreation({ navigation, route }) {
 
 
     return (
-        //   <View style={{flex:2}}>
-        <SafeAreaView style={{backgroundColor:'#d3d3d3'}}>
-        <View style={{ alignItems:'center',justifyContent: 'center', marginTop: 50 }}>
-            {/* <ScrollView> */}
-            <SafeAreaView style={{ alignItems: 'center' }}>
-                <Text style={{ fontSize: 20 }}>
-                    {newLessonName}
-                </Text>
+
+        <View style={{ marginTop: 50 }}>
+
+            <SafeAreaView style={{ alignSelf: 'center' }} >
 
 
-                <View style={{ flexDirection: 'row', marginTop: 50 }}>
+
+                <View style={{ flexDirection: 'row', marginTop: 20 }}>
 
                     <View style={{
-                        alignItems: 'center', justifyContent: 'center',
                         borderRadius: 2, borderColor: 'black', width: 100,
                         height: 40,
                     }}>
@@ -119,10 +112,6 @@ export default function LessonCreation({ navigation, route }) {
 
                     </View>
 
-                    {/* {console.log('LESSON_DESCRIPTION: '+ lessonData.lesson_descrip + 
-                            "\n LESSON_INDEX : " + lessonData.lesson_index + 
-                            " \n LESSON_MODULE_ID: " + lessonData.module_id
-                            + "\n Instructor_ID " + instID)}  */}
 
                     <TouchableOpacity style={styles.saveButton} onPress={() => {
                         if (newLessonName != '') {
@@ -136,81 +125,83 @@ export default function LessonCreation({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
 
+            </SafeAreaView>
+            {/* Displays the list of units*/}
 
-                {/* Displays the list of units*/}
-                <FlatList
-                            numColumns={2}
+            <View style={{ marginTop: 10, justifyContent: 'space-between', backgroundColor: '#3385ff' }}>
+                <View style={{ height: 435 }}>
+                    <FlatList
+                        numColumns={2}
+                        contentContainerStyle={{ alignItems: 'center' }}
+                        style={{ width: '100%' }}
+                        data={myData}
+                        keyExtractor={(item) => item.unit_id}
+                        renderItem={({ item, index }) =>
 
-                            data={myData}
-                            keyExtractor={(item) => item.unit_id }
-                            //  contentContainerStyle={{flexGrow:2}}
-                            renderItem={({ item,index}) =>
+                            <View style={{
+                                flexDirection: "row",
+                                marginRight: 2,
+                                marginLeft: 2,
 
-                                <View style={{
-                                    flexDirection: "row",
-                                    flexWrap: "wrap",
-                                    justifyContent: "space-between",
-                                    alignContent:'center',
-                                    alignItems:'center'
 
+                            }}>
+
+                                <TouchableOpacity style={styles.buttonContainer}
+                                    onPress={() => deleteUnit(item.unit_id)}>
+
+                                    <Icon name="delete" size={30} color="#e33057" />
+
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.sectionButton} onPress={() => {
+                                    onUnitPress(item.unit_id, item.unit_name)
                                 }}>
-
-                                    <TouchableOpacity style={styles.buttonContainer}
-                                        onPress={() => deleteUnit(item.unit_id)}>
-
-                                        <Icon name="delete" size={30} color="#e33057" />
-
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.sectionButton} onPress={() => {
-                                        onUnitPress(item.unit_id, item.unit_name)
-                                    }}>
-                                        <Text style={styles.sectionText}>
-                                            {item.unit_name}
+                                    <Text style={styles.sectionText}>
+                                        {item.unit_name}
 
 
-                                        </Text>
+                                    </Text>
 
-                                    </TouchableOpacity>
+                                </TouchableOpacity>
 
 
 
-                                </View>
+                            </View>
 
-                            }
+                        }
 
-                            />
-                {/* <SafeAreaView > */}
-                    <View>
+                    />
 
-                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                </View>
 
-                            <TouchableOpacity style={styles.addButton} onPress={() => { addUnit() }}>
 
-                                <Text style={styles.addTextButton}>
-                                    Add unit +
-                                </Text>
+                <View>
 
-                            </TouchableOpacity>
-                            
-                        </View>
-                       
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
 
-                        {/* Displays the addButton */}
+                        <TouchableOpacity style={styles.addButton} onPress={() => { addUnit() }}>
 
+                            <Text style={styles.addTextButton}>
+                                Add unit +
+                            </Text>
+
+                        </TouchableOpacity>
 
                     </View>
-                    
-                {/* </SafeAreaView> */}
 
 
 
-            </SafeAreaView>
 
 
-            {/* </ScrollView> */}
+                </View>
+
+            </View>
+
+
+
+
+
         </View>
-        </SafeAreaView>
-        /* // </View> */
+
 
     )
 }
@@ -230,14 +221,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
 
     },
-    // item: {
-    //     backgroundColor: '#f9c2ff',
-    //     padding: 20,
-    //     marginVertical: 8,
-    //     marginHorizontal: 16,
-    // },
+
     sectionText: {
-        fontSize:20,
+        fontSize: 20,
         fontWeight: 'bold',
         justifyContent: 'flex-end',
         alignItems: 'center',
@@ -246,6 +232,7 @@ const styles = StyleSheet.create({
     },
     sectionButton: {
         width: 120,
+
         height: 60,
         color: 'silver',
         backgroundColor: 'aliceblue',

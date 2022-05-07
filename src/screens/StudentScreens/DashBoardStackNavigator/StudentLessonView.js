@@ -3,12 +3,12 @@ import * as React from 'react-native'
 import { Text, View, Button, TouchableOpacity, FlatList, StyleSheet, SafeAreaView } from 'react-native'
 import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
-import { Badge } from 'react-native-paper';
 import { Icon } from 'react-native-elements';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+
+
 export default function StudentLessonView({ navigation, route }) {
 
-    const { lessonID, instID, lesson_name/*, lessArr */ } = route.params;
+    const { lessonID, instID, lesson_name } = route.params;
     const isFocused = useIsFocused();
     const [LessonData, setLessonData] = useState([]);
     const [dummy, setDummy] = useState(true);
@@ -32,7 +32,7 @@ export default function StudentLessonView({ navigation, route }) {
             let json = await apiConnection.getSectionsPerLesson(lessonID);
             for (let i = 0; i < json.length; i++)
             {
-         //  json.forEach((item) => {
+
              let item = json[i];
                 let result = await apiConnection.getUnitProgress(item.unit_id);
                 if(result.result.length >0){
@@ -43,9 +43,7 @@ export default function StudentLessonView({ navigation, route }) {
                    json[i]['completed']  = 0;
                 
                 }
-                // setLessonData(json)
-                
-                //  }
+
             }
             setLessonData(json);
 
@@ -75,7 +73,7 @@ export default function StudentLessonView({ navigation, route }) {
     console.log("LESSON DATA INDEX ONE:" + JSON.stringify(LessonData[0]))
 
     return (
-        // <View>
+ 
 
 
         <View style={styles.entireView}>
@@ -83,16 +81,15 @@ export default function StudentLessonView({ navigation, route }) {
                 <Text style={styles.lessonName}>{lesson_name}</Text>
 
             </View>
-            {/* <Text style={{ textAlign: 'center', }}> Units</Text> */}
 
-
-            <View style={{ alignItems: 'center' }}>
+            <View style={{flex:1, width:'100%',  alignItems: 'center' }}>
 
                 <FlatList
                     numColumns={3}
                     data={LessonData}
                     keyExtractor={(it) => it.unit_id}
-
+                    contentContainerStyle={{alignItems:'center'}}
+                    style={{width:'100%'}}
                     renderItem={({ item }) => {
 
                         return (
@@ -103,7 +100,7 @@ export default function StudentLessonView({ navigation, route }) {
                                     <Text adjustsFontSizeToFit numberOfLines={2}  style={styles.unitText}>
                                     <Text >
                                         {item.completed ===1 ? <Icon style={{borderRadius:15, padding:2,backgroundColor:'green'}} color={'white'} name={"check"} size={12} />: 
-                                        <FontAwesome5Icon style={{borderRadius:15, padding:2, paddingLeft:4, paddingRight:4, backgroundColor:'red'}} color={'white'} size={12} name={'times'} />}
+                                       null}
                                         </Text>
                                      
                                  
@@ -130,7 +127,6 @@ export default function StudentLessonView({ navigation, route }) {
 
         </View>
 
-        // </View>
 
     )
 
@@ -139,12 +135,10 @@ export default function StudentLessonView({ navigation, route }) {
 
 const styles = StyleSheet.create({
     unit: {
-        // height: 50,
-        // width: 50,
+
         flex: 1,
         backgroundColor: 'green',
         flexDirection: "row",
-        // flexWrap: "wrap",
         justifyContent: "space-between",
         alignContent: 'center',
         alignItems: 'center'
@@ -164,14 +158,12 @@ const styles = StyleSheet.create({
     },
 
     unitTouch: {
-        // height: 40,
-        // width: 40,
 
         width: 100,
         height: 60,
-        backgroundColor: 'white'/*#00bfff'*/,
+        backgroundColor: '#f0f8ff',
         borderRadius: 5,
-        borderColor: '#00bfff'/*'black'*/,
+        borderColor: 'black',
         borderWidth: 2,
         margin: 10,
         textAlign: 'center',
@@ -187,17 +179,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: 'black',
-        // justifyContent: 'flex-end',
-        // flexDirection: 'row',
+
         textAlign: 'center'
     },
     entireView: {
         flex: 1,
-        backgroundColor:'#d3d3d3'
-        //    justifyContent:'center',
-        // alignItems: 'center'
-
-        // justifyContent:'center',
-        // alignItems:'center'
+        backgroundColor: '#3385ff'
     }
 })

@@ -1,3 +1,7 @@
+<div align="center">
+    <img src="product_icon.png" alt="Logo">
+ </div>
+
 # Brain Breeze 
 
 <summary>Table of Contents</summary>
@@ -22,7 +26,7 @@
   </li>
 </ol>
 
-
+<br />
 
 ## About the Project
 

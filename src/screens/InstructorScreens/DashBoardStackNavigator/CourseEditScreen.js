@@ -59,7 +59,7 @@ export default function CourseEditScreen({ route, navigation }) {
 
     return (
         <ScrollView>
-            <View style={{ backgroundColor: "white", flex: 1 }}>
+            <View style={{ backgroundColor: "white", flex: 1, justifyContent: "space-between", flexDirection: "column"}}>
                 
                 <TextInput
                     style={styles.inputStyle}

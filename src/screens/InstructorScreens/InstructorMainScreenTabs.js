@@ -27,6 +27,15 @@ export default function InstructorMainScreenTabs({ navigation }) {
           headerShown: false,
         }}>
           <Tab.Screen 
+            name="Search" 
+            component={HomeStackNavigatorInstructor} 
+            options={{
+              tabBarIcon: ({focused}) => (
+                <MaterialCommunityIcons name='magnify' color={'#000'} size={20}/>
+              ),
+            }}
+          />
+          <Tab.Screen 
             name="Dashboard" 
             component={DashBoardStackNavigatorInstructor} 
             options={{
@@ -36,15 +45,7 @@ export default function InstructorMainScreenTabs({ navigation }) {
             }}
 
           />
-          <Tab.Screen 
-            name="Search" 
-            component={HomeStackNavigatorInstructor} 
-            options={{
-              tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='magnify' color={'#000'} size={20}/>
-              ),
-            }}
-          />
+          
           <Tab.Screen 
             name="Profile" 
             component={ProfileStackNavigatorInstructor} 

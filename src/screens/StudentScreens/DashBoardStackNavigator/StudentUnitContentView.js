@@ -12,6 +12,7 @@ import {
     TextInput,
     Platform,
     Dimensions,
+    ScrollView,
 } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { RadioButton } from 'react-native-paper';
@@ -29,7 +30,7 @@ export default function StudentUnitContentView({ navigation, route }) {
 
     const [playing, setPlaying] = useState(false);
 
-    const [unitContent, setUnitContent] = useState("");
+    const [videoContent, setVideoContent] = useState("");
     const [unitText, setUnitText] = useState("");
 
 
@@ -47,7 +48,7 @@ export default function StudentUnitContentView({ navigation, route }) {
             apiConnection.getUnitContent(unitID).then((json) => {
                 setData(json);
                 let newVideoData = json.unit_content;
-                setUnitContent(newVideoData);
+                setVideoContent(newVideoData);
                 setUnitText(json.unit_content_type);
             })
 
@@ -110,25 +111,16 @@ export default function StudentUnitContentView({ navigation, route }) {
     }
 
     return (
-        <View style={styles.container}>
+        <ScrollView>
+ <View style={styles.container}>
      
-
-     
-    
-        <Text selectable={true} style={styles.textStyle}>
-            {unitText}
-        </Text>
-        {textInput(unitContent)}
-
-
-
-
-    
-
-
-
-
-    </View>
+     <Text selectable={true} style={styles.textStyle}>
+         {unitText}
+     </Text>
+     {textInput(videoContent)}
+ </View>
+        </ScrollView>
+       
     )
 
 

@@ -1,5 +1,7 @@
-import { useIsFocused } from "@react-navigation/native";
-import React, { useState, useLayoutEffect } from "react";
+import { useIsFocused,useFocusEffect,  } from "@react-navigation/native";
+import { is } from "@react-spring/shared";
+
+import React, { useState, useLayoutEffect,useEffect,useRef,useCallback } from "react";
 import {
   View,
   Text,
@@ -7,7 +9,7 @@ import {
   FlatList,
 } from "react-native";
 import { Avatar } from "react-native-elements";
-import { FAB} from 'react-native-paper'; 
+import { FAB, TextInput} from 'react-native-paper'; 
 import Icon from 'react-native-vector-icons/AntDesign';
 import APIConnection from "../../../utility/APIConnection";
 
@@ -18,8 +20,28 @@ export default function InstructorProfile({navigation}) {
   const [classData, setClassData] = useState([]);
   const apiConnection = new APIConnection();
 
-  useLayoutEffect(() => {
-    if (isFocused) {
+
+ 
+
+
+
+  
+  const mounted = useRef(false);
+
+  useEffect(() => {
+      mounted.current = true;
+      
+
+
+      return () => {
+          mounted.current = false;
+          
+      };
+  }, []);
+
+  /*useLayoutEffect(() => {
+    //your code here
+    if (isFocused && mounted.current) {
       apiConnection.getUserForProfilePage().then((json) => {
         setData(json);
       });
@@ -27,7 +49,48 @@ export default function InstructorProfile({navigation}) {
         setClassData(json);
       });
     }
-  }, [isFocused]);
+
+  }, [isFocused]);*/
+
+//navigation.navigate('My Profile')
+  const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+      
+
+
+      
+   if (isFocused) {
+ 
+    
+ 
+   
+       
+        apiConnection.getUserForProfilePage().then((json) => {
+          setData(json);
+          
+        });
+        apiConnection.getClasses().then((json) => {
+          setClassData(json);
+        
+          
+        });
+      }
+       
+       
+  
+    
+      
+    }, [isFocused])
+
+
+  
+
+  
+   
+
+
+  
 
 
   const shadowOverlay = {

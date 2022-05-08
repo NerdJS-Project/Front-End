@@ -25,13 +25,15 @@ export default function InstructorMainScreenTabs({ navigation }) {
       (
         <Tab.Navigator screenOptions={{
           headerShown: false,
+          tabBarActiveTintColor:'#4970FA',
+
         }}>
           <Tab.Screen 
             name="Search" 
             component={HomeStackNavigatorInstructor} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='magnify' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='magnify' color={'#4970FA'} size={20}/>
               ),
             }}
           />
@@ -40,7 +42,7 @@ export default function InstructorMainScreenTabs({ navigation }) {
             component={DashBoardStackNavigatorInstructor} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='view-dashboard' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='home' color={'#4970FA'} size={20}/>
               ),
             }}
 
@@ -51,7 +53,7 @@ export default function InstructorMainScreenTabs({ navigation }) {
             component={ProfileStackNavigatorInstructor} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='account-circle-outline' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='account-circle-outline' color={'#4970FA'} size={20}/>
               ),
             }}
           />
@@ -60,7 +62,7 @@ export default function InstructorMainScreenTabs({ navigation }) {
             component={SettingStackNavigatorInstructor} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='cog-outline' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='cog-outline' color={'#4970FA'} size={20}/>
               ),
             }}
           />

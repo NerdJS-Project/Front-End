@@ -31,7 +31,8 @@ export default UnitEditCard;
 
 const styles = StyleSheet.create({
     cardContainer: {
-        padding: 10
+        padding: 10,
+        flex: 1
 
     },
 })

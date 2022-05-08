@@ -31,14 +31,7 @@ export default function InstructorProfile({navigation}) {
 
 
   const shadowOverlay = {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.36,
-    shadowRadius: 6.68,
-    elevation: 11
+
   }
 
 
@@ -95,6 +88,8 @@ export default function InstructorProfile({navigation}) {
           <View style={{alignItems:'flex-start'}}>
 
             <FlatList
+            keyExtractor={(item) => item.class_name}
+
               data={classData}
               numColumns={1}
               renderItem={({item}) => (
@@ -117,13 +112,14 @@ export default function InstructorProfile({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFF",
+    backgroundColor: '#E8EAED',
     flex: 1,
   },
 
   userInfo: {
     paddingHorizontal: 30,
     marginBottom: 25,
+    marginTop: 50
   },
 
   title: {
@@ -155,6 +151,8 @@ const styles = StyleSheet.create({
 
   userClass: {
     marginTop: 15,
+    alignSelf:'center',
+
   },
 
   bioBox: {
@@ -163,6 +161,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: '#000',
     borderWidth: 0.2,
+    backgroundColor: "white"
+
   },
 
   bioText: {
@@ -174,10 +174,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
     fontWeight:"bold",
-    borderColor:'#000',
-    borderWidth:1,
     borderRadius:5,
     padding:15,
+    borderWidth:.5,
+    paddingHorizontal:100,
+    backgroundColor: "white"
+
+
   },
 
   fab: {

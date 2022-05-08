@@ -127,9 +127,9 @@ export default function SignUpScreen({navigation}) {
             left={<TextInput.Icon name='email'/>}
             onChangeText={newText => setEmail(newText)}
           />
-          <HelperText type='error' visible={emailError()}>
+          {/* <HelperText type='error' visible={emailError()}>
             Email Address is invalid
-          </HelperText>
+          </HelperText> */}
 
         <TextInput 
           secureTextEntry={isSecureEntry} 
@@ -226,15 +226,16 @@ const styles = StyleSheet.create({
   container: {
     //alignSelf: 'stretch',
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#E8EAED',
   },
 
 
   title: {
+    top:25,
     fontSize: 30,
     fontWeight: "bold",
     color: "#4970FA",
-    marginLeft: 15
+    alignSelf:'center'
   },
 
   form: {
@@ -256,7 +257,8 @@ const styles = StyleSheet.create({
   
   checkbox: {
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: 10,
+    marginRight: 60
   },
 
 })

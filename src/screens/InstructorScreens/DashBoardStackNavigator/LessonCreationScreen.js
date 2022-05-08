@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as React from 'react-native';
 import {
     Text, StyleSheet,
-    View, TouchableOpacity, SafeAreaView,
+    View, TouchableOpacity, 
     FlatList, TextInput, ScrollView
 } from 'react-native';
 
@@ -86,7 +86,7 @@ export default function LessonCreation({ navigation, route }) {
 
     return (
         //   <View style={{flex:2}}>
-        <SafeAreaView>
+        <View>
             <View style={{ justifyContent: 'center',alignItems: 'center' }}>
                 {/* <ScrollView> */}
                 <Text style={{ fontSize: 20 }}>
@@ -147,9 +147,7 @@ export default function LessonCreation({ navigation, route }) {
                             ListEmptyComponent={
                                 <Text>This lesson doesn't have any content, please click the add button</Text>
                             }
-                            ListHeaderComponent={
-                                <Text>List of all units</Text>
-                            }
+                          
 
                             numColumns={3}
 
@@ -195,7 +193,7 @@ export default function LessonCreation({ navigation, route }) {
 
 
 
-                {/* </SafeAreaView> */}
+                {/* </View> */}
 
 
 
@@ -203,7 +201,7 @@ export default function LessonCreation({ navigation, route }) {
 
                 {/* </ScrollView> */}
             </View>
-        </SafeAreaView>
+        </View>
         /* // </View> */
 
     )

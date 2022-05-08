@@ -28,9 +28,10 @@ function AuthContextProvider({ children }) {
      setAuthUserid(userid);
      setAuthUserType(user_type);
      await AsyncStorage.setItem('token', token);
-     await AsyncStorage.setItem('user_id', JSON.stringify(userid));
-     await AsyncStorage.setItem('user_type', JSON.stringify(user_type))    
-    
+    //  await AsyncStorage.setItem('user_id', JSON.stringify(userid));
+    //  await AsyncStorage.setItem('user_type', JSON.stringify(user_type))    
+    await AsyncStorage.setItem('user_id', userid);
+     await AsyncStorage.setItem('user_type', user_type)   
   
      return true;
     

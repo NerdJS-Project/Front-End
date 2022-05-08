@@ -1,5 +1,5 @@
 import * as React from 'react-native';
-import { NavigationHelpersContext, useIsFocused } from "@react-navigation/native";
+import {  useIsFocused } from "@react-navigation/native";
 import { useState, useEffect } from 'react';
 import APIConnection from "../../../utility/APIConnection";
 import { Avatar } from "react-native-paper";
@@ -8,11 +8,8 @@ import {Divider} from 'react-native-paper';
 
 export default function CourseDescriptionScreen({ navigation,route}){
     
-    const {class_id,class_name, class_descrip} = route.params;
+    const {class_id,class_name, class_descrip, instructor_name} = route.params;
 
-    //const [classID, setClassID] = ('');
-    const [isEnrolled, setIsEnrolled] = useState(false);
-    const [toBeEnrolled,setToBeEnrolled] =useState([]);
     const [usersClasses,setUserClasses] = useState([]);
     const isFocused = useIsFocused();
     const apiConnection = new APIConnection();
@@ -24,58 +21,65 @@ export default function CourseDescriptionScreen({ navigation,route}){
             getClasses();
          
         }
-       // enrolled();
+
     }, [isFocused]);
     
     
     function signUp(){
-        apiConnection.signUpForClass(class_id)
-        .then((json)=>{
-            let data = json;
-            setToBeEnrolled(data);
-        
-        
-         });
+        apiConnection.signUpForClass(class_id);
+       
         }
 
 
     function getClasses(){
         apiConnection.getClasses()
         .then((json)=>{
-           //console.log(json);
+
              setUserClasses(json);
-            // console.log("CLASSES" +usersClasses.class_id);
+
         }) ;       
     }
     
    
     
+   
     function enrolled(){
-        for(let i =0; i < usersClasses.length; i++){
-        //console.log("userClasses : "+ usersClasses[i].class_id);
+        let i= 0;
 
+        let bool = false;
+
+        while(i< usersClasses.length){
+        
                 if(usersClasses[i].class_id == class_id)
                 {       
-                    setIsEnrolled(true);
-                    alert('already enrolled');
-                    return isEnrolled;
+                   bool= true;
+                   alert('already enrolled');
+                    i = usersClasses.length;
+
                 }
-                // else if (usersClasses[i].class_id !=class_id){
-                //     alert('Enrolled')
-                //     setIsEnrolled(false);
-                //     return isEnrolled;
-                // }
+
+                else if(usersClasses[i].class_name == class_name){
+                   alert('Cannot add class with exact same name');
+                   i = usersClasses.length;
+                   bool = true;
+                }
+      
+                    else {
+                 
+                        bool = false;
+                       
+                    }
+                   
+                    
                 
-            }
-           // console.log("THIS STUDENT ENROLLMENT STATUS: "+ isEnrolled);
-            return isEnrolled;
+                i++;
+                
+           }
+            return bool;
+   
         
     }
-    // console.log("THIS IS CLASS DESCRIPTION "+ class_descrip);
-    
-    // console.log("THIS IS CLASS ID "+ class_id);
-    
-    // console.log("THIS IS CLASS NAME "+ class_name);
+
 
     return(
         
@@ -91,12 +95,11 @@ export default function CourseDescriptionScreen({ navigation,route}){
                 <View style={{flexDirection:'column', marginLeft: 20, marginTop: 40, maxWidth:90, height: 120}}>
 
                 <Avatar.Image
-                // rounded
                 size={90}
                 style={styles.shadowOverlay}
                 source={ require('./icons/profile.png')}
                 /> 
-                    <Text> Instructor Name is Albert and I will be teaching you </Text>
+                    <Text> Instructor Name :{instructor_name} </Text>
                 </View>
                 
 
@@ -114,7 +117,7 @@ export default function CourseDescriptionScreen({ navigation,route}){
                     <View >
 
                         <Text style={{fontSize:14, fontWeight:'normal'}}> 
-                         {class_name}
+                         {class_descrip}
                           </Text>
                     </View>
                             </ScrollView>
@@ -125,19 +128,17 @@ export default function CourseDescriptionScreen({ navigation,route}){
                     {/* *button so student can enroll in a specific course */}
                     <View style ={{marginLeft: 40,
                             marginTop:5, flexDirection:'column'}}>
+                                
                     <TouchableOpacity  style ={styles.enroll} onPress={()=>
                     { 
-                        enrolled();
-                        if(isEnrolled== true) {
-                        
-                        navigation.navigate('Student Course View',{
-                       classDesc: class_descrip,
-                       classId:class_id,
-                        className: class_name
-                    });
+                        let a =  enrolled();
+                        if(a== true ) {
+                   
                 }
-                else{
+                else {
                     signUp();
+                    alert('Enrollment Accepted')
+                    console.log(class_id);
                     navigation.navigate('Student Course View',{
                         classDesc: class_descrip,
                         classId:class_id,

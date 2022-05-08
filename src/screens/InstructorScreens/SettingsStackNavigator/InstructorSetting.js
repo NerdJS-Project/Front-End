@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { ScrollView, View, Text, StyleSheet} from "react-native";
+import {SafeAreaView, ScrollView, View, Text, StyleSheet} from "react-native";
 import {Button, Divider} from "react-native-paper";
 import { AuthContext } from '../../../store/AuthContext'
 
@@ -9,7 +9,7 @@ export default function InstructorSetting({navigation}) {
 
 
     return (
-        <ScrollView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Text style={styles.title}>Settings</Text>
             <View style={styles.actions}>
 
@@ -43,14 +43,14 @@ export default function InstructorSetting({navigation}) {
                 >Log Out</Button>
                 
             </View>
-        </ScrollView>
+        </SafeAreaView>
         
     )
 }
 
 const styles = StyleSheet.create ({
     container: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#E8EAED',
         flex: 1
      
     },
@@ -60,7 +60,8 @@ const styles = StyleSheet.create ({
         fontWeight: 'bold',
         color: "#4970FA",
         marginTop: 15,
-        marginLeft: 15
+        alignSelf:'center'
+
     },
 
     actions: {

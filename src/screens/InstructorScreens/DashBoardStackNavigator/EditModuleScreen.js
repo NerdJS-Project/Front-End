@@ -35,6 +35,8 @@ export default function EditModuleScreen({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const [dummyState, setDummyState] = useState(true);
+  //new module index is used to assign unique id for module that doesnt exist yet
+  const [newModIndex, setnewModIndex] = useState(-1);
 
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -205,19 +207,23 @@ export default function EditModuleScreen({ navigation, route }) {
       })
     )
 
+    navigation.goBack();
+
   }
 
 
 
   function addNewModule() {
     let newEmptyModule = {
-      "module_id": null,
+      "module_id": newModIndex,
       "changeType": "Created",
       "module_name": "New Module",
       "module_descrip": "new description",
       "instructor_id": null,
       "lessons": []
     }
+
+    setnewModIndex(newModIndex - 1);
 
     let newStateData = stateData;
     newStateData.push(newEmptyModule);

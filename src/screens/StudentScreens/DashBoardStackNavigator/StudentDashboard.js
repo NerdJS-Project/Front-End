@@ -1,15 +1,12 @@
-import React, { Children,useState, useContext, useEffect, useLayoutEffect } from 'react';
-import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
+import React, { useState,  useLayoutEffect } from 'react';
+import { View, Text, StyleSheet,  FlatList } from "react-native";
 import StudentCourseGridCard from '../../../component/StudentCourseGridCard';
-import { AuthContext } from '../../../store/AuthContext';
 import APIConnection from '../../../utility/APIConnection';
 import { useIsFocused } from "@react-navigation/native";
 
 
 
 export default function StudentDashboard({navigation}) {
-
-
 
 
 //--------------Copy This Piece Of Code Here------------
@@ -22,20 +19,24 @@ export default function StudentDashboard({navigation}) {
           useLayoutEffect(() => {
             //your code here
             if(isFocused) {
-              apiConnection.getClasses().then(json => {
-                setData(json);})
-            }
             
+              refresh();
+            
+            }
          },[isFocused]);
+
+
+ function refresh(){
+  apiConnection.getClasses().then(json => {
+    setData(json)})
+   
+ }
 
  //------------------------------------------
     function classCardComponent(itemData) {
         function pressHandler() {
             console.log("item data debug:", itemData)
-          // navigation.navigate('EditCourseAndModule', {
-          //   courseID: itemData.item.class_id,
-          //   courseName: itemData.item.class_name
-          // });
+    
           navigation.navigate('Student Course View', {
             classId: itemData.item.class_id,
             className: itemData.item.class_name
@@ -46,8 +47,9 @@ export default function StudentDashboard({navigation}) {
           <StudentCourseGridCard
             classID ={itemData.item.class_id}
             title={itemData.item.class_name}
-            color={"#534789"}
+            // color={"#534789"}
             onPress={pressHandler}
+            refresh ={refresh}
           />
         );
       }
@@ -66,23 +68,7 @@ export default function StudentDashboard({navigation}) {
           numColumns={2}
         />
 
-
-        <View style ={styles.bottomContainer}>
-        <TouchableOpacity onPress={() =>  navigation.navigate('Create Course', { screen:'CreateCourse'})}>
-        <View style={addClass.addBttn} >
-          <Text style ={addClass.addText}>+</Text>
-        </View> 
-      </TouchableOpacity>
-      </View>
-      
-
-
-
-
     </View>
-
-
-
 
 
 
@@ -170,9 +156,3 @@ const addClass = StyleSheet.create({
       );
 
       
-
-//class id 58b0a1f3-acd6-4893-afe4-10ef88ab161f
-//user id 5
-//mod id 5
-
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjQ4ODcyNzc4LCJleHAiOjE2NDg5NTkxNzh9.O2VDmIrA5ZmvrebfYhlQbWyhzPmGlF7OTpgkRzJSfvA

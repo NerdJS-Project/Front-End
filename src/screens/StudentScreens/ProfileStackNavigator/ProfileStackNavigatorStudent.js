@@ -17,7 +17,7 @@ export default function ProfileStackNavigatorStudent()  {
       headerShown: false,
     }}>
       <Stack.Screen name="Profile" component={Profile}  options={{
-        headerShown: true,
+        headerShown: false,
           headerRight: ({ tintColor }) => (
             <IconButton
               icon="exit"

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as React from 'react-native';
 import {
     Text, StyleSheet,
-    View, TouchableOpacity, SafeAreaView,
+    View, TouchableOpacity, 
     FlatList, TextInput, ScrollView
 } from 'react-native';
 
@@ -11,6 +11,8 @@ import { Icon } from 'react-native-elements';
 
 import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
+import UnitEditCard from '../../../component/UnitCardInstructor';
+import { Card, Title, Paragraph, Button } from 'react-native-paper';
 
 
 
@@ -56,13 +58,12 @@ export default function LessonCreation({ navigation, route }) {
             })
     }
 
-    function onUnitPress(unitID, unitName)
-    {
+    function onUnitPress(unitID, unitName) {
         navigation.navigate('Content Edit', {
             unitID: unitID,
             unitName: unitName,
-            
-          })
+
+        })
     }
 
 
@@ -85,10 +86,9 @@ export default function LessonCreation({ navigation, route }) {
 
     return (
         //   <View style={{flex:2}}>
-        <SafeAreaView>
-        <View style={{ alignItems:'center',justifyContent: 'center', marginTop: 50 }}>
-            {/* <ScrollView> */}
-            <SafeAreaView style={{ alignItems: 'center' }}>
+        <View>
+            <View style={{ justifyContent: 'center',alignItems: 'center' }}>
+                {/* <ScrollView> */}
                 <Text style={{ fontSize: 20 }}>
                     {newLessonName}
                 </Text>
@@ -138,48 +138,36 @@ export default function LessonCreation({ navigation, route }) {
 
 
                 {/* Displays the list of units*/}
-                <FlatList
-                            numColumns={2}
+
+
+                    {myData.length >= 1 ?
+                        <FlatList
+                            nestedScrollEnabled
+                            ListEmptyComponent={
+                                <Text>This lesson doesn't have any content, please click the add button</Text>
+                            }
+                          
+
+                            numColumns={3}
 
                             data={myData}
-                            keyExtractor={(item) => item.unit_id }
+                            keyExtractor={(item) => item.unit_id}
                             //  contentContainerStyle={{flexGrow:2}}
-                            renderItem={({ item,index}) =>
+                            renderItem={({ item, index }) =>
 
-                                <View style={{
-                                    flexDirection: "row",
-                                    flexWrap: "wrap",
-                                    justifyContent: "space-between",
-                                    alignContent:'center',
-                                    alignItems:'center'
+                                <UnitEditCard
+                                    unitName={item.unit_name}
+                                    unitID={item.unit_id}
+                                    onPress={onUnitPress}
+                                    onDelete={deleteUnit}
 
-                                }}>
+                                ></UnitEditCard>
 
-                                    <TouchableOpacity style={styles.buttonContainer}
-                                        onPress={() => deleteUnit(item.unit_id)}>
-
-                                        <Icon name="delete" size={30} color="#e33057" />
-
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.sectionButton} onPress={() => {
-                                        onUnitPress(item.unit_id, item.unit_name)
-                                    }}>
-                                        <Text style={styles.sectionText}>
-                                            {item.unit_name}
-
-
-                                        </Text>
-
-                                    </TouchableOpacity>
-
-
-
-                                </View>
 
                             }
 
-                            />
-                {/* <SafeAreaView > */}
+                        /> : <Text>No content</Text>}
+
                     <View>
 
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -191,25 +179,27 @@ export default function LessonCreation({ navigation, route }) {
                                 </Text>
 
                             </TouchableOpacity>
-                            
+
                         </View>
-                       
+
 
                         {/* Displays the addButton */}
 
 
                     </View>
-                    
-                {/* </SafeAreaView> */}
 
 
 
-            </SafeAreaView>
+
+                {/* </View> */}
 
 
-            {/* </ScrollView> */}
+
+
+
+                {/* </ScrollView> */}
+            </View>
         </View>
-        </SafeAreaView>
         /* // </View> */
 
     )
@@ -225,9 +215,8 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         marginLeft: 15
     },
-    buttonContainer: {
-        marginVertical: 10,
-        marginHorizontal: 10,
+    cardContainer: {
+        padding: 10
 
     },
     // item: {
@@ -237,27 +226,15 @@ const styles = StyleSheet.create({
     //     marginHorizontal: 16,
     // },
     sectionText: {
-        fontSize:20,
+        fontSize: 20,
         fontWeight: 'bold',
         justifyContent: 'flex-end',
         alignItems: 'center',
         flexDirection: 'row',
         textAlign: 'center'
     },
-    sectionButton: {
-        width: 120,
-        height: 60,
-        color: 'silver',
-        backgroundColor: 'aliceblue',
-        borderRadius: 5,
-        margin: 10,
-        textAlign: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        alignItems: 'center',
-        shadowColor: 'rgba(0, 0, 0, 0.1)',
-        shadowOpacity: 2,
-        shadowOffset: { width: 1, height: 2 }
+    deleteButton: {
+
     },
 
     addButton: {

@@ -95,7 +95,7 @@ export default function StudentProfile({navigation}) {
           <View style={{alignItems:'flex-start'}}>
             <FlatList
               data={classData}
-              numColumns={2}
+              numColumns={1}
               renderItem={({item}) => (
                 <Text style={[styles.list]}>{item.class_name}</Text>
               )}
@@ -174,11 +174,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
     fontWeight:"bold",
-    borderColor:'#000',
-    borderWidth:1,
     borderRadius:5,
     padding:15,
-    backgroundColor:'#fff',
+    borderWidth:.5,
+    paddingHorizontal:100,
+    backgroundColor: "white",
+
   },
 
   bottom:{

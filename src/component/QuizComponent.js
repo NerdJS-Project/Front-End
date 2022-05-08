@@ -15,44 +15,33 @@ import { Icon } from "react-native-elements/dist/icons/Icon";
 import APIConnection from "../utility/APIConnection";
 import { useIsFocused } from "@react-navigation/native";
 
-export default function QuizComponent({unitID, navigation}) {
-
-
-
+export default function QuizComponent({ unitID, navigation }) {
   const data = [
     {
       quizdata_id: 1,
-      quizdata_question: "Quiz loading...",
-      quizdata_answers: ["Quiz loading...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      quizdata_question: "No quiz available yet",
+      quizdata_answers: ["", "", "", ""],
       correct_option: 0,
     },
     {
       quizdata_id: 2,
-      quizdata_question: "Quiz loading...",
-      quizdata_answers: ["HI...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      quizdata_question: "No quiz available yet",
+      quizdata_answers: ["", "", "", ""],
       correct_option: 1,
     },
     {
       quizdata_id: 3,
-      quizdata_question: "Quiz loading...",
-      quizdata_answers: ["Quiz loading...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      quizdata_question: "No quiz available yet",
+      quizdata_answers: ["", "", "", ""],
       correct_option: 2,
     },
     {
       quizdata_id: 4,
-      quizdata_question: "Quiz loading...",
-      quizdata_answers: ["Quiz loading...", "Quiz loading...", "Quiz loading...", "Quiz loading..."],
+      quizdata_question: "No quiz available yet",
+      quizdata_answers: ["", "", "", ""],
       correct_option: 3,
-    }
+    },
   ];
-
-
-
-
-
-
-
-
 
   const [allQuestions, setAllQuestions] = useState(data);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -63,92 +52,58 @@ export default function QuizComponent({unitID, navigation}) {
   const [showNextButton, setShowNextButton] = useState(false);
   const [showScoreModal, setShowScoreModal] = useState(false);
 
-
-
-
-//not needed, just being used for printing
+  //not needed, just being used for printing
   const [iQuizData, setIQuizData] = useState();
-// also not needed as well
+  // also not needed as well
   const [quizID, setQuizID] = useState();
   const isFocused = useIsFocused();
 
-
-
   const apiConnection = new APIConnection();
   useEffect(() => {
-
-  
-      async function fetchMyAPI() {
-          let response = await apiConnection.getUnitQuizContent(unitID);
-          if(response.status == 400)
-          {
-            //do nothing, for now
-              
-
-          }
-          response = await response.json();
-
-          setQuizID(response[0].quiz_id);
-
-          let quizDataResponse = await apiConnection.getQuizData(response[0].quiz_id);
-
-          if(quizDataResponse.status == 400)
-          {
-              // do nothing
-          }
-          else {
-              quizDataResponse = await quizDataResponse.json();
-
-              setIQuizData(quizDataResponse);
-              processJSON(quizDataResponse);
-              console.log("Quiz data fetched is: " + iQuizData)
-          }
-
-        }
-
-        if(isFocused) {
-          fetchMyAPI();
-
-
+    async function fetchMyAPI() {
+      let response = await apiConnection.getUnitQuizContent(unitID);
+      if (response.status == 400) {
+        //do nothing, for now
       }
+      response = await response.json();
 
+      setQuizID(response[0].quiz_id);
+
+      let quizDataResponse = await apiConnection.getQuizData(
+        response[0].quiz_id
+      );
+
+      if (quizDataResponse.status == 400) {
+        // do nothing
+      } else {
+        quizDataResponse = await quizDataResponse.json();
+
+        setIQuizData(quizDataResponse);
+        processJSON(quizDataResponse);
+        console.log("Quiz data fetched is: " + iQuizData);
+      }
+    }
+
+    if (isFocused) {
+      fetchMyAPI();
+    }
   }, [isFocused]);
 
+  function processJSON(quizDataResponse) {
+    let json = quizDataResponse;
+    for (let i = 0; i < quizDataResponse.length; i++) {
+      let answers = quizDataResponse[i].quizdata_answers;
+      answers = answers.replace(/[']+/g, '"');
+      let answersJson = JSON.parse(answers);
+      json[i].quizdata_answers = answersJson.choices;
+      json[i].correct_option = answersJson.answer;
 
+      console.log("Quiz data answers" + answersJson.type + answersJson[0]);
+      console.log("Quiz data answers array" + ["hi", "There", "Cutie"]);
+    }
 
-  function processJSON(quizDataResponse)
-  {
-      let json = quizDataResponse;
-      for(let i = 0; i < quizDataResponse.length; i++)
-      {
-          let answers = quizDataResponse[i].quizdata_answers;
-          answers = answers.replace(/[']+/g, '"');
-          let answersJson = JSON.parse(answers);
-          json[i].quizdata_answers = answersJson.choices;
-          json[i].correct_option = answersJson.answer;
-
-          console.log("Quiz data answers" + answersJson.type + answersJson[0]);
-          console.log("Quiz data answers array" + ["hi", "There", "Cutie"]);
-
-
-
-      }
-
-      setAllQuestions(json);
+    setAllQuestions(json);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const validateAnswer = (selectedOption) => {
     let correct_option = allQuestions[currentQuestionIndex]["correct_option"];
@@ -197,12 +152,9 @@ export default function QuizComponent({unitID, navigation}) {
     }).start();
   };
 
-
-  async function saveProgressAndNext()
-  {
+  async function saveProgressAndNext() {
     await apiConnection.postProgress(unitID);
     setShowScoreModal(false);
-
   }
 
   const renderQuestion = () => {
@@ -210,6 +162,7 @@ export default function QuizComponent({unitID, navigation}) {
       <View
         style={{
           marginVertical: 40,
+          flex: 1
         }}
       >
         {/* Question Counter */}
@@ -249,78 +202,82 @@ export default function QuizComponent({unitID, navigation}) {
   const renderOptions = () => {
     return (
       <View>
-        {allQuestions[currentQuestionIndex]?.quizdata_answers.map((option, index) => (
-          <TouchableOpacity
-            onPress={() => validateAnswer(index)}
-            disabled={isOptionsDisabled}
-            key={index}
-            style={{
-              borderWidth: 3,
-              borderColor:
-                index == correctOption
-                  ? COLORS.success
-                  : index == currentOptionSelected
+        {allQuestions[currentQuestionIndex]?.quizdata_answers.map(
+          (option, index) => (
+            <TouchableOpacity
+              onPress={() => validateAnswer(index)}
+              disabled={isOptionsDisabled}
+              key={index}
+              style={{
+                borderWidth: 3,
+                borderColor:
+                  index == correctOption
+                    ? COLORS.success
+                    : index == currentOptionSelected
                     ? COLORS.error
                     : COLORS.secondary + "40",
-              backgroundColor:
-                index == correctOption
-                  ? COLORS.success + "20"
-                  : index == currentOptionSelected
+                backgroundColor:
+                  index == correctOption
+                    ? COLORS.success + "20"
+                    : index == currentOptionSelected
                     ? COLORS.error + "20"
                     : COLORS.secondary + "20",
-              height: 60,
-              borderRadius: 20,
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              paddingHorizontal: 20,
-              marginVertical: 10,
-            }}
-          >
-            <Text style={{ fontSize: 20, color: COLORS.white }}>{option}</Text>
+                height: 60,
+                borderRadius: 20,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                paddingHorizontal: 20,
+                marginVertical: 10,
+              }}
+            >
+              <Text style={{ fontSize: 20, color: COLORS.white }}>
+                {option}
+              </Text>
 
-            {/* Show Check Or Cross Icon based on correct answer*/}
-            {index == correctOption ? (
-              <View
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 30 / 2,
-                  backgroundColor: COLORS.success,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Icon
-                  name="check"
-                  iconStyle={{
-                    color: COLORS.white,
-                    fontSize: 20,
+              {/* Show Check Or Cross Icon based on correct answer*/}
+              {index == correctOption ? (
+                <View
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 30 / 2,
+                    backgroundColor: COLORS.success,
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
-                />
-              </View>
-            ) : index == currentOptionSelected ? (
-              <View
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 30 / 2,
-                  backgroundColor: COLORS.error,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Icon
-                  name="close"
-                  iconStyle={{
-                    color: COLORS.white,
-                    fontSize: 20,
+                >
+                  <Icon
+                    name="check"
+                    iconStyle={{
+                      color: COLORS.white,
+                      fontSize: 20,
+                    }}
+                  />
+                </View>
+              ) : index == currentOptionSelected ? (
+                <View
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 30 / 2,
+                    backgroundColor: COLORS.error,
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
-                />
-              </View>
-            ) : null}
-          </TouchableOpacity>
-        ))}
+                >
+                  <Icon
+                    name="close"
+                    iconStyle={{
+                      color: COLORS.white,
+                      fontSize: 20,
+                    }}
+                  />
+                </View>
+              ) : null}
+            </TouchableOpacity>
+          )
+        )}
       </View>
     );
   };
@@ -486,7 +443,7 @@ export default function QuizComponent({unitID, navigation}) {
               {/* Save Progress button */}
 
               <TouchableOpacity
-                onPress={() =>saveProgressAndNext()}
+                onPress={() => saveProgressAndNext()}
                 style={{
                   backgroundColor: COLORS.accent,
                   padding: 20,
@@ -504,11 +461,6 @@ export default function QuizComponent({unitID, navigation}) {
                   Save Progress
                 </Text>
               </TouchableOpacity>
-
-
-
-
-
             </View>
           </View>
         </Modal>

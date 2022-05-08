@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react';
-import { Pressable, View, Text, StyleSheet, Platform } from 'react-native';
+import {
+  Pressable, View, Text,
+  StyleSheet, Platform,
+  TouchableOpacity, Alert
+} from 'react-native';
 import APIConnection from '../utility/APIConnection';
-import { useIsFocused } from "@react-navigation/native";
-import {Badge,Card, Title} from 'react-native-paper';
+import { Badge, Card} from 'react-native-paper';
 
 
-function StudentCourseGridCard({ classID, title, color, onPress }) {
+
+
+function StudentCourseGridCard({ classID, title,  onPress, refresh}) {
 
   const [state, setState] = useState(0);
 
   const apiConnection = new APIConnection();
+
+
   useEffect(() => {
     //your code here
+
 
     apiConnection.getClassProgress(classID)
       .then(json => {
@@ -39,12 +47,43 @@ function StudentCourseGridCard({ classID, title, color, onPress }) {
   }, []);
 
 
+  function dropClass() {
+    apiConnection.dropClass(classID);
+    alert('dropped class');
+    refresh();
+
+  }
+
+
+  function alertDrop() {
+    Alert.alert(
+      "Warning",
+      "Do you want to drop this course?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Drop",
+          onPress: () => { dropClass() }
+
+        }
+      ],
+      {
+        cancelable: true,
+
+      }
+    );
+
+  }
+
+
   return (
 
-    // <View style={styles.gridItem}>
     <Card style={styles.gridItem}>
 
-   
+
       <Pressable
         android_ripple={{ color: '#ccc' }}
         style={({ pressed }) => [
@@ -54,26 +93,39 @@ function StudentCourseGridCard({ classID, title, color, onPress }) {
         ]}
         onPress={onPress}
       >
-        {/* <View style={[styles.innerContainer, { backgroundColor: 'white' }]}> */}
 
-        
+        <Card.Cover style={{ height: 80, width: '100%', resizeMode: "stretch" }} source={{ uri: 'https://picsum.photos/700' }} />
+        <Card.Content adjustsFontSizeToFit>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Badge style={{ fontSize: 9, fontWeight: 'bold', backgroundColor: 'blue' }}>{state}%</Badge>
+            <TouchableOpacity onPress={() => {
+              if (Platform.OS == 'web') {
+                dropClass();
 
-        
-     
-          {/* <View style={{width:165,height:114, backgroundColor:'silver', justifyContent:'center'}}> */}
-        <Card.Cover style={{height:80, width:165}}source={{uri: 'https://picsum.photos/700'}}/>
-          <Card.Content>
-            <Badge style={{fontSize:9, fontWeight:'bold', backgroundColor:'blue'}}>{state}%</Badge>
-              {/* <Title >{title}</Title>  */}
-              <Text adjustsFontSizeToFit numberOfLines={2}>{title}</Text>
-          </Card.Content>
-          {/* </View> */}
-  
-        {/* </View> */}
+              }
+              else if (Platform.OS == 'android' || Platform.OS == 'ios') {
+                alertDrop();
+
+              }
+            }}>
+
+
+              <Text adjustsFontSizeToFit style={{ color: 'red', fontWeight: 'bold', fontSize: 13 }}> DROP</Text>
+
+
+            </TouchableOpacity>
+          </View>
+
+
+          <Text adjustsFontSizeToFit numberOfLines={2} style={{ textAlign: 'center', fontWeight: '500' }}>{title}</Text>
+
+        </Card.Content>
+
 
       </Pressable>
-      </Card>
-    /* // </View> */
+
+    </Card>
+
   );
 }
 
@@ -114,13 +166,13 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 18,
-    textAlign:'center'
+    textAlign: 'center'
 
   },
-  progress:{
-    fontWeight:'bold',
+  progress: {
+    fontWeight: 'bold',
     fontSize: 18,
-    height:20
+    height: 20
 
   }
 

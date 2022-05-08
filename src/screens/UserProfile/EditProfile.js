@@ -37,16 +37,16 @@ export default function EditProfile({navigation}) {
     async function onSubmit(){
         if(newName.length === 0 && newBio.length != 0){
             await apiConnection.editUserProfile(data.user_name, data.user_type, newBio, data.user_pp).then(
-                navigation.navigate('Profile', {screen: 'Profile'}))
-        }
+                navigation.goBack());
+            }
         else if(newBio.length === 0 && newName.length != 0){
             await apiConnection.editUserProfile(newName, data.user_type, data.user_bio, data.user_pp).then(
-                navigation.navigate('Profile', {screen: 'Profile'}))
-        }
+                navigation.goBack());
+            }
         else if(newBio.length != 0 && newName.length != 0){
             await apiConnection.editUserProfile(newName, data.user_type, newBio, data.user_pp).then(
-                navigation.navigate('Profile', {screen: 'Profile'}))
-        }
+                navigation.goBack());
+            }
         else if(newBio.length === 0 && newName.length === 0){
             alert("Nothing has changed...");
         }    
@@ -101,7 +101,6 @@ export default function EditProfile({navigation}) {
                         value={data.user_bio || ""}
                         outlineColor={'#000'}
                         activeOutlineColor={'#4970FA'}
-                        left={<TextInput.Icon name='file-document'/>}
                         onChangeText={newText => setNewBio(newText)}
                         editable={true}
                         style={[styles.textInput, {
@@ -147,7 +146,7 @@ export default function EditProfile({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#E8EAED",
+        backgroundColor: '#E8EAED',
         flex: 1
     },
 

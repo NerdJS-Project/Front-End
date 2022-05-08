@@ -20,7 +20,7 @@ function AuthStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: "#26A8FF" },
+        headerStyle: { backgroundColor: '#4970FA'},
         headerTintColor: "white",
         contentStyle: { backgroundColor: "white" },
       }}
@@ -28,12 +28,12 @@ function AuthStack() {
       <Stack.Screen
         name="LogIn"
         component={LogInScreen}
-        options={{ title: "LogIn" }}
+        options={{ headerShown: false  }}
       />
       <Stack.Screen
         name="SignUp"
         component={SignUpScreen}
-        options={{ title: "Sign Up" }}
+        options={{ title: "Sign Up",color: '#4970FA', headerTitleAlign: 'center' }}
       />
     </Stack.Navigator>
   );
@@ -103,18 +103,27 @@ function Root() {
   useEffect(() => {
     async function fetchToken() {
       const storedToken = await AsyncStorage.getItem("token");
-      if (storedToken) {
-        authCtx.authenticate(storedToken);
+      const storedUserID = await AsyncStorage.getItem("user_id");
+
+      const storedUserType = await AsyncStorage.getItem("user_type");
+
+      // console.log("Hi");
+      if (storedToken && storedUserID && storedUserType) {
+        authCtx.authenticate(storedToken, storedUserID, storedUserType );
       }
 
       setIsTryingLogin(false);
+      //  await AsyncStorage.setItem('token', "bstoken");
+
     }
 
     fetchToken();
-    authCtx.logout();
+     // authCtx.logout();
+
+
   }, []);
 
-  //the loading icon
+  //the loading icon 
   if (isTryingLogin) {
     return <AppLoading />;
   }

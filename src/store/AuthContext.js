@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { View, Text, StyleSheet,KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
 import { createContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext({
@@ -23,15 +23,21 @@ function AuthContextProvider({ children }) {
   //what happens when users logged in successfully
 
   const authenticate = async(token, userid, user_type)=>{
+    
     try {
      setAuthToken(token);
      setAuthUserid(userid);
      setAuthUserType(user_type);
+
      await AsyncStorage.setItem('token', token);
-    //  await AsyncStorage.setItem('user_id', JSON.stringify(userid));
-    //  await AsyncStorage.setItem('user_type', JSON.stringify(user_type))    
-    await AsyncStorage.setItem('user_id', userid);
-     await AsyncStorage.setItem('user_type', user_type)   
+
+     if (Platform.OS === 'ios' || Platform.OS === 'android') {
+     await AsyncStorage.setItem('user_id', JSON.stringify(userid));
+      await AsyncStorage.setItem('user_type', JSON.stringify(user_type));
+     } else {   
+       await AsyncStorage.setItem('user_id', userid);
+      await AsyncStorage.setItem('user_type', user_type)   
+     }
   
      return true;
     

@@ -140,7 +140,6 @@ export default function LessonCreation({ navigation, route }) {
                 {/* Displays the list of units*/}
 
 
-                <ScrollView>
                     {myData.length >= 1 ?
                         <FlatList
                             nestedScrollEnabled
@@ -188,7 +187,6 @@ export default function LessonCreation({ navigation, route }) {
 
 
                     </View>
-                </ScrollView>
 
 
 

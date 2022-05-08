@@ -23,6 +23,13 @@ export default function LogInScreen({ navigation }) {
   const onSubmitHandler = () => {
     console.log("email and pass: ", user_email, user_password);
     const api = new Authentication();
+    if(user_email == "" || user_password == "")
+    {
+      alert("Please enter email or password")
+    }
+    else {
+
+    
     api.signIn(user_email, user_password).then(() => {
 
       AsyncStorage.getItem('@user_info').then((data) => {
@@ -44,7 +51,7 @@ export default function LogInScreen({ navigation }) {
         console.log(reason);
       })
     });
-
+  }
   }
 
   return (

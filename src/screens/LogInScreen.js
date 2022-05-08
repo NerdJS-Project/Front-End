@@ -1,20 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
 import { TextInput } from 'react-native-paper';
 import Authentication from "../utility/Authentication";
 import { AuthContext } from '../store/AuthContext';
-const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
-//const API_URL =  'http://localhost:3001/api/user';
+//const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
+const API_URL =  'http://192.168.56.1/api/user';
 
 
 export default function LogInScreen({ navigation }) {
 
   //TODO: Add proper set state on text input in order to recieve and update as user types their info
-  const [user_email, setEmail] = useState('');
-  const [user_password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const [isSecureEntry, setSecureEntry] = useState(true);
+  const [user_email, setEmail] = useState("");
+  const [user_password, setPassword] = useState("");
+  //const [isSecureEntry, setSecureEntry] = useState(true);
 
   const authCtx = useContext(AuthContext);
 
@@ -27,17 +26,18 @@ export default function LogInScreen({ navigation }) {
 
       AsyncStorage.getItem('@user_info').then((data) => {
         const user = JSON.parse(data);
+        /*
         console.log("Log in user id debug" + user);
         console.log("log in user token" + user.token);
         console.log("log in user id" + user.user_id);
         const userID = JSON.stringify(user.user_id);
+        */
         if (user && user.token) {
           alert("Authorized!");
-
           authCtx.authenticate(user.token, user.user_id, user.user_type)
         }
         else {
-          alert("Not Authorized!");
+          alert("Invalid Credentials. Try again.");
           AsyncStorage.clear();
         }
       }).catch((reason) => {
@@ -63,23 +63,26 @@ export default function LogInScreen({ navigation }) {
 
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={login.email} >
+      
+          <TextInput
+            style={login.input}
+            label={'Email'}
+            mode={'outlined'}
+            value={''}
+            left={<TextInput.Icon name='email'/>}
+            onChangeText={newText => setEmail(newText)} />
 
-        <TextInput
-          style={login.input}
-          label={'Email'}
-          mode={'outlined'}
-          left={<TextInput.Icon name='email'/>}
-          onChangeText={setEmail} />
-
-        <TextInput
-          secureTextEntry={true}
-          style={login.input}
-          label={'Password'}
-          mode={'outlined'}
-          left={<TextInput.Icon name='lock'/>}
-          
-          onChangeText={setPassword} />
-        <Text >{message ? message : null}</Text>
+          <TextInput
+            secureTextEntry={true}
+            style={login.input}
+            label={'Password'}
+            mode={'outlined'}
+            value={''}
+            left={<TextInput.Icon name='lock'/>}
+            
+            onChangeText={newText => setPassword(newText)} />
+  
+        
 
 
         {/*Emmanuel gave property onPress to TouchableOpacity tag*/}
@@ -95,7 +98,7 @@ export default function LogInScreen({ navigation }) {
 
 
       <View style={signup.divider}>
-        <Text style={signup.divider}>don't have an account? Sign up!</Text>
+        <Text style={signup.divider}>Don't have an account?</Text>
       </View>
 
       <TouchableOpacity

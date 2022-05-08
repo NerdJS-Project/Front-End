@@ -5,10 +5,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import {TextInput, Avatar, Button, Dialog, Portal, Provider} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/AntDesign';
 
 import APIConnection from "../../utility/APIConnection";
 
@@ -100,7 +98,7 @@ export default function EditProfile({navigation}) {
                         multiline={true}
                         label={'About Me'}
                         mode={'outlined'}
-                        value={data.user_bio}
+                        value={data.user_bio || ""}
                         outlineColor={'#000'}
                         activeOutlineColor={'#4970FA'}
                         left={<TextInput.Icon name='file-document'/>}
@@ -129,11 +127,14 @@ export default function EditProfile({navigation}) {
                     >
                             <Dialog.Title style={{color:'#000'}}>Change Avatar</Dialog.Title>
                             <Dialog.Content>
-                                <Button>Choose from Library</Button>
-                                <Button>Open Camera</Button>
+                                <Button mode={"contained"} style={styles.dialogButton}>Choose from Library</Button>
+                                <Button mode={"contained"} style={styles.dialogButton}>Open Camera</Button>
                             </Dialog.Content>
                             <Dialog.Actions>
-                            <Button onPress={hideDialog}>Cancel</Button>
+                            <Button 
+                                mode={"contained"} 
+                                onPress={hideDialog}>
+                            Cancel</Button>
                             </Dialog.Actions>
                         </Dialog>
                     </Portal>
@@ -146,7 +147,7 @@ export default function EditProfile({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#fff",
+        backgroundColor: "#E8EAED",
         flex: 1
     },
 
@@ -197,6 +198,9 @@ const styles = StyleSheet.create({
         marginRight:45,
         backgroundColor: "#4970FA",
         color:'white'
+    },
+    dialogButton: {
+        marginTop: 10
     }
     
 });

@@ -76,7 +76,7 @@ export default function StudentProfile({navigation}) {
                   },
                 ]}
               >
-              {data.user_type || 'user_role'}
+              {'Student'}
               </Text>
               </View>
           </View>
@@ -84,7 +84,7 @@ export default function StudentProfile({navigation}) {
 
         <View style={styles.userAbout}>
           <Text style={styles.title}>About</Text>
-            <Text style={[styles.bioBox, shadowOverlay]}>
+            <Text style={[styles.bioBox]}>
               <Text style={styles.bioText}>
                 {data.user_bio || 'No information at this time.'}
               </Text>
@@ -95,9 +95,9 @@ export default function StudentProfile({navigation}) {
           <View style={{alignItems:'flex-start'}}>
             <FlatList
               data={classData}
-              numColumns={1}
+              numColumns={2}
               renderItem={({item}) => (
-                <Text style={[styles.list, shadowOverlay]}>{item.class_name}</Text>
+                <Text style={[styles.list]}>{item.class_name}</Text>
               )}
             />
           </View>
@@ -116,7 +116,7 @@ export default function StudentProfile({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFF",
+    backgroundColor: "#E8EAED",
     flex: 1,
   },
 
@@ -159,9 +159,10 @@ const styles = StyleSheet.create({
   bioBox: {
     marginTop: 10,
     padding:10,
-    borderRadius: 10,
+    borderRadius: 5,
     borderColor: '#000',
-    borderWidth: 0.2,
+    borderWidth: 1,
+    backgroundColor:'#fff'
   },
 
   bioText: {
@@ -177,6 +178,7 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderRadius:5,
     padding:15,
+    backgroundColor:'#fff',
   },
 
   bottom:{

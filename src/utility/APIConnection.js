@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import { AuthContext } from '../store/AuthContext';
-var url = "http://localhost:3001/api"
-//var url = "http://192.168.0.16:3001/api"
+//var url = "http://localhost:3001/api"
+var url = "http://192.168.56.1:3001/api"
 
 
 
@@ -235,7 +235,7 @@ class APIConnection {
 
        async editUserProfile(newName, userType, newBio, newPic) {
           try {
-           const response = await fetch('http://localhost:3001/api/user/update/'+ this.user_id, {
+           const response = await fetch(url + '/user/update/'+ this.user_id, {
               method: 'PUT',
               headers: {
                 Accept: 'application/json',

@@ -1,19 +1,5 @@
 import * as React from "react";
-import {
-  View,
-  Text,
-  Alert,
-  StyleSheet,
-  Button,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Dimensions,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  StatusBar,
-} from "react-native";
+import {StatusBar} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import LogInScreen from "./src/screens/LogInScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
@@ -24,7 +10,7 @@ import AppLoading from "expo-app-loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import InstructorMainScreenTabs from "./src/screens/InstructorScreens/InstructorMainScreenTabs";
 
-import CreateContent from "./src/screens/InstructorScreens/DashBoardStackNavigator/CreateContentScreen";
+//import CreateContent from "./src/screens/InstructorScreens/DashBoardStackNavigator/CreateContentScreen";
 
 import StudentMainScreenTabs from "./src/screens/StudentScreens/StudentMainScreenTabs";
 

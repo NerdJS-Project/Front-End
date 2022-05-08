@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { ScrollView, View, Text, StyleSheet} from "react-native";
 import {Button, Divider} from "react-native-paper";
 import { AuthContext } from '../../../store/AuthContext'
@@ -50,7 +50,7 @@ export default function InstructorSetting({navigation}) {
 
 const styles = StyleSheet.create ({
     container: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#E8EAED',
         flex: 1
      
     },

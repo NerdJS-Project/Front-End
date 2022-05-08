@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import { TextInput, Button, HelperText } from "react-native-paper";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -92,19 +91,19 @@ export default function ChangePassword({navigation}) {
             <Text style={styles.title}>Change Password</Text>
             <View style={styles.form}>
                 <TextInput 
-                    style={styles.inputField}
-                    secureTextEntry={isSecureEntry3}
-                    mode={'outlined'}     
-                    label={'Current Password'}
-                    left={<TextInput.Icon name='lock'/>}
-                    right={  
-                        <TextInput.Icon name="eye"
-                          onPress={() => setSecureEntry3(prev => !prev)}
-                        />
-                    }
-                    onChangeText={newText =>getCurrentPW(newText)}
-                />
-        
+                        style={styles.inputField}
+                        secureTextEntry={isSecureEntry3}
+                        mode={'outlined'}     
+                        label={'Current Password'}
+                        left={<TextInput.Icon name='lock'/>}
+                        right={  
+                            <TextInput.Icon name="eye"
+                            onPress={() => setSecureEntry3(prev => !prev)}
+                            />
+                        }
+                        onChangeText={newText =>getCurrentPW(newText)}
+                    />
+
                 <TextInput            
                     style={styles.inputField}
                     mode={'outlined'}   
@@ -118,9 +117,10 @@ export default function ChangePassword({navigation}) {
                     }
                     onChangeText={newText =>getNewPW(newText)}
                     />
-                <HelperText type='info' visible={passwordHelper()} style={{color:'#000'}}>
+                <HelperText type='info' visible={passwordHelper()} style={{color:'#000', marginLeft:20}}>
                     Password needs to be at least 8 characters long.
                 </HelperText>
+
 
                 <TextInput            
                     style={styles.inputField}
@@ -134,26 +134,26 @@ export default function ChangePassword({navigation}) {
                       />}
                     onChanged={newText => getConfirmPW(newText)}
                     />
+            </View>
 
-                
+            <View style={{marginTop:65}}>
+                <Button
+                    mode="contained"
+                    style={styles.button}
+                    onPress={() => onSubmit()}
+                >Submit</Button>
+
+                <Button
+                    mode="contained"
+                    style={[styles.button, {
+                        backgroundColor: '#e03a3a'
+                    }]}
+                    onPress={() => navigation.goBack()}
+                >Cancel</Button>
             </View>
 
 
-            <Button
-                mode="contained"
-                style={styles.button}
-                onPress={() => onSubmit()}
-            >Submit</Button>
-
-            <Button
-                mode="contained"
-                style={[styles.button, {
-                    backgroundColor: '#e03a3a'
-                }]}
-                onPress={() => navigation.goBack()}
-            >Cancel</Button>
-       
-    </View>
+        </View>
 
     
     );
@@ -164,7 +164,11 @@ const styles = StyleSheet.create ({
      
     container: {
         flex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#E8EAED",
+    },
+
+    form: { 
+        marginTop: 20,
     },
 
     title: { 
@@ -174,21 +178,10 @@ const styles = StyleSheet.create ({
         marginTop: 15,
         marginLeft: 15
     },
-
-    form: { 
-        marginTop: 20,
-    },
-
     inputField: {
-        flex: 1,
-        marginTop: 30,
         marginLeft:30,
-        marginRight:30
-    },
-
-    formText: {
-        fontWeight: 'bold',
-        fontSize: 18
+        marginRight:30,
+        backgroundColor:'#fff'
     },
 
     button: {
@@ -203,4 +196,6 @@ const styles = StyleSheet.create ({
         fontWeight: 'bold',
         color: 'white'
     }
+
+
 });

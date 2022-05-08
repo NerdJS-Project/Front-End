@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
 
   saveButton: {
-    addBttn: {
+    
       alignSelf: "center",
 
       justifyContent: "center",
@@ -182,6 +182,6 @@ const styles = StyleSheet.create({
       color: "white",
       bottom: 50,
       margin: 1,
-    },
+    
   },
 });

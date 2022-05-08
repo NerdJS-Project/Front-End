@@ -142,7 +142,7 @@ export default function LessonCreation({ navigation, route }) {
 
                     {myData.length >= 1 ?
                         <FlatList
-                            nestedScrollEnabled
+                           // nestedScrollEnabled
                             ListEmptyComponent={
                                 <Text>This lesson doesn't have any content, please click the add button</Text>
                             }

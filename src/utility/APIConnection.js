@@ -923,7 +923,7 @@ class APIConnection {
           token: this.token,
         },
         body: JSON.stringify({
-          unit_name: "new unit",
+          unit_name: "Unit Name",
           unit_content: "",
           lesson_id: lessonID,
           instructor_id: this.user_id,

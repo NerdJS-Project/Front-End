@@ -79,13 +79,13 @@ export default function InstructorDashboard({navigation}) {
         />
 
 
-        <View style ={styles.bottomContainer}>
-        <TouchableOpacity onPress={() =>  navigation.navigate('Create Course', { screen:'CreateCourse'})}>
+        <TouchableOpacity 
+        style ={styles.bottomContainer}
+        onPress={() =>  navigation.navigate('Create Course', { screen:'CreateCourse'})}>
         <View style={addClass.addBttn} >
           <Text style ={addClass.addText}>+</Text>
         </View> 
       </TouchableOpacity>
-      </View>
       
 
 

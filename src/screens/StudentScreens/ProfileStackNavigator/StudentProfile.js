@@ -6,7 +6,7 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
-import { Avatar} from "react-native-elements";
+import { Avatar } from "react-native-elements";
 import { FAB} from 'react-native-paper'; 
 import Icon from 'react-native-vector-icons/AntDesign';
 import APIConnection from "../../../utility/APIConnection";
@@ -31,14 +31,7 @@ export default function StudentProfile({navigation}) {
 
 
   const shadowOverlay = {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.36,
-    shadowRadius: 6.68,
-    elevation: 11
+
   }
 
 
@@ -93,7 +86,10 @@ export default function StudentProfile({navigation}) {
         <View style={styles.userClass}>
           <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
           <View style={{alignItems:'flex-start'}}>
+
             <FlatList
+            keyExtractor={(item) => item.class_name}
+
               data={classData}
               numColumns={1}
               renderItem={({item}) => (
@@ -103,26 +99,27 @@ export default function StudentProfile({navigation}) {
           </View>
         </View>
       </View>
-                
 
       <FAB
         style={styles.fab}
         icon="file-document-edit-outline"
         onPress={() => navigation.navigate('Edit Profile', {screen: 'InstructorEditProfile'})}
       />
+                
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFF",
+    backgroundColor: '#E8EAED',
     flex: 1,
   },
 
   userInfo: {
     paddingHorizontal: 30,
     marginBottom: 25,
+    marginTop: 50
   },
 
   title: {
@@ -154,6 +151,8 @@ const styles = StyleSheet.create({
 
   userClass: {
     marginTop: 15,
+    alignSelf:'center',
+
   },
 
   bioBox: {
@@ -162,6 +161,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: '#000',
     borderWidth: 0.2,
+    backgroundColor: "white"
+
   },
 
   bioText: {
@@ -173,20 +174,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
     fontWeight:"bold",
-    borderColor:'#000',
-    borderWidth:1,
     borderRadius:5,
     padding:15,
+    borderWidth:.5,
+    paddingHorizontal:100,
+    backgroundColor: "white"
+
+
   },
-
-  bottom:{
-    justifyContent: 'center',
-    alignContent: 'center',
-    flex:1,
-    marginTop: 130
-  },
-
-
 
   fab: {
     position: 'absolute',
@@ -195,6 +190,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor:'#4970FA'
   }
-
 
 });

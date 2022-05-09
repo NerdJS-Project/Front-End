@@ -3,7 +3,7 @@ import { View, Text, StyleSheet,KeyboardAvoidingView, Platform, TouchableOpacity
 import { ButtonGroup, CheckBox } from 'react-native-elements';
 import { TextInput, Button, HelperText} from "react-native-paper";
 
-const API_URL =  'http://localhost:3001/api/user/create';
+const API_URL =  'https://brainbreezeapp.education/api/user/create';
 //import APIConnection from "../../../utility/APIConnection";
 
 export default function SignUpScreen({navigation}) {
@@ -44,6 +44,7 @@ export default function SignUpScreen({navigation}) {
       alert("Name cannot be empty");
       return; 
     }
+    console.log(user_email + user_password);
 
     if(!user_email.includes('@')){
       alert("Not a valid email");

@@ -62,6 +62,8 @@ export default function StudentClassSearchScreenTest({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
+      <Text style={styles.title}> Discover Classes </Text>
+
         <TextInput
           style={search.searchHolder}
           placeholder={"Enter Class"}
@@ -75,7 +77,6 @@ export default function StudentClassSearchScreenTest({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.title}> Discover Classes </Text>
       </View>
 
       <ScrollView style={{ backgroundColor: '#4970FA' }} contentContainerStyle={styles.content}>
@@ -115,7 +116,6 @@ export default function StudentClassSearchScreenTest({ navigation }) {
 
               <Card.Cover style={{height:'50%'}} source={{uri: 'https://picsum.photos/700' }}/>
                 <Card.Content  adjustsFontSizeToFit>
-              
 
                   <Text  style={{textAlign:'center',fontSize:16}}adjustsFontSizeToFit>
                     { item.class_name +'\n' +
@@ -123,10 +123,7 @@ export default function StudentClassSearchScreenTest({ navigation }) {
                   </Text>
 
                 </Card.Content>
-
               </TouchableOpacity>
-    
-
             </Card>
           );
         })}
@@ -157,6 +154,7 @@ const styles = StyleSheet.create({
 
   content: {
      alignItems: "center",
+     marginBottom:20
 
   },
 
@@ -167,7 +165,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
     marginTop: 50,
-    marginBottom: 50,
+    // marginBottom: 50,
 
   },
 
@@ -215,7 +213,6 @@ const search = StyleSheet.create({
     alignItems: "center",
     left: 80,
     bottom: 0,
-
   },
 
   searchText: {

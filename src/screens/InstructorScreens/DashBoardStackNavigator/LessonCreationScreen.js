@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
 
         position: "absolute",
 
-        top:540,
+        //top:540,
         right: 20,
         bottom:40,
         borderRadius:50,

@@ -1,3 +1,7 @@
+<div align="center">
+    <img src="product_icon.png" alt="Logo">
+ </div>
+
 # Brain Breeze 
 
 <summary>Table of Contents</summary>
@@ -22,7 +26,7 @@
   </li>
 </ol>
 
-
+<br />
 
 ## About the Project
 
@@ -74,7 +78,6 @@
     <ul>App is being polished and optimized. Will get some visual updates and will start testing the app and write up the necessary manuals for the client.</ul>
 </ul>
 
-## Contributing
 
 ## The Team
 <ul>
@@ -86,5 +89,7 @@
   <li>Victor Peraza</li>
   <li>Emmanuel Silva</li>
 </ul>
+
+
 
 ## Acknowledgments 

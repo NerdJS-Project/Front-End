@@ -1,6 +1,8 @@
-import { Pressable, View, Text, StyleSheet, Platform } from 'react-native';
+import { Pressable, View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { Button } from 'react-native-elements/dist/buttons/Button';
 
-function CourseGridCard({ title, color, onPress }) {
+function CourseGridCard({ title, color, onPress, onDelete, courseID }) {
   return (
     <View style={styles.gridItem}>
       <Pressable
@@ -16,6 +18,12 @@ function CourseGridCard({ title, color, onPress }) {
           <Text style={styles.title}>{title}</Text>
         </View>
       </Pressable>
+      <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => onDelete(courseID)}
+        >
+         <Icon name="delete" size={30} color="#e33057" />
+        </TouchableOpacity>
     </View>
   );
 }
@@ -40,6 +48,10 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     
+  },
+  buttonContainer: {
+    marginVertical: 10,
+    marginHorizontal: 10,
   },
   buttonPressed: {
     opacity: 0.5,

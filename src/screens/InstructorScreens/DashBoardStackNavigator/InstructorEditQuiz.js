@@ -17,7 +17,7 @@ export default function InstructorQuizEdit({ navigation, route, quizJSONData, se
     const {unitID, unitName} = route.params;
 
 return(
-    <SafeAreaView>
+    <View >
         <QuizEditComponent
         unitID={unitID}
         navigation={navigation}
@@ -25,7 +25,7 @@ return(
 
         </QuizEditComponent>
 
-    </SafeAreaView>
+    </View>
 )
 
 }

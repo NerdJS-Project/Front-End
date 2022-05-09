@@ -74,12 +74,12 @@ export default function LessonCreation({ navigation, route }) {
 
     async function addUnit() {
         await apiConnection.addUnitForLessonCreation(lessonID);
-        refreshPage()
+        refreshPage();
     }
 
     async function deleteUnit(unitID) {
         await apiConnection.deleteUnit(unitID);
-        refreshPage()
+        refreshPage();
 
     }
 

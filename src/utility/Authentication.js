@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //var url = "http://localhost:3001/api"
-//var url = "http://192.168.0.16:3001/api"
 var url = "https://brainbreezeapp.education/api";
 
 

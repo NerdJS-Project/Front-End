@@ -55,7 +55,7 @@ export default function EditProfile({navigation}) {
     return (
     
             <View style={styles.container}>
-                {/*Avatar Icon change*/}
+                {/*Avatar Icon change
                 <View style={{alignItems: 'center', marginTop: 15}}>
                     <Avatar.Image 
                         size={80} 
@@ -72,10 +72,10 @@ export default function EditProfile({navigation}) {
                         onPress={showDialog}
                     >Change Avatar</Button>
 
-        
+
                     
                 </View>
-            
+    */}
                 <View style={styles.edit}>
                     <TextInput
                         setData={data.user_name}
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
 
     edit: {
         flexDirection: 'row',
-        marginTop: 10,
+        marginTop: 80,
         marginBottom: 10,
         paddingBottom: 5,
         paddingLeft: 10,

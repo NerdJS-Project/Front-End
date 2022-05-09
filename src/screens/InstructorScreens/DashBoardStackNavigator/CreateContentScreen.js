@@ -1,11 +1,11 @@
 import React, { Children, useState, useCallback, useContext, useEffect, useLayoutEffect } from 'react';
-import { View, Pressable, Modal, Text, ScrollView, Alert, StyleSheet, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
+import { View,TextInput, Pressable, Modal, Text, ScrollView, Alert, StyleSheet, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
 import { AuthContext } from '../../../store/AuthContext';
 import APIConnection from '../../../utility/APIConnection';
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Video, AVPlaybackStatus } from 'expo-av';
-import { TextInput } from 'react-native-paper';
+//import { TextInput } from 'react-native-paper';
 
 
 import ReactPlayer from "react-player";
@@ -254,8 +254,9 @@ export default function CreateContent({navigation, route}) {
     /**/
     <View style={styles.container}>
       <TextInput
-      label="Unit Name:"
+      style={styles.title}
       defaultValue={unitNameEntry}
+      placeholder='Change Unit Name Here'
       value={unitNameEntry}
       onChangeText={text => setUnitNameEntry(text)}
     />
@@ -483,8 +484,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: 'black',
-    marginTop: 50,
-    marginBottom: 50
+    marginTop: 20,
+    marginBottom: 20
 
   },
 

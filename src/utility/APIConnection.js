@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
 //var url = "http://localhost:3001/api";
-//var url = "http://192.168.0.16:3001/api"
 var url = "https://brainbreezeapp.education/api";
 
 
@@ -898,7 +897,7 @@ class APIConnection {
     try {
       console.log("post class api called: ");
 
-      const response = fetch(url + "/class/create", {
+      const response = await fetch(url + "/class/create", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -1133,7 +1132,7 @@ class APIConnection {
           token: this.token,
         },
         body: JSON.stringify({
-          unit_name: "new unit",
+          unit_name: "Unit Name",
           unit_content: "",
           lesson_id: lessonID,
           instructor_id: this.user_id,

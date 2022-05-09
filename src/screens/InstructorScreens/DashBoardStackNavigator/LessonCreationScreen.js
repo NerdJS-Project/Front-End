@@ -13,6 +13,7 @@ import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
 import UnitEditCard from '../../../component/UnitCardInstructor';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -148,13 +149,13 @@ export default function LessonCreation({ navigation, route }) {
                             }
                           
 
-                            numColumns={3}
+                            numColumns={2}
 
                             data={myData}
                             keyExtractor={(item) => item.unit_id}
                             //  contentContainerStyle={{flexGrow:2}}
                             renderItem={({ item, index }) =>
-
+                    
                                 <UnitEditCard
                                     unitName={item.unit_name}
                                     unitID={item.unit_id}
@@ -162,6 +163,7 @@ export default function LessonCreation({ navigation, route }) {
                                     onDelete={deleteUnit}
 
                                 ></UnitEditCard>
+             
 
 
                             }
@@ -172,15 +174,11 @@ export default function LessonCreation({ navigation, route }) {
 
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
 
-                            <TouchableOpacity style={styles.addButton} onPress={() => { addUnit() }}>
 
-                                <Text style={styles.addTextButton}>
-                                    Add unit +
-                                </Text>
-
-                            </TouchableOpacity>
 
                         </View>
+
+
 
 
                         {/* Displays the addButton */}
@@ -199,6 +197,14 @@ export default function LessonCreation({ navigation, route }) {
 
                 {/* </ScrollView> */}
             </View>
+  
+     
+                        <TouchableOpacity style={styles.addButton} onPress={() => { addUnit() }}>
+                            <Text style={styles.addTextButton}> Add unit +</Text>
+                            </TouchableOpacity>
+                       
+                           
+            
         </View>
         /* // </View> */
 
@@ -218,6 +224,12 @@ const styles = StyleSheet.create({
     cardContainer: {
         padding: 10
 
+    },
+
+    bottomContainer: {
+        justifyContent: 'flex-end',
+        //margin:1,
+       
     },
     // item: {
     //     backgroundColor: '#f9c2ff',
@@ -240,19 +252,32 @@ const styles = StyleSheet.create({
     addButton: {
         borderRadius: 5,
         textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 70,
-        width: 70,
-        backgroundColor: 'aliceblue',
+        flex:1,
+
+        backgroundColor: '#4970FA',
         shadowColor: 'rgba(0, 0, 0, 0.1)',
         shadowOpacity: 2,
-        shadowOffset: { width: 1, height: 2 }
+        shadowOffset: { width: 1, height: 2 },
+        alignSelf: 'center',
+
+        justifyContent: 'center',
+        alignItems: 'center',
+        width:130,
+        height:70,
+
+        position: "absolute",
+
+        top:560,
+
+          //height: 60,
+      
+
+
     },
 
     addTextButton: {
         fontWeight: 'bold',
-        color: 'blue'
+        color: 'white'
     },
     homeIcon: {
         alignSelf: 'flex-start',

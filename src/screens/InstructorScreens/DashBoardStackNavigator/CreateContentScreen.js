@@ -416,10 +416,10 @@ export default function CreateContent({navigation, route}) {
 
 
 
-        <TouchableOpacity onPress={() => setModalVisible2(true)}>
-          <View style={addClass.addText} >
+        <TouchableOpacity style={addClass.addText}  onPress={() => setModalVisible2(true)}>
+          
             <Text style={addClass.textStyle}>Add Content</Text>
-          </View>
+
         </TouchableOpacity>
 
 

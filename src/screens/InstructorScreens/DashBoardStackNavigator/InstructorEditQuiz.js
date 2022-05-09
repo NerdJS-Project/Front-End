@@ -1,5 +1,5 @@
 import React, { Children, useState, useContext, useEffect, useLayoutEffect } from 'react';
-import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, Alert, StyleSheet, Button, TextInput, TouchableWithoutFeedback, Keyboard, Dimensions, KeyboardAvoidingView, Platform, TouchableOpacity, FlatList, ScrollView } from "react-native";
 import CourseGridCard from '../../../component/CourseGridCard';
 import { AuthContext } from '../../../store/AuthContext';
 import APIConnection from '../../../utility/APIConnection';
@@ -17,7 +17,7 @@ export default function InstructorQuizEdit({ navigation, route, quizJSONData, se
     const {unitID, unitName} = route.params;
 
 return(
-    <View >
+    <ScrollView >
         <QuizEditComponent
         unitID={unitID}
         navigation={navigation}
@@ -25,7 +25,7 @@ return(
 
         </QuizEditComponent>
 
-    </View>
+    </ScrollView>
 )
 
 }

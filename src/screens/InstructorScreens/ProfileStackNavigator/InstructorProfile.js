@@ -21,11 +21,6 @@ export default function InstructorProfile({navigation}) {
   const apiConnection = new APIConnection();
 
 
- 
-
-
-
-  
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -54,18 +49,9 @@ export default function InstructorProfile({navigation}) {
 
 //navigation.navigate('My Profile')
   const [loading, setLoading] = useState(false);
-
     useEffect(() => {
-      
 
-
-      
-   if (isFocused) {
- 
-    
- 
-   
-       
+   if (isFocused) {  
         apiConnection.getUserForProfilePage().then((json) => {
           setData(json);
           
@@ -76,26 +62,10 @@ export default function InstructorProfile({navigation}) {
           
         });
       }
-       
-       
-  
-    
+
       
     }, [isFocused])
 
-
-  
-
-  
-   
-
-
-  
-
-
-  const shadowOverlay = {
-
-  }
 
 
   return (
@@ -105,7 +75,6 @@ export default function InstructorProfile({navigation}) {
           <Avatar
             rounded
             size={100}
-            containerStyle={shadowOverlay}
             source={ require('../../UserProfile/icons/defaultAvatar.png')}
           />      
           <View style={{ marginLeft: 20 }}>

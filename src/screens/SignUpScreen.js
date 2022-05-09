@@ -4,7 +4,7 @@ import { ButtonGroup, CheckBox } from 'react-native-elements';
 import { TextInput, Button, HelperText} from "react-native-paper";
 
 //const API_URL =  'http://localhost:3001/api/user/create';
-const API_URL =  'http://192.168.56.1/api/user/create';
+const API_URL =  'http://192.168.56.1:3001/api/user/create';
 
 
 export default function SignUpScreen({navigation}) {
@@ -78,6 +78,7 @@ export default function SignUpScreen({navigation}) {
             const jsonRes = await res.json();
             if (res.status !== 201) {
                 setMessage(jsonRes.message);
+                alert("Email already in use.")
             } else {
                 setMessage(jsonRes.message);
                 alert("Account created!");

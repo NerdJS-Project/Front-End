@@ -2,6 +2,7 @@ import { useIsFocused } from "@react-navigation/native";
 import React, { useState, useLayoutEffect } from "react";
 import {
   View,
+  ScrollView,
   Text,
   StyleSheet,
   FlatList,
@@ -43,7 +44,7 @@ export default function StudentProfile({navigation}) {
 
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.userInfo}>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
           <Avatar
@@ -110,7 +111,7 @@ export default function StudentProfile({navigation}) {
         icon="file-document-edit-outline"
         onPress={() => navigation.navigate('Edit Profile', {screen: 'InstructorEditProfile'})}
       />
-    </View>
+    </ScrollView>
   );
 }
 
@@ -154,6 +155,7 @@ const styles = StyleSheet.create({
 
   userClass: {
     marginTop: 15,
+    alignSelf:'center'
   },
 
   bioBox: {
@@ -178,8 +180,7 @@ const styles = StyleSheet.create({
     padding:15,
     borderWidth:.5,
     paddingHorizontal:100,
-    backgroundColor: "white",
-
+    backgroundColor: "white"
   },
 
   bottom:{

@@ -13,6 +13,7 @@ import Authentication from "../../utility/Authentication"
 export default function ChangePassword({navigation}) {
     const isFocused = useIsFocused();
     const [data, setData] = useState([]);
+
     const [currentPW, getCurrentPW] = useState('');
     const [newPW, getNewPW] = useState('');
     const [confirmPW, getConfirmPW] = useState(''); 
@@ -47,22 +48,21 @@ export default function ChangePassword({navigation}) {
 
     async function onSubmit() { 
         if(currentPW === ''){
-            alert('need current password to verify');
+            alert('Need current password to verify.');
             return; 
         }
         else if(newPW === ''){
-            alert('need new password input to make changes');
+            alert('Need new, unique password to make changes.');
             return; 
         }
         
-        const currentEmail = data.user_email; 
 
         if(!confirmPasswords()){
             alert('Passwords do not match. Try again.')
             return; 
         }
 
-        
+        const currentEmail = data.user_email; 
         //check to see if type password matches with current
         auth.signIn(currentEmail , currentPW).then(() => {
             //if matches, authorize and allow the user to change the email
@@ -132,7 +132,7 @@ export default function ChangePassword({navigation}) {
                         name="eye"
                         onPress={() => setSecureEntry2(prev => !prev)}
                       />}
-                    onChanged={newText => getConfirmPW(newText)}
+                    onChangeText={newText =>getConfirmPW(newText)}
                     />
             </View>
 

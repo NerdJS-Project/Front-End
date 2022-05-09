@@ -105,7 +105,7 @@ export default function LogInScreen({ navigation }) {
             ...logoAnim,
           }}
         >
-          <Text style={styles.title}> Brain Breeze </Text>
+          <Text style={styles.title}>Brain Breeze</Text>
         </AnimatedView>
       </View>
 
@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: "#4970FA",
+    marginTop: 14
   },
 });
 

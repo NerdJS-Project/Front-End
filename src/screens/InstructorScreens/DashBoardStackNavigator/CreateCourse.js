@@ -4,7 +4,6 @@ import {
   Text,
   Alert,
   StyleSheet,
-  Button,
   TextInput,
   KeyboardAvoidingView,
   Platform,
@@ -14,6 +13,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import {Button} from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Picker } from "@react-native-picker/picker";
@@ -86,7 +86,22 @@ export default function CreateCourse({ navigation }) {
       </Picker>
 
       <View style={styles.bottomContainer}>
-        <TouchableOpacity
+
+        <Button 
+          style={addClass.addBttn}
+          labelStyle={addClass.addText}
+          mode="contained" 
+          onPress={() => {
+            if (courseText == "") {
+              alert("Need to enter class name");
+            } else {
+              onSaved(courseText, "this is description");
+            }
+            
+          }}
+        >Save</Button>
+
+        {/*<TouchableOpacity
           onPress={() => {
             if (courseText == "") {
               alert("Need to enter class name");
@@ -99,7 +114,7 @@ export default function CreateCourse({ navigation }) {
           <View style={addClass.addBttn}>
             <Text style={addClass.addText}>Save</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity>*/}
       </View>
     </View>
   );

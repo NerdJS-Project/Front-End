@@ -22,7 +22,7 @@ export default function StudentMainScreenTabs({ navigation }) {
             component={WelcomeStackNavigatorStudent} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='asterisk' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='asterisk' color={'#4970FA'} size={20}/>
               ),
             }}
 
@@ -33,7 +33,7 @@ export default function StudentMainScreenTabs({ navigation }) {
             component={DashBoardStackNavigatorStudent} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='view-dashboard' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='view-dashboard' color={'#4970FA'} size={20}/>
               ),
             }}
 
@@ -44,7 +44,7 @@ export default function StudentMainScreenTabs({ navigation }) {
             component={HomeStackNavigatorStudent} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='magnify' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='magnify' color={'#4970FA'} size={20}/>
               ),
             }}
           />
@@ -54,7 +54,7 @@ export default function StudentMainScreenTabs({ navigation }) {
             component={ProfileStackNavigatorStudent} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='account-circle-outline' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='account-circle-outline' color={'#4970FA'} size={20}/>
               ),
             }}
           />
@@ -63,7 +63,7 @@ export default function StudentMainScreenTabs({ navigation }) {
             component={SettingStackNavigatorStudent} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='cog-outline' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='cog-outline' color={'#4970FA'} size={20}/>
               ),
             }}
           />

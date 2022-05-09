@@ -42,7 +42,7 @@ export default function InstructorMainScreenTabs({ navigation }) {
 
 
 
-    initialRouteName="Settings"
+    initialRouteName="Welcome"
     
     
       screenOptions={{
@@ -79,7 +79,7 @@ export default function InstructorMainScreenTabs({ navigation }) {
       />
 
 
-<Tab.Screen
+      <Tab.Screen
         name="Profile"
         component={ProfileStackNavigatorInstructor}
        

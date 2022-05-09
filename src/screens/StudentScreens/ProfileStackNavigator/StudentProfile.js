@@ -1,5 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
 import {
   View,
   ScrollView,
@@ -19,7 +19,21 @@ export default function StudentProfile({navigation}) {
   const [classData, setClassData] = useState([]);
   const apiConnection = new APIConnection();
 
-  useLayoutEffect(() => {
+
+  const mounted = useRef(false);
+
+  useEffect(() => {
+      mounted.current = true;
+      
+
+
+      return () => {
+          mounted.current = false;
+          
+      };
+  }, []);
+
+  /*useLayoutEffect(() => {
     if (isFocused) {
       apiConnection.getUserForProfilePage().then((json) => {
         setData(json);
@@ -28,7 +42,25 @@ export default function StudentProfile({navigation}) {
         setClassData(json);
       });
     }
-  }, [isFocused]);
+  }, [isFocused]);*/
+
+  const [loading, setLoading] = useState(false);
+    useEffect(() => {
+
+   if (isFocused) {  
+        apiConnection.getUserForProfilePage().then((json) => {
+          setData(json);
+          
+        });
+        apiConnection.getClasses().then((json) => {
+          setClassData(json);
+        
+          
+        });
+      }
+
+      
+    }, [isFocused])
 
 
   const shadowOverlay = {
@@ -37,7 +69,7 @@ export default function StudentProfile({navigation}) {
 
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.userInfo}>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
           <Avatar
@@ -106,7 +138,7 @@ export default function StudentProfile({navigation}) {
         icon="file-document-edit-outline"
         onPress={() => navigation.navigate('Edit Profile', {screen: 'InstructorEditProfile'})}
       />
-    </ScrollView>
+    </View>
   );
 }
 

@@ -4,12 +4,13 @@ import { is } from "@react-spring/shared";
 import React, { useState, useLayoutEffect,useEffect,useRef,useCallback } from "react";
 import {
   View,
+  ScrollView,
   Text,
   StyleSheet,
   FlatList,
 } from "react-native";
 import { Avatar } from "react-native-elements";
-import { FAB, TextInput} from 'react-native-paper'; 
+import { FAB } from 'react-native-paper'; 
 import Icon from 'react-native-vector-icons/AntDesign';
 import APIConnection from "../../../utility/APIConnection";
 

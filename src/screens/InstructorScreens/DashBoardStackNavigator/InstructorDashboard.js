@@ -80,11 +80,12 @@ export default function InstructorDashboard({navigation}) {
 
 
         <TouchableOpacity 
-        style ={styles.bottomContainer}
+        style={addClass.addBttn}
+        // style ={styles.bottomContainer}
         onPress={() =>  navigation.navigate('Create Course', { screen:'CreateCourse'})}>
-        <View style={addClass.addBttn} >
+        {/* <View  > */}
           <Text style ={addClass.addText}>+</Text>
-        </View> 
+        {/* </View>  */}
       </TouchableOpacity>
       
 

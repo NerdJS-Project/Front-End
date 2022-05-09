@@ -87,6 +87,7 @@ export default function CreateCourse({ navigation }) {
 
       <View style={styles.bottomContainer}>
         <TouchableOpacity
+        style={addClass.addBttn}
           onPress={() => {
             if (courseText == "") {
               alert("Need to enter class name");
@@ -96,9 +97,9 @@ export default function CreateCourse({ navigation }) {
             
           }}
         >
-          <View style={addClass.addBttn}>
+
             <Text style={addClass.addText}>Save</Text>
-          </View>
+  
         </TouchableOpacity>
       </View>
     </View>

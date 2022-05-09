@@ -22,7 +22,7 @@ export default function StudentMainScreenTabs({ navigation }) {
             component={WelcomeStackNavigatorStudent} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='view-dashboard' color={'#000'} size={20}/>
+                <MaterialCommunityIcons name='asterisk' color={'#000'} size={20}/>
               ),
             }}
 

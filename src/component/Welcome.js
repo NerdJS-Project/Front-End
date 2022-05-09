@@ -80,28 +80,26 @@ export default function Welcome() {
       >
         <AnimatedText style={{ 
             fontWeight: "bold",
+            paddingTop: 100,
 
             ...textAnim }}>Welcome!</AnimatedText>
 
         <AnimatedText style={{ 
             marginRight: "50%",
-            marginTop: "30%",
+            marginTop: "20%",
             fontWeight: "bold",
-            fontFamily: "Cochin",
             
             ...teachAnim }}>Teach</AnimatedText>
 
         <AnimatedText style={{ 
-            marginTop: "30%",
+            marginTop: "20%",
             fontWeight: "bold",
-            fontFamily: "Cochin",
             ...learnAnim }}>Learn</AnimatedText>
         
         <AnimatedText style={{ 
             marginRight: "-50%",
-            marginTop: "30%",
+            marginTop: "20%",
             fontWeight: "bold",
-            fontFamily: "Cochin",
 
             ...studyAnim }}>Study</AnimatedText>
       </View>

@@ -1,8 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useContext } from 'react';
-import { AuthContext } from '../store/AuthContext';
-//var url = "http://localhost:3001/api"
-var url = "http://192.168.56.1:3001/api"
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext } from "react";
+import { AuthContext } from "../store/AuthContext";
+//var url = "http://localhost:3001/api";
+//var url = "http://192.168.0.16:3001/api"
+var url = "https://brainbreezeapp.education/api";
+
+
+
 
 class APIConnection {
   constructor() {
@@ -444,7 +448,7 @@ class APIConnection {
   async editUserProfile(newName, userType, newBio, newPic) {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/user/update/" + this.user_id,
+        url + "/user/update/" + this.user_id,
         {
           method: "PUT",
           headers: {
@@ -764,7 +768,7 @@ class APIConnection {
 
   async postUnit(content, content2) {
     try {
-      const response = await fetch("http://localhost:3001/api/unit/create", {
+      const response = await fetch(url + "/unit/create", {
         method: "POST",
         headers: {
           accept: "application/json",
@@ -790,12 +794,12 @@ class APIConnection {
   async getUnitContent(unit_id) {
     console.log(
       "fetch url dash board debug: " +
-        "http://localhost:3001/api/class/findByUser/" +
+        url + "/class/findByUser/" +
         this.user_id
     );
     try {
       const response = await fetch(
-        "http://localhost:3001/api/unit/" + unit_id,
+        url + "/unit/" + unit_id,
         {
           method: "GET",
           headers: {
@@ -817,7 +821,7 @@ class APIConnection {
   async editUnitContent(content, content2, unit_id) {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/unit/updateUnitContent/" + unit_id,
+        url + "/unit/updateUnitContent/" + unit_id,
         {
           method: "PUT",
           headers: {
@@ -844,12 +848,12 @@ class APIConnection {
   async getUnitContent(unit_id) {
     console.log(
       "fetch url dash board debug: " +
-        "http://localhost:3001/api/class/findByUser/" +
+        url + "/class/findByUser/" +
         this.user_id
     );
     try {
       const response = await fetch(
-        "http://localhost:3001/api/unit/" + unit_id,
+        url + "/unit/" + unit_id,
         {
           method: "GET",
           headers: {
@@ -945,7 +949,7 @@ class APIConnection {
   async getModulesAndLessonInstructorCourseViewScreen(courseID) {
     console.log(
       "get modules and lessons called " +
-        "http://localhost:3001/api/class/findByUser/" +
+        url + "/class/findByUser/" +
         courseID
     );
 

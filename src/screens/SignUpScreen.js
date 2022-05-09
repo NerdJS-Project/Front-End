@@ -3,9 +3,14 @@ import { View, Text, StyleSheet} from "react-native";
 import { ButtonGroup, CheckBox } from 'react-native-elements';
 import { TextInput, Button, HelperText} from "react-native-paper";
 
+<<<<<<< HEAD
 //const API_URL =  'http://localhost:3001/api/user/create';
 const API_URL =  'http://192.168.56.1:3001/api/user/create';
 
+=======
+const API_URL =  'https://brainbreezeapp.education/api/user/create';
+//import APIConnection from "../../../utility/APIConnection";
+>>>>>>> ecd8eb344365cabddbc8202905fc13b32651c888
 
 export default function SignUpScreen({navigation}) {
   const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -45,6 +50,7 @@ export default function SignUpScreen({navigation}) {
       alert("Name cannot be empty");
       return; 
     }
+    console.log(user_email + user_password);
 
     if(!user_email.includes('@')){
       alert("Not a valid email");

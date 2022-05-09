@@ -62,13 +62,24 @@ export default function InstructorMainScreenTabs({ navigation }) {
             component={WelcomeStackNavigatorInstructor} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='info' color={'#4970FA'} size={20}/>
+                <MaterialCommunityIcons name='asterisk' color={'#4970FA'} size={20}/>
               ),
             }}
           />
 
+   
       <Tab.Screen
-      
+        name="Dashboard"
+        component={DashBoardStackNavigatorInstructor}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <MaterialCommunityIcons name="home" color={"#4970FA"} size={20} />
+          ),
+        }}
+      />
+
+
+<Tab.Screen
         name="Profile"
         component={ProfileStackNavigatorInstructor}
        
@@ -84,16 +95,6 @@ export default function InstructorMainScreenTabs({ navigation }) {
           ),
         }}
       />
-      <Tab.Screen
-        name="Dashboard"
-        component={DashBoardStackNavigatorInstructor}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <MaterialCommunityIcons name="home" color={"#4970FA"} size={20} />
-          ),
-        }}
-      />
-
       <Tab.Screen
         name="Settings"
         component={SettingStackNavigatorInstructor}

@@ -10,6 +10,7 @@ import {
     Modal,
     Animated,
     TextInput,
+    ScrollView,
 } from "react-native";
 import { COLORS, SIZES } from "../constants/themes";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -186,6 +187,7 @@ export default function QuizEditComponent({navigation, unitID}) {
         return (
             <View style={{
                 marginVertical: 40,
+
             }}>
                 <View
                     style={{
@@ -240,7 +242,7 @@ export default function QuizEditComponent({navigation, unitID}) {
 
     function renderAnswersInput() {
         return (
-            <View>
+            <View style={{flex: 1}}>
                 {
 
                     quizData[currentIndex].quizdata_answers.map((answer, index) => (
@@ -414,6 +416,7 @@ export default function QuizEditComponent({navigation, unitID}) {
 
     function renderBottomButtons() {
         return (
+            <View>
             <View style={{
                 flexDirection: "row",
                 alignItems: "center",
@@ -487,11 +490,18 @@ export default function QuizEditComponent({navigation, unitID}) {
                 </Button>
 
             </View>
+            </View>
         )
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "rgb(179, 236, 255)" }}>
+        <View style={{
+            flexDirection:"column",
+            justifyContent:"space-around"
+            
+        }}>
+
+        <ScrollView style={{ flex: 1, backgroundColor: "rgb(179, 236, 255)" }}>
             {dummyState}
             <StatusBar barStyle="light-content" backgroundColor={COLORS.primary} />
 
@@ -509,7 +519,9 @@ export default function QuizEditComponent({navigation, unitID}) {
             {renderBottomButtons()}
 
 
-        </SafeAreaView>
+        </ScrollView>
+        </View>
+
     )
 }
 
@@ -565,7 +577,7 @@ const styles = StyleSheet.create({
 
 
     questionInput: {
-        height: 80,
+        height: 65,
         marginHorizontal: 10,
         marginVertical: 10,
         marginBottom: 30,
@@ -578,7 +590,7 @@ const styles = StyleSheet.create({
 
     answerInput: {
         flex: 1,
-        height: 60,
+        height: 50,
         marginHorizontal: 5,
         marginVertical: 5,
         borderWidth: 2,

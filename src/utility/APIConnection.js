@@ -561,6 +561,28 @@ class APIConnection {
     }
   }
 
+
+  async deleteClass(class_id){
+    try {
+      const response = await fetch(`${url}/class/delete/${class_id}`, {
+         method: 'DELETE',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json',
+           'token': this.token,
+         },
+       });
+      const json = await response.json();
+
+      console.log("THIS IS delete CLASS " + json);
+      return json;
+    } catch (error) {
+      console.error(error);
+      this.authCtx.logout
+    } finally {
+    }
+  }
+
   async getUnitQuizContent(unitID) {
     console.log(
       "fetch unit content quiz " + url + "/quiz/findByUnitId/" + unitID

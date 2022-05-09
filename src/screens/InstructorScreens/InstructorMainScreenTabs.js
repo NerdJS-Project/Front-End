@@ -26,6 +26,7 @@ import DashBoardStackNavigatorInstructor from "./DashBoardStackNavigator/DashBoa
 import ProfileStackNavigatorInstructor from "./ProfileStackNavigator/ProfileStackNavigatorInstructor";
 import SettingStackNavigatorInstructor from "./SettingsStackNavigator/SettingStackNavigatorInstructor";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import WelcomeStackNavigatorInstructor from "./WelcomeStackNavigation.js/WelcomeStackNavigationInstructor";
 
 const API_URL =
   Platform.OS === "ios" ? "http://localhost:5000" : "http://10.0.2.2:5000";
@@ -56,15 +57,15 @@ export default function InstructorMainScreenTabs({ navigation }) {
     
       
     >
-      {/* <Tab.Screen 
-            name="Search" 
-            component={HomeStackNavigatorInstructor} 
+      <Tab.Screen 
+            name="Welcome" 
+            component={WelcomeStackNavigatorInstructor} 
             options={{
               tabBarIcon: ({focused}) => (
-                <MaterialCommunityIcons name='magnify' color={'#4970FA'} size={20}/>
+                <MaterialCommunityIcons name='info' color={'#4970FA'} size={20}/>
               ),
             }}
-          /> */}
+          />
 
       <Tab.Screen
       

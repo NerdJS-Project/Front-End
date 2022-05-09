@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Modal,
   Animated,
+  ScrollView,
 } from "react-native";
 import { COLORS, SIZES } from "../constants/themes";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -162,7 +163,7 @@ export default function QuizComponent({ unitID, navigation }) {
       <View
         style={{
           marginVertical: 40,
-          flex: 1
+          flex: 1,
         }}
       >
         {/* Question Counter */}
@@ -338,7 +339,7 @@ export default function QuizComponent({ unitID, navigation }) {
   };
 
   return (
-    <SafeAreaView
+    <ScrollView
       style={{
         flex: 1,
       }}
@@ -440,27 +441,34 @@ export default function QuizComponent({ unitID, navigation }) {
                   Retry Quiz
                 </Text>
               </TouchableOpacity>
-              {/* Save Progress button */}
 
-              <TouchableOpacity
-                onPress={() => saveProgressAndNext()}
-                style={{
-                  backgroundColor: COLORS.accent,
-                  padding: 20,
-                  width: "100%",
-                  borderRadius: 20,
-                }}
-              >
-                <Text
+
+              {/* Save Progress button */}
+              {score > allQuestions.length / 2 ? (
+                <TouchableOpacity
+                  onPress={() => saveProgressAndNext()}
                   style={{
-                    textAlign: "center",
-                    color: COLORS.white,
-                    fontSize: 20,
+                    paddingTop: 20,
+                    marginTop: 20,
+
+                    backgroundColor: COLORS.accent,
+                    padding: 20,
+                    width: "100%",
+                    borderRadius: 20,
                   }}
                 >
-                  Save Progress
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      color: COLORS.white,
+                      fontSize: 20,
+                    }}
+                  >
+                    Save Progress
+                  </Text>
+                </TouchableOpacity>
+              ) : null}
+
             </View>
           </View>
         </Modal>
@@ -481,6 +489,6 @@ export default function QuizComponent({ unitID, navigation }) {
                 resizeMode={'contain'}
                 /> */}
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 }

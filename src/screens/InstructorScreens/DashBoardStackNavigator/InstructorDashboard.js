@@ -30,6 +30,16 @@ export default function InstructorDashboard({navigation}) {
          },[isFocused]);
 
  //------------------------------------------
+
+
+ function onDelete(courseID)
+ {
+   apiConnection.deleteClass(courseID);
+   navigation.goBack();
+ }
+
+
+
     function classCardComponent(itemData) {
         function pressHandler() {
             console.log("item data debug:", itemData)
@@ -48,6 +58,8 @@ export default function InstructorDashboard({navigation}) {
             title={itemData.item.class_name}
             color={"#534789"}
             onPress={pressHandler}
+            courseID={itemData.item.class_id}
+            onDelete={onDelete}
           />
         );
       }

@@ -207,7 +207,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     width:200,
     marginRight:10,
-    marginLeft:15
   },
 
   fab: {

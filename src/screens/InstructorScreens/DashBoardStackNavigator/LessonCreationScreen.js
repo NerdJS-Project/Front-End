@@ -3,7 +3,7 @@ import * as React from 'react-native';
 import {
     Text, StyleSheet,
     View, TouchableOpacity, 
-    FlatList, TextInput, ScrollView
+    FlatList, TextInput, ScrollView,Dimensions
 } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
 
         position: "absolute",
 
-        top:520,
+        top:Dimensions.get('window').height-300,
         right: 20,
        // bottom:40,
         borderRadius:50,

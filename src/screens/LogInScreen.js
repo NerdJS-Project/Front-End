@@ -32,7 +32,7 @@ export default function LogInScreen({ navigation }) {
   const [flip, set] = useState(false);
   const logoAnim = useSpring({
     to: { 
-    backgroundColor: "#94c9ff",
+   // backgroundColor: "#94c9ff",
     width: 130,
     height: 130,
     borderRadius: 4,
@@ -161,15 +161,17 @@ const styles = StyleSheet.create({
 
     backgroundColor: "#E8EAED",
     alignItems: "center",
-    paddingTop: 0,
+   // paddingTop: 0,
   },
 
   title: {
     //paddingHorizontal:11,
+
     textAlign: "center",
     fontSize: 30,
     fontWeight: "bold",
     color: "#4970FA",
+    top:15
   },
 });
 

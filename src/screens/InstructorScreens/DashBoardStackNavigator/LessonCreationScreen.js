@@ -200,7 +200,7 @@ export default function LessonCreation({ navigation, route }) {
   
      
                         <TouchableOpacity style={styles.addButton} onPress={() => { addUnit() }}>
-                            <Text style={styles.addTextButton}> Add unit +</Text>
+                            <Text style={styles.addTextButton}>+</Text>
                             </TouchableOpacity>
                        
                            
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     },
 
     addButton: {
-        borderRadius: 5,
+        alignSelf: 'flex-end',
         textAlign: 'center',
         flex:1,
 
@@ -262,12 +262,17 @@ const styles = StyleSheet.create({
 
         justifyContent: 'center',
         alignItems: 'center',
-        width:130,
-        height:70,
+        width:80,
+        height:80,
+        paddingBottom:5,
+        
 
         position: "absolute",
 
-        top:560,
+        top:520,
+        right: 20,
+       // bottom:40,
+        borderRadius:50,
 
           //height: 60,
       
@@ -277,7 +282,9 @@ const styles = StyleSheet.create({
 
     addTextButton: {
         fontWeight: 'bold',
-        color: 'white'
+        color: 'white',
+        fontSize: 40,
+
     },
     homeIcon: {
         alignSelf: 'flex-start',

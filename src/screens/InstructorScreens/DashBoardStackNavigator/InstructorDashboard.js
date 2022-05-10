@@ -154,7 +154,7 @@ const addClass = StyleSheet.create({
 
   addBttn: {
   alignSelf: 'flex-end',
-
+  flex:1,
   justifyContent: 'center',
   alignItems: 'center',
   width:80,

@@ -10,6 +10,7 @@ import {
     Modal,
     Animated,
     TextInput,
+    ScrollView,
 } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 import { Button } from "react-native-elements";
@@ -32,11 +33,11 @@ export default function StudentQuizView({ navigation, route }) {
 
 
     return(
-        <View>
+        <ScrollView>
             <QuizComponent
             unitID={unitID}
             ></QuizComponent>
-        </View>
+        </ScrollView>
     )
 
 

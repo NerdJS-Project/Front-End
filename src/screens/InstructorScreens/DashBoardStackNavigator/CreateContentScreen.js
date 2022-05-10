@@ -355,7 +355,7 @@ export default function CreateContent({navigation, route}) {
                     <Text style={addClass.textStyle}>Add Text</Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity style={[bottomModal.button, bottomModal.buttonClose]} onPress={() => { setModalVisible2(!modalVisible2) }}>
+                  <TouchableOpacity style={[bottomModal.button, bottomModal.buttonClose]} onPress={() => { {setModalVisible2(!modalVisible2); navigation.navigate('Edit Quiz')} }}>
                     <Text style={addClass.textStyle}>Add Quiz</Text>
                   </TouchableOpacity>
 

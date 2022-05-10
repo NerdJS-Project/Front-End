@@ -201,7 +201,7 @@ const addClass = StyleSheet.create({
     backgroundColor: "#4970FA",
     color: "white",
     bottom: 50,
-    margin: 1,
+    //margin: 1,
   },
 
   addText: {

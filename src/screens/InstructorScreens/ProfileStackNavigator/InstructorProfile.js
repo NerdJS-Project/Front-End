@@ -4,7 +4,7 @@ import { is } from "@react-spring/shared";
 import React, { useState, useLayoutEffect,useEffect,useRef,useCallback } from "react";
 import {
   View,
-  ScrollView,
+  SafeAreaView,
   Text,
   StyleSheet,
   FlatList,
@@ -116,23 +116,21 @@ export default function InstructorProfile({navigation}) {
               </Text>
             </Text>
         </View>
-        <View style={styles.userClass}>
-          <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
-          <View style={{alignItems:'flex-start'}}>
-
-            <FlatList
-            keyExtractor={(item) => item.class_name}
-
-              data={classData}
-              numColumns={1}
-              renderItem={({item}) => (
-                <Text style={[styles.list]}>{item.class_name}</Text>
-              )}
-            />
-          </View>
-        </View>
+        
+        <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
       </View>
 
+        <FlatList
+              keyExtractor={(item) => item.class_name}
+
+                data={classData} 
+                renderItem={({item}) => (
+                  <Text style={[styles.list]}>{item.class_name}</Text>
+                )}
+                numColumns={2}
+        />
+
+      
       <FAB
         style={styles.fab}
         icon="file-document-edit-outline"
@@ -209,9 +207,10 @@ const styles = StyleSheet.create({
     borderRadius:5,
     padding:15,
     borderWidth:.5,
-    paddingHorizontal:100,
-    backgroundColor: "white"
-
+    backgroundColor: "white",
+    width:200,
+    marginRight:10,
+    marginLeft:15
 
   },
 

@@ -116,11 +116,10 @@ export default function StudentProfile({navigation}) {
               </Text>
             </Text>
         </View>
-        <View style={styles.userClass}>
-          <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
-          <View style={{alignItems:'flex-start'}}>
+        <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
+      </View>
 
-            <FlatList
+      <FlatList
             keyExtractor={(item) => item.class_name}
 
               data={classData}
@@ -129,9 +128,7 @@ export default function StudentProfile({navigation}) {
                 <Text style={[styles.list]}>{item.class_name}</Text>
               )}
             />
-          </View>
-        </View>
-      </View>
+
 
       <FAB
         style={styles.fab}
@@ -207,8 +204,10 @@ const styles = StyleSheet.create({
     borderRadius:5,
     padding:15,
     borderWidth:.5,
-    paddingHorizontal:100,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    width:200,
+    marginRight:10,
+    marginLeft:15
   },
 
   fab: {

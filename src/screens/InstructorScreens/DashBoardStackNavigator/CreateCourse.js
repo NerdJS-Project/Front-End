@@ -86,27 +86,8 @@ export default function CreateCourse({ navigation }) {
       </Picker>
 
       <View style={styles.bottomContainer}>
-<<<<<<< HEAD
-
-        <Button 
-          style={addClass.addBttn}
-          labelStyle={addClass.addText}
-          mode="contained" 
-          onPress={() => {
-            if (courseText == "") {
-              alert("Need to enter class name");
-            } else {
-              onSaved(courseText, "this is description");
-            }
-            
-          }}
-        >Save</Button>
-
-        {/*<TouchableOpacity
-=======
         <TouchableOpacity
         style={addClass.addBttn}
->>>>>>> 6bfcc2c85062630fe7cd779cb3042f007543d715
           onPress={() => {
             if (courseText == "") {
               alert("Need to enter class name");
@@ -118,13 +99,8 @@ export default function CreateCourse({ navigation }) {
         >
 
             <Text style={addClass.addText}>Save</Text>
-<<<<<<< HEAD
-          </View>
-        </TouchableOpacity>*/}
-=======
   
         </TouchableOpacity>
->>>>>>> 6bfcc2c85062630fe7cd779cb3042f007543d715
       </View>
     </View>
   );

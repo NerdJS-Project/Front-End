@@ -144,6 +144,7 @@ export default function LessonCreation({ navigation, route }) {
                     {myData.length >= 1 ?
                         <FlatList
                            nestedScrollEnabled
+                           contentContainerStyle={{width:Dimensions.get('window').width, alignItems:'center'}}
                             ListEmptyComponent={
                                 <Text>This lesson doesn't have any content, please click the add button</Text>
                             }

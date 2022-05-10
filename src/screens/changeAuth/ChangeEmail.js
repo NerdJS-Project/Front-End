@@ -4,9 +4,8 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
-import { TextInput, Button, HelperText} from "react-native-paper";
+import { TextInput, Button} from "react-native-paper";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import APIConnection from "../../utility/APIConnection";
 import Authentication from "../../utility/Authentication"
@@ -78,46 +77,47 @@ export default function ChangeEmail({navigation}) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Change Email</Text>
+             <Text style={styles.title}>Change Email</Text>
             <View style={styles.form}>
                 <TextInput 
-                    style={styles.inputField}
-                    value={data.user_email} 
-                    mode={'outlined'}     
-                    label={'Email'}
-                    left={<TextInput.Icon name='email'/>}
-                    onChangeText={newText => getNewEmail(newText)}
-                />
-         
+                        style={styles.inputField}
+                        value={data.user_email} 
+                        mode={'outlined'}     
+                        label={'Email'}
+                        left={<TextInput.Icon name='email'/>}
+                        onChangeText={newText => getNewEmail(newText)}
+                    />
                 <TextInput            
-                    style={styles.inputField}
-                    mode={'outlined'}   
-                    secureTextEntry={isSecureEntry}
-                    label={'Password'}
-                    left={<TextInput.Icon name='lock'/>}
-                    right={  
-                        <TextInput.Icon name="eye"
-                          onPress={() => setSecureEntry(prev => !prev)}
-                        />}
-                    onChangeText={newText => getCurrPW(newText)}
-                     />
+                        style={styles.inputField}
+                        mode={'outlined'}   
+                        secureTextEntry={isSecureEntry}
+                        label={'Password'}
+                        left={<TextInput.Icon name='lock'/>}
+                        right={  
+                            <TextInput.Icon name="eye"
+                                onPress={() => setSecureEntry(prev => !prev)}
+                            />}
+                        onChangeText={newText => getCurrPW(newText)}
+                    />
             </View>
 
+            <View style={{marginTop: 45}}>
+                <Button
+                    mode="contained"
+                    style={styles.button}
+                    onPress={() => onSubmit()}
+                >Submit</Button>
 
-            <Button
-                mode="contained"
-                style={styles.button}
-                onPress={() => onSubmit()}
-            >Submit</Button>
-
-            <Button
-                mode="contained"
-                style={[styles.button, {
-                    backgroundColor: '#e03a3a'
-                }]}
-                onPress={() => navigation.goBack()}
-            >Cancel</Button>
+                <Button
+                    mode="contained"
+                    style={[styles.button, {
+                        backgroundColor: '#e03a3a'
+                    }]}
+                    onPress={() => navigation.goBack()}
+                >Cancel</Button>
            
+            </View>
+            
         </View>
     
         
@@ -130,7 +130,7 @@ const styles = StyleSheet.create ({
     
     container: {
         flex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#E8EAED"
     },
 
     title: { 
@@ -146,27 +146,17 @@ const styles = StyleSheet.create ({
     },
 
     inputField: {
-        flex: 1,
-        marginTop: 30,
+        marginTop: 20,
         marginLeft:35,
-        marginRight:35
+        marginRight:35,
+        backgroundColor:"#fff"
     },
-
-    formText: {
-        fontWeight: 'bold',
-        fontSize: 18
-    },
-
     button: {
         backgroundColor: '#4970FA',
-        marginTop: 15,
+        marginTop: 35,
         marginLeft: 35,
         marginRight:35,
     },
 
-    submitText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: 'white'
-    }
+  
 });

@@ -84,6 +84,7 @@ export default function CourseEditScreen({ route, navigation }) {
          // label="Course Name"
          
        // editable={true}
+       returnKeyType='done'
           defaultValue={courseName}
           onChangeText={(text) => setClassName(text)}
         />
@@ -93,6 +94,7 @@ export default function CourseEditScreen({ route, navigation }) {
         <TextInput
           style={styles.courseDesc}
          // label="Course Description"
+         returnKeyType='done'
           value={courseDescription}
           multiline={true} 
           onChangeText={(text) => setCourseDescription(text)}

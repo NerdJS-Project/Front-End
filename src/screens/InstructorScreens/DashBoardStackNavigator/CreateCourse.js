@@ -64,6 +64,7 @@ export default function CreateCourse({ navigation }) {
       <TextInput
         style={addClass.courseName}
         value={courseText}
+        returnKeyType='done'
         onChangeText={(courseText) => setCourseText(courseText)}
       />
 
@@ -73,6 +74,7 @@ export default function CreateCourse({ navigation }) {
           style={styles.courseDesc}
          // label="Course Description"
           //value={courseDescription}
+          returnKeyType='done'
           multiline={true} 
           onChangeText={(text) => setCourseDesc(text)}
         />

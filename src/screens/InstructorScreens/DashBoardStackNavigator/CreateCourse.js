@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 30,
     fontWeight: "bold",
-    color: "black",
+    color: "#4970FA",
     marginTop: 50,
     marginBottom: 50,
   },

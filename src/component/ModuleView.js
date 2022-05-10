@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
       width:345,
       alignItems:'center',
       borderRadius:10,
-      borderWidth:2,
-      borderColor:'black',
+      borderWidth:.85,
+      //borderColor:'#E8EAED',
       flexDirection:'row',
       justifyContent:'space-between',
        backgroundColor: '#3385ff',
@@ -125,10 +125,10 @@ const styles = StyleSheet.create({
     content: {
       borderRadius:10,
       borderColor:'black',
-      borderWidth:2,
+      borderWidth:.75,
       paddingLeft: 10,
       paddingRight: 10,
-      // backgroundColor: 'silver',
+      backgroundColor: 'white',
       margin:2
     },
   });

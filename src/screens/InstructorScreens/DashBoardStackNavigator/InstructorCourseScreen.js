@@ -207,7 +207,7 @@ export default function InstructorCourseView({ navigation, route }) {
 
 const styles = StyleSheet.create({
   courseTitleBackground: {
-    backgroundColor: "#00bfff",
+    backgroundColor: "#4970FA",
     padding: 20,
   },
 

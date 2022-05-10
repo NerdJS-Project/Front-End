@@ -13,13 +13,14 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  TextInput,
   ScrollView,
 } from "react-native";
 import Authentication from "../../../utility/Authentication";
 import { Input, Icon, ButtonGroup, Divider } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import APIConnection from "../../../utility/APIConnection";
-import { TextInput } from "react-native-paper";
+
 import { useIsFocused } from "@react-navigation/native";
 
 export default function CourseEditScreen({ route, navigation }) {
@@ -72,46 +73,49 @@ export default function CourseEditScreen({ route, navigation }) {
   }
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}> Create Course </Text>
+
+<Text style={styles.placeholderName}>Course Name</Text>
+
         <TextInput
-          style={styles.inputStyle}
-          label="Course Name"
-          value={courseName}
+          style={styles.courseName}
+          
+         // label="Course Name"
+         
+       // editable={true}
+          defaultValue={courseName}
           onChangeText={(text) => setClassName(text)}
         />
 
-        <View></View>
-
+    
+        <Text style={styles.placeholderDesc}>Course Description</Text>
         <TextInput
-          style={{
-            borderWidth: 1,
-            height: 200,
-            borderRadius: 20,
-          }}
-          label="Course Description"
+          style={styles.courseDesc}
+         // label="Course Description"
           value={courseDescription}
+          multiline={true} 
           onChangeText={(text) => setCourseDescription(text)}
         />
 
-        <View style={styles.bottomContainer}>
-          <TouchableOpacity onPress={() => onSave()}>
-            <View style={styles.addBttn}>
+
+
+
+      
+      <View style={styles.bottomContainer}>
+        <TouchableOpacity style={styles.addBttn} onPress={() => onSave()}>
               <Text style={styles.addText}>Save</Text>
-            </View>
           </TouchableOpacity>
+
         </View>
-      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     flex: 1,
-    justifyContent: "space-between",
-    flexDirection: "column",
+    alignItems: "center", 
   },
 
   addBttn: {
@@ -128,8 +132,31 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: "#4970FA",
     color: "white",
-    bottom: 50,
+    bottom: 60,
     margin: 1,
+  },
+  placeholderName: {
+
+    color: "black",
+    fontSize: 15,
+    fontWeight: "bold",
+    //marginBottom: 1,
+    marginRight: 140,
+   
+    marginTop: 10,
+  },
+
+  placeholderDesc: {
+
+    color: "black",
+    fontSize: 15,
+    fontWeight: "bold",
+    //marginBottom: 1,
+    marginRight: 105,
+    marginBottom:-40,
+    marginTop:40,
+   
+   // marginTop: ,
   },
 
   addText: {
@@ -145,6 +172,38 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#4970FA",
   },
+  courseName: {
+    //position: "relative",
+    justifyContent: "center",
+    //alignItems: 'center',
+    paddingHorizontal: 10, //inner text spacing
+    backgroundColor: "white",
+    borderColor: "#C0C0C0",
+    alignSelf:'center',
+
+    borderWidth: 1,
+    borderRadius: 10,
+    width: 250,
+    height: 40,
+
+  },
+
+  courseDesc: {
+    marginTop:40,
+    justifyContent: "center",
+    alignSelf:'center',
+    height: 200,
+    width: 250,
+    borderColor: "#C0C0C0",
+    borderWidth: 1,
+    borderRadius: 10,
+   // marginBottom: 10,
+    //paddingVertical: 15,
+    paddingHorizontal: 15,
+    backgroundColor:'white',
+    marginBottom:0,
+
+  },
 
   inputContainerStyle: {
     paddingHorizontal: 40,
@@ -159,7 +218,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   bottomContainer: {
-    flex: 1,
+    flex: 3,
     justifyContent: "flex-end",
     alignItems: "center",
     

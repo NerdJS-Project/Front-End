@@ -3,7 +3,8 @@ import * as React from 'react-native';
 import {
     Text, StyleSheet,
     View, TouchableOpacity,
-    FlatList, TextInput, ScrollView, Dimensions
+    FlatList, TextInput, ScrollView, Dimensions,Alert,
+    Platform
 } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -92,6 +93,28 @@ export default function LessonCreation({ navigation, route }) {
 
     }
 
+    function alertDeleteLesson(){
+        Alert.alert(
+            "Warning",
+            "Are you sure you want to delete this Lesson? You will not be able to recover it.",
+            [
+              {
+                text: "Cancel",
+                style: "cancel",
+              },
+              {
+                text: "Delete",
+                onPress: () => { onDelete(lessonID) }
+      
+              }
+            ],
+            {
+              cancelable: true,
+      
+            }
+          );
+    }
+
 
     return (
         //   <View style={{flex:2}}>
@@ -139,14 +162,27 @@ export default function LessonCreation({ navigation, route }) {
                                 lessonData.lesson_index, lessonData.module_id);
                             alert('Saved ' + newLessonName + ' as new name')
                         }
-                        else { alert('No name was entered') }
+                        else { alert('No new name was entered') }
                     }}>
                         <Text style={{ color: 'white' }}> Save Name</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.buttonContainer}
-                        onPress={() => onDelete(lessonID)}
+                        onPress={() =>
+                            {
+                                if(Platform.OS == 'web')
+                                {    onDelete(lessonID)
+                               
+                                }
+                                else if(Platform.OS == 'android' || Platform.OS == 'ios')
+                                {
+                                    alertDeleteLesson();
+                                }
+
+                            }
+
+                            }
                     >
                         <Icon name="delete" size={30} color="#e33057" />
                     </TouchableOpacity>

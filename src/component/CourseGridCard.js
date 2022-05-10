@@ -1,8 +1,31 @@
-import { Pressable, View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
+import { Pressable, View, Text, StyleSheet, Platform, TouchableOpacity,Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 
 function CourseGridCard({ title, color, onPress, onDelete, courseID }) {
+  function alertDrop() {
+    Alert.alert(
+      "Warning",
+      "Are you sure you want to delete this course? You will not be able to recover it.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => { onDelete(courseID) }
+
+        }
+      ],
+      {
+        cancelable: true,
+
+      }
+    );
+
+  }
+  
   return (
     <View style={styles.gridItem}>
       <Pressable
@@ -20,7 +43,18 @@ function CourseGridCard({ title, color, onPress, onDelete, courseID }) {
       </Pressable>
       <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => onDelete(courseID)}
+          onPress={() => 
+            {
+              if(Platform.OS == 'web'){
+                onDelete(courseID)
+              }
+              else if(Platform.OS == 'android' || Platform.OS == 'ios')
+              {
+                alertDrop();
+              }
+           }  
+          
+          }
         >
          <Icon name="delete" size={30} color="#e33057" />
         </TouchableOpacity>
@@ -50,8 +84,7 @@ const styles = StyleSheet.create({
     
   },
   buttonContainer: {
-    marginVertical: 10,
-    marginHorizontal: 10,
+    alignSelf:'center'
   },
   buttonPressed: {
     opacity: 0.5,

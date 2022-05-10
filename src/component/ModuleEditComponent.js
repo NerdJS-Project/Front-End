@@ -135,7 +135,7 @@ export default function ModuleEditComponent({ allData, setData, lessonData, navi
             style={{
               fontSize: 12,
               fontWeight: "500",
-              color: "coral",
+              color: "#4970FA",
               paddingBottom: 10,
             }}
           >
@@ -158,7 +158,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderRadius: 4,
-    backgroundColor: "#91d6d9",
+    backgroundColor: "#4970FA",
+    color:'white',
     alignSelf: "flex-start",
     marginHorizontal: "1%",
     margin: 6,
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderRadius: 4,
-    backgroundColor: "oldlace",
+    backgroundColor: "#4970FA",
     alignSelf: "flex-start",
     marginHorizontal: "1%",
     marginBottom: 6,
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
   buttonLabel: {
     fontSize: 12,
     fontWeight: "500",
-    color: "coral",
+    color: "white",
   },
   selectedLabel: {
     color: "white",
@@ -204,13 +205,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 10,
     fontSize: 24,
+    //color:'white'
   },
   backgroundCard: {
     margin: 16,
     borderRadius: 8,
     elevation: 4,
     backgroundColor: "white",
-    borderWidth: 1,
+    borderWidth: .7,
 
     color: "white",
     shadowColor: "black",

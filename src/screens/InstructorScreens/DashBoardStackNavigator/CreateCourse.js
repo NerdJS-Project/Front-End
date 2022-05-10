@@ -58,6 +58,7 @@ export default function CreateCourse({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <ScrollView>
       <Text style={styles.title}> Create Course </Text>
       <Text style={addClass.placeholderText}>Course Name</Text>
 
@@ -97,6 +98,7 @@ export default function CreateCourse({ navigation }) {
   
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </View>
   );
 }
@@ -117,7 +119,8 @@ const styles = StyleSheet.create({
   },
 
   bottomContainer: {
-    flex: 3,
+    flex: 1,
+    paddingTop: 20,
     justifyContent: "flex-end",
     alignItems: "center",
   },
@@ -194,15 +197,15 @@ const addClass = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-    paddingBottom: 5,
-    position: "absolute",
+    // paddingBottom: 5,
+    // position: "absolute",
     height: 50,
     width: 200,
 
     borderRadius: 50,
     backgroundColor: "#4970FA",
     color: "white",
-    bottom: 50,
+    // bottom: 50,
     //margin: 1,
   },
 

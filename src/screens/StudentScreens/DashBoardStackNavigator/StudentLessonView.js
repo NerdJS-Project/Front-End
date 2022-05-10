@@ -4,6 +4,7 @@ import { Text, View, Button, TouchableOpacity, FlatList, StyleSheet, SafeAreaVie
 import { useIsFocused } from "@react-navigation/native";
 import APIConnection from "../../../utility/APIConnection";
 import { Icon } from 'react-native-elements';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 export default function StudentLessonView({ navigation, route }) {
@@ -12,6 +13,7 @@ export default function StudentLessonView({ navigation, route }) {
     const isFocused = useIsFocused();
     const [LessonData, setLessonData] = useState([]);
     const [dummy, setDummy] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -22,110 +24,109 @@ export default function StudentLessonView({ navigation, route }) {
 
 
     useEffect(() => {
-        if (isFocused) 
-        {
+
+        if (isFocused) {
+            setIsLoading(true);
+
             fetchData();
         }
 
-        async function fetchData()
-        {
+        async function fetchData() {
             let json = await apiConnection.getSectionsPerLesson(lessonID);
-            for (let i = 0; i < json.length; i++)
-            {
+            for (let i = 0; i < json.length; i++) {
 
-             let item = json[i];
+                let item = json[i];
                 let result = await apiConnection.getUnitProgress(item.unit_id);
-                if(result.result.length >0){
-                    json[i]['completed'] =1;
-                
+                if (result.result.length > 0) {
+                    json[i]['completed'] = 1;
+
                 }
-                else{
-                   json[i]['completed']  = 0;
-                
+                else {
+                    json[i]['completed'] = 0;
+
                 }
 
             }
             setLessonData(json);
+            setIsLoading(false);
+
 
         }
 
-   
+
     }, [isFocused]);
 
 
-    function debugDummy()
-    {
+    function debugDummy() {
         setDummy(!dummy);
     }
-    
 
 
-    function onUnitPress(unitID)
-    {
+
+    function onUnitPress(unitID) {
         navigation.navigate('Student Content View Tab', {
             unitID: unitID
-            
-          })
+
+        })
     }
-  
+
 
 
     console.log("LESSON DATA INDEX ONE:" + JSON.stringify(LessonData[0]))
 
     return (
- 
-
 
         <View style={styles.entireView}>
-            <View style={styles.lessonNameContainer}>
-                <Text style={styles.lessonName}>{lesson_name}</Text>
 
-            </View>
+                    <View style={styles.lessonNameContainer}>
+                        <Text style={styles.lessonName}>{lesson_name}</Text>
 
-            <View style={{flex:1, width:'100%',  alignItems: 'center' }}>
+                    </View>
 
-                <FlatList
-                    numColumns={3}
-                    data={LessonData}
-                    keyExtractor={(it) => it.unit_id}
-                    contentContainerStyle={{alignItems:'center'}}
-                    style={{width:'100%'}}
-                    renderItem={({ item }) => {
+                    <View style={{ flex: 1, width: '100%', alignItems: 'center' }}>
 
-                        return (
-                            <View >
-                              
-                                <TouchableOpacity style={styles.unitTouch} onPress={() => onUnitPress(item.unit_id)}>
+                        <FlatList
+                            numColumns={3}
+                            data={LessonData}
+                            keyExtractor={(it) => it.unit_id}
+                            contentContainerStyle={{ alignItems: 'center' }}
+                            style={{ width: '100%' }}
+                            renderItem={({ item }) => {
 
-                                    <Text adjustsFontSizeToFit numberOfLines={2}  style={styles.unitText}>
-                                    <Text >
-                                        {item.completed ===1 ? <Icon style={{borderRadius:15, padding:2,backgroundColor:'green'}} color={'white'} name={"check"} size={12} />: 
-                                       null}
-                                        </Text>
-                                     
-                                 
-                                 
-                                        {item.unit_name}
+                                return (
+                                    <View >
 
-                                    </Text>
-                                       
-                            
+                                        <TouchableOpacity style={styles.unitTouch} onPress={() => onUnitPress(item.unit_id)}>
 
-                                </TouchableOpacity>
-                            </View>
-                    
-                        )
+                                            <Text adjustsFontSizeToFit numberOfLines={2} style={styles.unitText}>
+                                                <Text >
+                                                    {item.completed === 1 ? <Icon style={{ borderRadius: 15, padding: 2, backgroundColor: 'green' }} color={'white'} name={"check"} size={12} /> :
+                                                        null}
+                                                </Text>
 
-                    }
 
-                    }
 
-                />
-            </View>
+                                                {item.unit_name}
 
-         
+                                            </Text>
 
-        </View>
+
+
+                                        </TouchableOpacity>
+                                    </View>
+
+                                )
+
+                            }
+
+                            }
+
+                        />
+                    </View>
+
+
+
+                </View>
 
 
     )

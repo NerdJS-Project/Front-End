@@ -31,6 +31,28 @@ export default function StudentClassSearchScreenTest({ navigation }) {
 
   //--------------------------------------------
 
+
+
+
+  function processSearchResult(json)
+  {
+
+    let resultID = [];
+    let result = [];
+    for(let i = 0; i< json.length; i++)
+    {
+      if(!resultID.includes(json[i].class_id))
+      {
+          resultID.push(json[i].class_id);
+          result.push(json[i])
+      }
+    }
+
+    return result;
+  }
+
+
+
   function searchAPI(keyword) {
     if (keyword == "") {
       alert('Enter class name');
@@ -38,8 +60,9 @@ export default function StudentClassSearchScreenTest({ navigation }) {
     else {
       apiConnection.getSearchClassResultSearchScreen(keyword).then((json) => {
         console.log("Class search debug " + json);
+        let processed = processSearchResult(json);
 
-        setData(json);
+        setData(processed);
       });
     }
   }

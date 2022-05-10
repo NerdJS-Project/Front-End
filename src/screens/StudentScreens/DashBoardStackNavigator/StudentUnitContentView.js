@@ -91,8 +91,8 @@ export default function StudentUnitContentView({ navigation, route }) {
           play={playing}
           videoId={YouTubeGetID(linkInput)}
           webViewStyle={{ bottom: -40 }}
-          //videoId={"iee2TATGMyI"}
-          //https://youtu.be/cBxyB788_5w
+        //videoId={"iee2TATGMyI"}
+        //https://youtu.be/cBxyB788_5w
         />
       );
     }
@@ -102,14 +102,14 @@ export default function StudentUnitContentView({ navigation, route }) {
     <ScrollView>
       <View style={styles.container}>
         {textInput(videoContent)}
-{
-    unitText == null ? null : <Card>
-    <Card.Content>
-      <Paragraph>{ unitText }</Paragraph>
-    </Card.Content>
-  </Card>
-}
-        
+        {
+          unitText == null ? null : <Card>
+            <Card.Content>
+              <Paragraph>{unitText}</Paragraph>
+            </Card.Content>
+          </Card>
+        }
+
       </View>
     </ScrollView>
   );
@@ -118,10 +118,10 @@ export default function StudentUnitContentView({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     //  flex:1,
-    // alignItems:'stretch',
 
     //margin:5,
     //borderWidth:1,
+    paddingTop: "30%",
     borderColor: "#C0C0C0",
     flexDirection: "column",
     alignItems: "center",

@@ -13,12 +13,13 @@ export default function CourseDescriptionScreen({ navigation,route}){
     const [usersClasses,setUserClasses] = useState([]);
     const isFocused = useIsFocused();
     const apiConnection = new APIConnection();
-   
+
 
     useEffect(() => {
       
         if (isFocused) {
             getClasses();
+            
          
         }
 

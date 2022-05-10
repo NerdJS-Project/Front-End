@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import * as React from 'react-native';
 import {
     Text, StyleSheet,
-    View, TouchableOpacity, 
-    FlatList, TextInput, ScrollView,Dimensions
+    View, TouchableOpacity,
+    FlatList, TextInput, ScrollView, Dimensions
 } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -37,6 +37,14 @@ export default function LessonCreation({ navigation, route }) {
 
         }
     }, [isFocused]);
+
+
+
+    function onDelete(lessonID)
+    {
+      apiConnection.deleteLesson(lessonID);
+       navigation.goBack();
+    }
 
     function refreshPage() {
         apiConnection
@@ -88,7 +96,7 @@ export default function LessonCreation({ navigation, route }) {
     return (
         //   <View style={{flex:2}}>
         <View>
-            <View style={{ justifyContent: 'center',alignItems: 'center' }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 {/* <ScrollView> */}
                 <Text style={{ fontSize: 20 }}>
                     {newLessonName}
@@ -110,7 +118,7 @@ export default function LessonCreation({ navigation, route }) {
                     <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
                         <TextInput defaultValue={lessonName} maxLength={100} style={{
                             backgroundColor: 'silver', borderWidth: 2,
-                            borderColor: 'black', borderRadius: 5, width: 175, height: 40
+                            borderColor: 'black', borderRadius: 5, width: 150, height: 40
                         }}
                             onChangeText={(newText) => {
                                 setLessonName(newText);
@@ -135,57 +143,64 @@ export default function LessonCreation({ navigation, route }) {
                     }}>
                         <Text style={{ color: 'white' }}> Save Name</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.buttonContainer}
+                        onPress={() => onDelete(lessonID)}
+                    >
+                        <Icon name="delete" size={30} color="#e33057" />
+                    </TouchableOpacity>
                 </View>
 
 
                 {/* Displays the list of units*/}
 
 
-                    {myData.length >= 1 ?
-                        <FlatList
-                           nestedScrollEnabled
-                           contentContainerStyle={{width:Dimensions.get('window').width, alignItems:'center'}}
-                            ListEmptyComponent={
-                                <Text>This lesson doesn't have any content, please click the add button</Text>
-                            }
-                          
-
-                            numColumns={2}
-
-                            data={myData}
-                            keyExtractor={(item) => item.unit_id}
-                            //  contentContainerStyle={{flexGrow:2}}
-                            renderItem={({ item, index }) =>
-                    
-                                <UnitEditCard
-                                    unitName={item.unit_name}
-                                    unitID={item.unit_id}
-                                    onPress={onUnitPress}
-                                    onDelete={deleteUnit}
-
-                                ></UnitEditCard>
-             
+                {myData.length >= 1 ?
+                    <FlatList
+                        nestedScrollEnabled
+                        contentContainerStyle={{ width: Dimensions.get('window').width, alignItems: 'center' }}
+                        ListEmptyComponent={
+                            <Text>This lesson doesn't have any content, please click the add button</Text>
+                        }
 
 
-                            }
+                        numColumns={2}
 
-                        /> : <Text>No content</Text>}
+                        data={myData}
+                        keyExtractor={(item) => item.unit_id}
+                        //  contentContainerStyle={{flexGrow:2}}
+                        renderItem={({ item, index }) =>
 
-                    <View>
+                            <UnitEditCard
+                                unitName={item.unit_name}
+                                unitID={item.unit_id}
+                                onPress={onUnitPress}
+                                onDelete={deleteUnit}
 
-                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            ></UnitEditCard>
 
 
 
-                        </View>
+                        }
 
+                    /> : <Text>No content</Text>}
 
+                <View>
 
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
 
-                        {/* Displays the addButton */}
 
 
                     </View>
+
+
+
+
+                    {/* Displays the addButton */}
+
+
+                </View>
 
 
 
@@ -198,14 +213,14 @@ export default function LessonCreation({ navigation, route }) {
 
                 {/* </ScrollView> */}
             </View>
-  
-     
-                        <TouchableOpacity style={styles.addButton} onPress={() => { addUnit() }}>
-                            <Text style={styles.addTextButton}>+</Text>
-                            </TouchableOpacity>
-                       
-                           
-            
+
+
+            <TouchableOpacity style={styles.addButton} onPress={() => { addUnit() }}>
+                <Text style={styles.addTextButton}>+</Text>
+            </TouchableOpacity>
+
+
+
         </View>
         /* // </View> */
 
@@ -213,6 +228,11 @@ export default function LessonCreation({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+
+    buttonContainer: {
+        marginVertical: 10,
+        marginHorizontal: 10,
+      },
     saveButton: {
         backgroundColor: '#3385ff',
         height: 40,
@@ -230,7 +250,7 @@ const styles = StyleSheet.create({
     bottomContainer: {
         justifyContent: 'flex-end',
         //margin:1,
-       
+
     },
     // item: {
     //     backgroundColor: '#f9c2ff',
@@ -253,7 +273,7 @@ const styles = StyleSheet.create({
     addButton: {
         alignSelf: 'flex-end',
         textAlign: 'center',
-        flex:1,
+        flex: 1,
 
         backgroundColor: '#4970FA',
         shadowColor: 'rgba(0, 0, 0, 0.1)',
@@ -263,20 +283,20 @@ const styles = StyleSheet.create({
 
         justifyContent: 'center',
         alignItems: 'center',
-        width:80,
-        height:80,
-        paddingBottom:5,
-        
+        width: 80,
+        height: 80,
+        paddingBottom: 5,
+
 
         position: "absolute",
 
-        top:Dimensions.get('window').height-300,
+        top: Dimensions.get('window').height - 300,
         right: 20,
-       // bottom:40,
-        borderRadius:50,
+        // bottom:40,
+        borderRadius: 50,
 
-          //height: 60,
-      
+        //height: 60,
+
 
 
     },

@@ -74,6 +74,7 @@ export default function CourseEditScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView>
       <Text style={styles.title}> Edit Course </Text>
 
 <Text style={styles.placeholderName}>Course Name</Text>
@@ -110,6 +111,7 @@ export default function CourseEditScreen({ route, navigation }) {
           </TouchableOpacity>
 
         </View>
+        </ScrollView>
     </SafeAreaView>
   );
 }
@@ -126,16 +128,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-    paddingBottom: 5,
-    position: "absolute",
+    // paddingBottom: 5,
+    // position: "absolute",
     height: 50,
     width: 200,
 
     borderRadius: 50,
     backgroundColor: "#4970FA",
     color: "white",
-    bottom: 60,
-    margin: 1,
+    // bottom: 60,
+    // margin: 1,
   },
   placeholderName: {
 
@@ -221,6 +223,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     flex: 3,
+    paddingTop: 20,
     justifyContent: "flex-end",
     alignItems: "center",
     

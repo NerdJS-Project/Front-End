@@ -270,6 +270,8 @@ export default function QuizEditComponent({navigation, unitID}) {
                             <RadioButton
                                 key={index}
                                 value={index}
+                                color={"#000dff"}
+                                uncheckedColor={"#000000"}
                                 status={correctAnswer === index ? 'checked' : 'unchecked'}
                                 onPress={() => updateCorrectAnswer(index)}
 
@@ -431,7 +433,8 @@ export default function QuizEditComponent({navigation, unitID}) {
                         color: 'white'
                     }}
                     buttonStyle={[styles.arrowButton, {
-                        backgroundColor: "rgb(128, 255, 0)"
+                        backgroundColor: "#1f9132",
+                       
                     }]}
                     containerStyle={[styles.arrowButtonContainer, {
                         width: 100,

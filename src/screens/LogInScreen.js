@@ -32,12 +32,12 @@ export default function LogInScreen({ navigation }) {
   const [flip, set] = useState(false);
   const logoAnim = useSpring({
     to: { 
-   // backgroundColor: "#94c9ff",
-    width: 130,
-    height: 130,
-    borderRadius: 4,
+    backgroundColor: "#94c9ff",
+    width: 120,
+    height: 120,
+    borderRadius: 16,
     borderWidth: 4,
-    borderColor: colors.white
+    borderColor: "#c7f1ff"
   },
     from: {
       backgroundColor: "#E8EAED",
@@ -51,7 +51,7 @@ export default function LogInScreen({ navigation }) {
     }, 
     reset: true,
     reverse: flip,
-    delay: 1000,
+    delay: 4000,
     //config: config.molasses,
     onRest: () => set(!flip),
   });

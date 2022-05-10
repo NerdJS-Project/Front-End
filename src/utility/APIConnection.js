@@ -34,6 +34,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -57,6 +59,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -80,6 +84,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -103,6 +109,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -128,6 +136,8 @@ class APIConnection {
         //  })
          });
         const json = await response.json();
+        this.checkUnauthorized(response);
+
 
         return json;
       } catch (error) {
@@ -154,6 +164,8 @@ class APIConnection {
          })
          });
         const json = await response.json();
+        this.checkUnauthorized(response);
+
 
         return json;
       } catch (error) {
@@ -180,6 +192,8 @@ class APIConnection {
              })
              });
             const json = await response.json();
+            this.checkUnauthorized(response);
+
     
             return json;
           } catch (error) {
@@ -206,6 +220,8 @@ class APIConnection {
              })
              });
             const json = await response.json();
+            this.checkUnauthorized(response);
+
     
             return json;
           } catch (error) {
@@ -234,6 +250,8 @@ class APIConnection {
              })
              });
             const json = await response.json();
+            this.checkUnauthorized(response);
+
     
             return json;
           } catch (error) {
@@ -261,6 +279,8 @@ class APIConnection {
             })
             });
            const json = await response.json();
+           this.checkUnauthorized(response);
+
            return json;
          } catch (error) {
            console.error(error);
@@ -286,6 +306,8 @@ class APIConnection {
             })
           });
           const json = await response.json(); 
+          this.checkUnauthorized(response);
+
           return json; 
         }catch (error){
           console.error(error);
@@ -310,6 +332,8 @@ class APIConnection {
             })
           });
           const json = await response.json(); 
+          this.checkUnauthorized(response);
+
           return json; 
         }catch (error){
           console.error(error);
@@ -323,28 +347,30 @@ class APIConnection {
 
 
 
-  async getClasses() {
+  // async getClasses() {
 
 
-    console.log("fetch url dash board debug: " + url + '/class/findByUser/' + this.user_id);
-    try {
-      const response = await fetch(url + '/class/findByUser/' + this.user_id, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'token': this.token,
-        },
-      });
-      const json = await response.json();
+  //   console.log("fetch url dash board debug: " + url + '/class/findByUser/' + this.user_id);
+  //   try {
+  //     const response = await fetch(url + '/class/findByUser/' + this.user_id, {
+  //       method: 'GET',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //         'token': this.token,
+  //       },
+  //     });
+  //     const json = await response.json();
+  //     this.checkUnauthorized(response);
 
-      return json;
-    } catch (error) {
-      console.error(error);
-      this.authCtx.logout;
-    } finally {
-    }
-  }
+
+  //     return json;
+  //   } catch (error) {
+  //     console.error(error);
+  //     this.authCtx.logout;
+  //   } finally {
+  //   }
+  // }
 
   async editCourseForInstructor(classID, class_name, class_descrip) {
     try {
@@ -361,6 +387,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -384,6 +412,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -408,6 +438,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -435,6 +467,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -464,6 +498,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       return json;
     } catch (error) {
       console.error(error);
@@ -487,6 +523,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       return json;
     } catch (error) {
       console.error(error);
@@ -510,6 +548,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       return json;
     } catch (error) {
       console.error(error);
@@ -554,8 +594,32 @@ class APIConnection {
          },
        });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       console.log("THIS IS DROP CLASS " + json);
+      return json;
+    } catch (error) {
+      console.error(error);
+      this.authCtx.logout
+    } finally {
+    }
+  }
+
+
+  async deleteLesson(lessonID){
+    try {
+      const response = await fetch(`${url}/lesson/delete/${lessonID}`, {
+         method: 'DELETE',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json',
+           'token': this.token,
+         },
+       });
+      const json = await response.json();
+      this.checkUnauthorized(response);
+
       return json;
     } catch (error) {
       console.error(error);
@@ -576,6 +640,7 @@ class APIConnection {
          },
        });
       const json = await response.json();
+      this.checkUnauthorized(response);
 
       console.log("THIS IS delete CLASS " + json);
       return json;
@@ -626,6 +691,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       console.log("Json api: " + json);
 
       return json;
@@ -652,7 +719,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
-      console.log("Json api: " + json);
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -677,7 +745,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
-      console.log("Json api: " + json);
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -700,6 +769,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -737,6 +808,8 @@ class APIConnection {
         },
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -756,6 +829,8 @@ class APIConnection {
         },
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -783,6 +858,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       return json;
     } catch (error) {
       console.error(error);
@@ -808,6 +885,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -836,6 +915,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       return json;
     } catch (error) {
       console.error(error);
@@ -862,6 +943,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -884,6 +967,8 @@ class APIConnection {
         },
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
 
       return json;
     } catch (error) {
@@ -910,6 +995,7 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
 
       return json;
     } catch (error) {
@@ -936,6 +1022,7 @@ class APIConnection {
         },
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
 
       return json;
     } catch (error) {
@@ -964,6 +1051,7 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
 
       return json;
     } catch (error) {
@@ -996,6 +1084,8 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       console.log("Json api: " + json);
 
       return json;
@@ -1016,6 +1106,8 @@ class APIConnection {
         },
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       console.log("Json api: " + json);
 
       return json;
@@ -1040,6 +1132,8 @@ class APIConnection {
         }
       );
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       console.log("Json api: " + json);
 
       return json;
@@ -1064,6 +1158,8 @@ class APIConnection {
         },
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
+
       console.log("Json api: " + json);
 
       return json;
@@ -1088,7 +1184,7 @@ class APIConnection {
         },
       });
       const json = await response.json();
-      console.log("Json api: " + json);
+      this.checkUnauthorized(response);
 
       return json;
     } catch (error) {
@@ -1112,7 +1208,7 @@ class APIConnection {
         },
       });
       const json = await response.json();
-      console.log("Json api: " + json);
+      this.checkUnauthorized(response);
 
       return json;
     } catch (error) {
@@ -1139,7 +1235,7 @@ class APIConnection {
         }),
       });
       const json = await response.json();
-      console.log("Json api: " + json);
+      this.checkUnauthorized(response);
 
       return json;
     } catch (error) {
@@ -1160,7 +1256,7 @@ class APIConnection {
         },
       });
       const json = await response.json();
-      console.log("Json api: " + json);
+      this.checkUnauthorized(response);
 
       return json;
     } catch (error) {
@@ -1190,6 +1286,7 @@ class APIConnection {
         }),
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
 
       return json;
     } catch (error) {
@@ -1211,6 +1308,7 @@ class APIConnection {
         },
       });
       const json = await response.json();
+      this.checkUnauthorized(response);
 
       return json;
     } catch (error) {
@@ -1240,7 +1338,7 @@ class APIConnection {
         }),
       });
       const json = await response.json();
-      console.log("create apI result: " + json);
+      this.checkUnauthorized(response);
       return json;
     } catch (error) {
       console.error(error);

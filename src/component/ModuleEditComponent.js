@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderRadius: 4,
-    backgroundColor: "#4970FA",
+    backgroundColor: "#adebff",
     alignSelf: "flex-start",
     marginHorizontal: "1%",
     marginBottom: 6,
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   buttonLabel: {
     fontSize: 12,
     fontWeight: "500",
-    color: "white",
+    color: "black",
   },
   selectedLabel: {
     color: "white",

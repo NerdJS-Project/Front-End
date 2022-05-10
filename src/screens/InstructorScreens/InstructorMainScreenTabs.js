@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useIsFocused,useFocusEffect,  } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
@@ -34,12 +35,27 @@ const API_URL =
 const Tab = createBottomTabNavigator();
 
 export default function InstructorMainScreenTabs({ navigation }) {
+  const isFocused = useIsFocused();
+ 
   return (
     <Tab.Navigator
+
+
+
+    initialRouteName="Welcome"
+    
+    
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "#4970FA",
+
+   
+        
+        
       }}
+
+    
+      
     >
       <Tab.Screen 
             name="Welcome" 
@@ -63,11 +79,14 @@ export default function InstructorMainScreenTabs({ navigation }) {
       />
 
 
-<Tab.Screen
+      <Tab.Screen
         name="Profile"
         component={ProfileStackNavigatorInstructor}
+       
         options={{
           tabBarIcon: ({ focused }) => (
+            
+          
             <MaterialCommunityIcons
               name="account-circle-outline"
               color={"#4970FA"}

@@ -50,7 +50,7 @@ export default function StudentSetting({navigation}) {
 
 const styles = StyleSheet.create ({
     container: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#E8EAED',
         flex: 1
      
     },

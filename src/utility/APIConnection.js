@@ -126,6 +126,215 @@ class APIConnection {
 
         //      class_id: classID
         //  })
+         });
+        const json = await response.json();
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+      }
+    }
+
+
+    async editCourseForInstructor(classID, class_name, class_descrip){
+      try {
+        const response = await fetch(`${url}/class/update/`+classID, {
+           method: 'PUT',
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+             'token': this.token,
+           },
+           body: JSON.stringify({ 
+          
+             class_name: class_name,
+             class_descrip: class_descrip
+         })
+         });
+        const json = await response.json();
+
+        return json;
+      } catch (error) {
+        console.error(error);
+        this.authCtx.logout
+      } finally {
+      }
+    }
+
+
+        
+        async postProgress(unitID){
+          try {
+            const response = await fetch(`${url}/progress/create`, {
+               method: 'POST',
+               headers: {
+                 Accept: 'application/json',
+                 'Content-Type': 'application/json',
+                 'token': this.token,
+               },
+               body: JSON.stringify({ 
+              
+                 unit_id: unitID
+             })
+             });
+            const json = await response.json();
+    
+            return json;
+          } catch (error) {
+            console.error(error);
+            this.authCtx.logout
+          } finally {
+          }
+        }
+
+
+        async editUnitName(unitID, newName){
+          try {
+            const response = await fetch(`${url}/unit/update/`+unitID, {
+               method: 'PUT',
+               headers: {
+                 Accept: 'application/json',
+                 'Content-Type': 'application/json',
+                 'token': this.token,
+               },
+               body: JSON.stringify({ 
+              
+                 unit_name: newName,
+                 unit_index: 0
+             })
+             });
+            const json = await response.json();
+    
+            return json;
+          } catch (error) {
+            console.error(error);
+            this.authCtx.logout
+          } finally {
+          }
+        }
+
+        async postLesson(ModuleID){
+          try {
+            const response = await fetch(`${url}/lesson/create`, {
+               method: 'POST',
+               headers: {
+                 Accept: 'application/json',
+                 'Content-Type': 'application/json',
+                 'token': this.token,
+               },
+               body: JSON.stringify({ 
+              
+                 module_id: ModuleID,
+                 lesson_name: "New Lesson",
+                 lesson_descrip: "New lesson description",
+                 lesson_index: 0,
+                 instructor_id: this.user_id
+             })
+             });
+            const json = await response.json();
+    
+            return json;
+          } catch (error) {
+            console.error(error);
+            this.authCtx.logout
+          } finally {
+          }
+        }
+
+
+       async editUserProfile(newName, userType, newBio, newPic) {
+          try {
+           const response = await fetch(url + '/user/update/'+ this.user_id, {
+              method: 'PUT',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'token': this.token,
+              },
+              body:JSON.stringify({ 
+                user_name: newName,
+                user_type: userType,
+                user_pp: newPic,
+                user_bio: newBio
+            })
+            });
+           const json = await response.json();
+           return json;
+         } catch (error) {
+           console.error(error);
+           this.authCtx.logout
+         } finally {
+         }
+       }
+
+
+
+       async changeEmail(newEmail, currentPassword){
+        try{
+          const response = await fetch(`${url}/user/changeAuth/${this.user_id}`, {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'token': this.token,
+            },
+            body:JSON.stringify({ 
+              user_email: newEmail,
+              user_password: currentPassword
+            })
+          });
+          const json = await response.json(); 
+          return json; 
+        }catch (error){
+          console.error(error);
+          this.authCtx.logout
+        }finally {
+        }
+      }
+
+
+      async changePassword(currentEmail, newPassword){
+        try{
+          const response = await fetch(`${url}/user/changeAuth/${this.user_id}`, {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'token': this.token,
+            },
+            body:JSON.stringify({ 
+              user_email: currentEmail,
+              user_password: newPassword
+            })
+          });
+          const json = await response.json(); 
+          return json; 
+        }catch (error){
+          console.error(error);
+          this.authCtx.logout
+        }finally {
+        }
+      }
+
+
+       
+
+
+
+  async getClasses() {
+
+
+    console.log("fetch url dash board debug: " + url + '/class/findByUser/' + this.user_id);
+    try {
+      const response = await fetch(url + '/class/findByUser/' + this.user_id, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'token': this.token,
+        },
       });
       const json = await response.json();
 

@@ -5,10 +5,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import {TextInput, Avatar, Button, Dialog, Portal, Provider} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/AntDesign';
 
 import APIConnection from "../../utility/APIConnection";
 
@@ -57,7 +55,7 @@ export default function EditProfile({navigation}) {
     return (
     
             <View style={styles.container}>
-                {/*Avatar Icon change*/}
+                {/*Avatar Icon change
                 <View style={{alignItems: 'center', marginTop: 15}}>
                     <Avatar.Image 
                         size={80} 
@@ -74,10 +72,10 @@ export default function EditProfile({navigation}) {
                         onPress={showDialog}
                     >Change Avatar</Button>
 
-        
+
                     
                 </View>
-            
+    */}
                 <View style={styles.edit}>
                     <TextInput
                         setData={data.user_name}
@@ -100,7 +98,7 @@ export default function EditProfile({navigation}) {
                         multiline={true}
                         label={'About Me'}
                         mode={'outlined'}
-                        value={data.user_bio}
+                        value={data.user_bio || ""}
                         outlineColor={'#000'}
                         activeOutlineColor={'#4970FA'}
                         onChangeText={newText => setNewBio(newText)}
@@ -128,11 +126,14 @@ export default function EditProfile({navigation}) {
                     >
                             <Dialog.Title style={{color:'#000'}}>Change Avatar</Dialog.Title>
                             <Dialog.Content>
-                                <Button>Choose from Library</Button>
-                                <Button>Open Camera</Button>
+                                <Button mode={"contained"} style={styles.dialogButton}>Choose from Library</Button>
+                                <Button mode={"contained"} style={styles.dialogButton}>Open Camera</Button>
                             </Dialog.Content>
                             <Dialog.Actions>
-                            <Button onPress={hideDialog}>Cancel</Button>
+                            <Button 
+                                mode={"contained"} 
+                                onPress={hideDialog}>
+                            Cancel</Button>
                             </Dialog.Actions>
                         </Dialog>
                     </Portal>
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
 
     edit: {
         flexDirection: 'row',
-        marginTop: 10,
+        marginTop: 80,
         marginBottom: 10,
         paddingBottom: 5,
         paddingLeft: 10,
@@ -196,6 +197,9 @@ const styles = StyleSheet.create({
         marginRight:45,
         backgroundColor: "#4970FA",
         color:'white'
+    },
+    dialogButton: {
+        marginTop: 10
     }
     
 });

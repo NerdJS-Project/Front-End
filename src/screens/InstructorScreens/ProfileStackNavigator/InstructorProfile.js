@@ -1,13 +1,16 @@
-import { useIsFocused } from "@react-navigation/native";
-import React, { useState, useLayoutEffect } from "react";
+import { useIsFocused,useFocusEffect,  } from "@react-navigation/native";
+import { is } from "@react-spring/shared";
+
+import React, { useState, useLayoutEffect,useEffect,useRef,useCallback } from "react";
 import {
   View,
+  SafeAreaView,
   Text,
   StyleSheet,
   FlatList,
 } from "react-native";
 import { Avatar } from "react-native-elements";
-import { FAB} from 'react-native-paper'; 
+import { FAB } from 'react-native-paper'; 
 import Icon from 'react-native-vector-icons/AntDesign';
 import APIConnection from "../../../utility/APIConnection";
 
@@ -18,8 +21,23 @@ export default function InstructorProfile({navigation}) {
   const [classData, setClassData] = useState([]);
   const apiConnection = new APIConnection();
 
-  useLayoutEffect(() => {
-    if (isFocused) {
+
+  const mounted = useRef(false);
+
+  useEffect(() => {
+      mounted.current = true;
+      
+
+
+      return () => {
+          mounted.current = false;
+          
+      };
+  }, []);
+
+  /*useLayoutEffect(() => {
+    //your code here
+    if (isFocused && mounted.current) {
       apiConnection.getUserForProfilePage().then((json) => {
         setData(json);
       });
@@ -27,12 +45,28 @@ export default function InstructorProfile({navigation}) {
         setClassData(json);
       });
     }
-  }, [isFocused]);
 
+  }, [isFocused]);*/
 
-  const shadowOverlay = {
+//navigation.navigate('My Profile')
+  const [loading, setLoading] = useState(false);
+    useEffect(() => {
 
-  }
+   if (isFocused) {  
+        apiConnection.getUserForProfilePage().then((json) => {
+          setData(json);
+          
+        });
+        apiConnection.getClasses().then((json) => {
+          setClassData(json);
+        
+          
+        });
+      }
+
+      
+    }, [isFocused])
+
 
 
   return (
@@ -42,8 +76,7 @@ export default function InstructorProfile({navigation}) {
           <Avatar
             rounded
             size={100}
-            containerStyle={shadowOverlay}
-            source={data.user_pp || require('../../UserProfile/icons/defaultAvatar.png')}
+            source={ require('../../UserProfile/icons/defaultAvatar.png')}
           />      
           <View style={{ marginLeft: 20 }}>
             <Text
@@ -69,7 +102,7 @@ export default function InstructorProfile({navigation}) {
                   },
                 ]}
               >
-              {data.user_type || 'user_role'}
+              {'Instructor'}
               </Text>
               </View>
           </View>
@@ -77,29 +110,27 @@ export default function InstructorProfile({navigation}) {
 
         <View style={styles.userAbout}>
           <Text style={styles.title}>About</Text>
-            <Text style={[styles.bioBox, shadowOverlay]}>
+            <Text style={[styles.bioBox]}>
               <Text style={styles.bioText}>
                 {data.user_bio || 'No information at this time.'}
               </Text>
             </Text>
         </View>
-        <View style={styles.userClass}>
-          <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
-          <View style={{alignItems:'flex-start'}}>
-
-            <FlatList
-            keyExtractor={(item) => item.class_name}
-
-              data={classData}
-              numColumns={1}
-              renderItem={({item}) => (
-                <Text style={[styles.list, shadowOverlay]}>{item.class_name}</Text>
-              )}
-            />
-          </View>
-        </View>
+        
+        <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
       </View>
 
+        <FlatList
+              keyExtractor={(item) => item.class_name}
+
+                data={classData} 
+                renderItem={({item}) => (
+                  <Text style={[styles.list]}>{item.class_name}</Text>
+                )}
+                numColumns={2}
+        />
+
+      
       <FAB
         style={styles.fab}
         icon="file-document-edit-outline"
@@ -158,11 +189,10 @@ const styles = StyleSheet.create({
   bioBox: {
     marginTop: 10,
     padding:10,
-    borderRadius: 10,
+    borderRadius: 2,
     borderColor: '#000',
-    borderWidth: 0.2,
-    backgroundColor: "white"
-
+    borderWidth: 1,
+    backgroundColor:'#fff'
   },
 
   bioText: {
@@ -177,9 +207,10 @@ const styles = StyleSheet.create({
     borderRadius:5,
     padding:15,
     borderWidth:.5,
-    paddingHorizontal:100,
-    backgroundColor: "white"
-
+    backgroundColor: "white",
+    width:200,
+    marginRight:10,
+    marginLeft:15
 
   },
 

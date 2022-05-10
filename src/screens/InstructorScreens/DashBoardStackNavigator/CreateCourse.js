@@ -32,6 +32,8 @@ export default function CreateCourse({ navigation }) {
   const [selectedCourseTypeIndex, setSelectedCourseTypeIndex] = useState(0);
   const [courseText, setCourseText] = useState(null);
 
+  const [courseDesc, setCourseDesc] = useState(null);
+
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
 
@@ -65,25 +67,16 @@ export default function CreateCourse({ navigation }) {
         onChangeText={(courseText) => setCourseText(courseText)}
       />
 
-      <ButtonGroup
-        containerStyle={{ width: 300, borderRadius: 15, marginTop: 20 }}
-        selectedButtonStyle={{ backgroundColor: "#4970FA" }}
-        buttons={["Open", "Closed"]}
-        selectedIndex={selectedCourseTypeIndex}
-        onPress={(value) => {
-          setSelectedCourseTypeIndex(value);
-        }}
-      />
 
-      <Text style={addClass.placeholderText}>Category</Text>
-      <Picker
-        selectedValue={selectedValue}
-        numberOfLines={1}
-        style={{ height: 40, width: 250, marginTop: 5 }}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-      >
-        {getCategoryPickerItems()}
-      </Picker>
+      <Text style={styles.placeholderDesc}>Course Description</Text>
+      <TextInput
+          style={styles.courseDesc}
+         // label="Course Description"
+          //value={courseDescription}
+          multiline={true} 
+          onChangeText={(text) => setCourseDesc(text)}
+        />
+
 
       <View style={styles.bottomContainer}>
         <TouchableOpacity
@@ -92,7 +85,7 @@ export default function CreateCourse({ navigation }) {
             if (courseText == "") {
               alert("Need to enter class name");
             } else {
-              onSaved(courseText, "this is description");
+              onSaved(courseText, courseDesc);
             }
             
           }}
@@ -146,6 +139,34 @@ const styles = StyleSheet.create({
     height: 200,
     textAlign: "center",
     alignItems: "center",
+  },
+  courseDesc: {
+    marginTop:40,
+    justifyContent: "center",
+    alignSelf:'center',
+    height: 200,
+    width: 250,
+    borderColor: "#C0C0C0",
+    borderWidth: 1,
+    borderRadius: 10,
+   // marginBottom: 10,
+    //paddingVertical: 15,
+    paddingHorizontal: 15,
+    backgroundColor:'white',
+    marginBottom:0,
+
+  },
+  placeholderDesc: {
+
+    color: "black",
+    fontSize: 15,
+    fontWeight: "bold",
+    //marginBottom: 1,
+    marginRight: 105,
+    marginBottom:-40,
+    marginTop:40,
+   
+   // marginTop: ,
   },
 });
 

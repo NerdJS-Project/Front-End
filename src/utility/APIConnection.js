@@ -684,7 +684,7 @@ class APIConnection {
     }
   }
 
-  async postClass(courseName, courseText) {
+  async postClass(courseName, courseDesc) {
     try {
       console.log("post class api called: ");
 
@@ -697,7 +697,7 @@ class APIConnection {
         },
         body: JSON.stringify({
           class_name: courseName,
-          class_descrip: "this is a class",
+          class_descrip: courseDesc,
         }),
       });
       const json = await response.json();

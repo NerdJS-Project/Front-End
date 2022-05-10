@@ -74,7 +74,7 @@ export default function CourseEditScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}> Create Course </Text>
+      <Text style={styles.title}> Edit Course </Text>
 
 <Text style={styles.placeholderName}>Course Name</Text>
 

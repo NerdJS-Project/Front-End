@@ -51,7 +51,7 @@ export default function LogInScreen({ navigation }) {
     }, 
     reset: true,
     reverse: flip,
-    delay: 2000,
+    delay: 1000,
     //config: config.molasses,
     onRest: () => set(!flip),
   });

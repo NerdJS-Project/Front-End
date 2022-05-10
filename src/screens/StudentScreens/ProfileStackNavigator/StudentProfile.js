@@ -1,7 +1,8 @@
 import { useIsFocused } from "@react-navigation/native";
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
 import {
   View,
+  ScrollView,
   Text,
   StyleSheet,
   FlatList,
@@ -18,7 +19,21 @@ export default function StudentProfile({navigation}) {
   const [classData, setClassData] = useState([]);
   const apiConnection = new APIConnection();
 
-  useLayoutEffect(() => {
+
+  const mounted = useRef(false);
+
+  useEffect(() => {
+      mounted.current = true;
+      
+
+
+      return () => {
+          mounted.current = false;
+          
+      };
+  }, []);
+
+  /*useLayoutEffect(() => {
     if (isFocused) {
       apiConnection.getUserForProfilePage().then((json) => {
         setData(json);
@@ -27,7 +42,25 @@ export default function StudentProfile({navigation}) {
         setClassData(json);
       });
     }
-  }, [isFocused]);
+  }, [isFocused]);*/
+
+  const [loading, setLoading] = useState(false);
+    useEffect(() => {
+
+   if (isFocused) {  
+        apiConnection.getUserForProfilePage().then((json) => {
+          setData(json);
+          
+        });
+        apiConnection.getClasses().then((json) => {
+          setClassData(json);
+        
+          
+        });
+      }
+
+      
+    }, [isFocused])
 
 
   const shadowOverlay = {
@@ -69,7 +102,7 @@ export default function StudentProfile({navigation}) {
                   },
                 ]}
               >
-              {data.user_type || 'user_role'}
+              {'Student'}
               </Text>
               </View>
           </View>
@@ -77,42 +110,38 @@ export default function StudentProfile({navigation}) {
 
         <View style={styles.userAbout}>
           <Text style={styles.title}>About</Text>
-            <Text style={[styles.bioBox, shadowOverlay]}>
+            <Text style={[styles.bioBox]}>
               <Text style={styles.bioText}>
                 {data.user_bio || 'No information at this time.'}
               </Text>
             </Text>
         </View>
-        <View style={styles.userClass}>
-          <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
-          <View style={{alignItems:'flex-start'}}>
+        <Text style={[styles.title, {textAlign:'center'}]}>Classes</Text>
+      </View>
 
-            <FlatList
+      <FlatList
             keyExtractor={(item) => item.class_name}
 
               data={classData}
               numColumns={1}
               renderItem={({item}) => (
-                <Text style={[styles.list, shadowOverlay]}>{item.class_name}</Text>
+                <Text style={[styles.list]}>{item.class_name}</Text>
               )}
             />
-          </View>
-        </View>
-      </View>
+
 
       <FAB
         style={styles.fab}
         icon="file-document-edit-outline"
         onPress={() => navigation.navigate('Edit Profile', {screen: 'InstructorEditProfile'})}
       />
-                
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#E8EAED',
+    backgroundColor: "#E8EAED",
     flex: 1,
   },
 
@@ -151,18 +180,16 @@ const styles = StyleSheet.create({
 
   userClass: {
     marginTop: 15,
-    alignSelf:'center',
-
+    alignSelf:'center'
   },
 
   bioBox: {
     marginTop: 10,
     padding:10,
-    borderRadius: 10,
+    borderRadius: 5,
     borderColor: '#000',
-    borderWidth: 0.2,
-    backgroundColor: "white"
-
+    borderWidth: 1,
+    backgroundColor:'#fff'
   },
 
   bioText: {
@@ -177,10 +204,10 @@ const styles = StyleSheet.create({
     borderRadius:5,
     padding:15,
     borderWidth:.5,
-    paddingHorizontal:100,
-    backgroundColor: "white"
-
-
+    backgroundColor: "white",
+    width:200,
+    marginRight:10,
+    marginLeft:15
   },
 
   fab: {
@@ -190,5 +217,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor:'#4970FA'
   }
+
 
 });

@@ -1,44 +1,95 @@
-# My Universal React Project
+<div align="center">
+    <img src="product_icon.png" alt="Logo">
+ </div>
 
-<p>
-  <!-- iOS -->
-  <a href="https://itunes.apple.com/app/apple-store/id982107779">
-    <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  </a>
-  <!-- Android -->
-  <a href="https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=blankexample">
-    <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  </a>
-  <!-- Web -->
-  <a href="https://docs.expo.dev/workflow/web/">
-    <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-  </a>
-</p>
+# Brain Breeze 
 
-## 🚀 How to use
+<summary>Table of Contents</summary>
+<ol>
+  <li>
+    <a href="#about-the-project">About the Project</a>
+    <ul>
+        <li><a href="#built-with">Built With</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="#usage">Usage</a>
+  </li>
+  <li>
+    <a href="#roadmap">Roadmap</a>
+  </li>
+  <li>
+    <a href="#the-team">The Team</a>
+  </li>
+  <li>
+    <a href="#acknowledgments">Acknowledgments</a>
+  </li>
+</ol>
 
-- Install packages with `yarn` or `npm install`.
-  - If you have native iOS code run `npx pod-install`
-- Run `yarn start` to start the bundler.
-- Open the project in a React runtime to try it:
-  - iOS: [Client iOS](https://itunes.apple.com/app/apple-store/id982107779)
-  - Android: [Client Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=blankexample)
-  - Web: Any web browser
+<br />
 
-## Adding Native Code
+## About the Project
 
-This project can be run from a web browser or the Expo client app. You may find that you want to add more native code later on. You can do this by ejecting the project and rebuilding it yourself.
+<p>Inspired by the language-learning app, Duolingo, Brain Breeze is a learning app available in multiple platforms from iOS and Android devices to web browsers in any OS where students will be able to learn bite-size lessons rather than the tradiitonal three hours a week of lecture in universities. For instructors, they will be able to create and publish classes, organize the class with modules, and create lessons with content with text, video links, or both. Instructors can also implement assessments/quizzes into the lesson aswell to test the student's knowledge on the content.</p>
 
-- Run `yarn eject` to create the native projects.
-- You can still run your project in the web browser or Expo client, you just won't be able to access any new native modules you add.
+### Built With
+<p>The app is built with:</p>
+<ul>
+  <li><b>Programming Language:</b>JavaScript</li>
+  <li><b>Framework:</b> React Native</li>
+  <li>Node/Express JS</li>
+  <li>MySQL</li>
+  <li>Tools: Visual Studio Code, Expo, Android Studio, XCode, Jira</li>
+</ul>
 
-## Publishing
+## Usage
 
-- Deploy the native app to the App store and Play store using this guide: [Deployment](https://docs.expo.dev/distribution/app-stores/).
-- Deploy the website using this guide: [Web deployment](https://docs.expo.dev/distribution/publishing-websites/).
+## Roadmap
+<ul>
+  <li>Sprint 1</li>
+    <ul>Status: Completed October 27th, 2021</ul>
+    <ul>Prepared documentation and signed all necessary documentation with the client.</ul>
+  <li>Sprint 2</li>
+    <ul>Status: Completed November 1st, 2021</ul>
+    <ul>Prepared context and event table diagrams to be presented to the client.</ul>
+  <li>Sprint 3</li>
+    <ul>Status: Completed December 2nd, 2021</ul>
+    <ul>Listed possible technologies we could use to create the app and prepared a tech demo to demonstrate.</ul>
+  <li>Sprint 4</li>
+    <ul>Status: Completed December 12th, 2021</ul>
+    <ul>Develop a prototype to showcase to the client and began the framework for the backend.</ul>
+  <li>Sprint 5</li>
+    <ul>Status: Completed February 14th, 2022</ul>
+    <ul>Developed a functional UI.</ul>
+  <li>Sprint 6</li>
+    <ul>Status: Completed February 28th, 2022 </ul>
+    <ul>Continued developing a functional UI and database.</ul>
+  <li>Sprint 7</li>
+    <ul>Status: Completed March 14th, 2022 </ul>
+    <ul>Finished setting up the database; continued creating the UI in the app.</ul>
+  <li>Sprint 8</li>
+    <ul>Status: Completed April 11th, 2022 </ul>
+    <ul>App is 60% finished; aim to complete a MVP (miniumum viable Product) version of the app to be shown to the client at the end of the month.</ul>
+  <li>Sprint 9</li>
+    <ul>Status: Completed april 25th, 2022</ul>
+    <ul>Minimum Viable Product (MVP) has been completed. Showcased to client and will fix and polish the app from here on.</ul>
+  <li>Sprint 10</li>
+    <ul>Status: In Progress</ul>
+    <ul>App is being polished and optimized. Will get some visual updates and will start testing the app and write up the necessary manuals for the client.</ul>
+</ul>
 
-## 📝 Notes
 
-- Learn more about [Universal React](https://docs.expo.dev/).
-- See what API and components are [available in the React runtimes](https://docs.expo.dev/versions/latest/).
-- Find out more about developing apps and websites: [Guides](https://docs.expo.dev/guides/).
+## The Team
+<ul>
+  <li>Jerald Velicaria</li>
+  <li>Joshua Bartley</li>
+  <li>Foad Olfat</li>
+  <li>Alexander Meinberg</li>
+  <li>Phuc Truong</li>
+  <li>Victor Peraza</li>
+  <li>Emmanuel Silva</li>
+</ul>
+
+
+
+## Acknowledgments 

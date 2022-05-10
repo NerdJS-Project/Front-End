@@ -16,7 +16,7 @@ export default function ProfileStackNavigatorInstructor()  {
     <Stack.Navigator screenOptions={{
       headerShown: false,
     }}>
-     <Stack.Screen name="My Profile" component={InstructorProfile}  options={{
+     <Stack.Screen name="My Profile" component={InstructorProfile} options={{
         headerShown: false,
           headerRight: ({ tintColor }) => (
             <IconButton

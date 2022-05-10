@@ -73,7 +73,7 @@ export default function ClassSearchScreenTest() {
          </TouchableOpacity>
        </View>
 
-       <Text style={styles.title}> Discover Classes </Text>
+       <Text style={styles.title}>Discover Classes</Text>
      </View>
 
      <ScrollView style={{ backgroundColor: '#4970FA' }} contentContainerStyle={styles.content}>

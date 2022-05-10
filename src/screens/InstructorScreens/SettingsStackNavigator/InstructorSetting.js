@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import {SafeAreaView, ScrollView, View, Text, StyleSheet} from "react-native";
+import React, {useContext } from 'react';
+import {SafeAreaView, View, Text, StyleSheet} from "react-native";
 import {Button, Divider} from "react-native-paper";
 import { AuthContext } from '../../../store/AuthContext'
 

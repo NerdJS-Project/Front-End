@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet,KeyboardAvoidingView, Platform, TouchableOpacity} from "react-native";
+import React, { useState } from 'react';
+import { View, Text, StyleSheet} from "react-native";
 import { ButtonGroup, CheckBox } from 'react-native-elements';
 import { TextInput, Button, HelperText} from "react-native-paper";
 
@@ -10,7 +10,7 @@ export default function SignUpScreen({navigation}) {
   const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
-  const [selectedIndex, setSelectedIndex] = useState();
+  const [selectedIndex, setSelectedIndex] = useState(2);
   const [check1, setCheck1] = useState(false);
   const [isSecureEntry, setSecureEntry] = useState(true);
   const [isSecureEntry2, setSecureEntry2] = useState(true);
@@ -78,6 +78,7 @@ export default function SignUpScreen({navigation}) {
             const jsonRes = await res.json();
             if (res.status !== 201) {
                 setMessage(jsonRes.message);
+                alert("Email already in use.")
             } else {
                 setMessage(jsonRes.message);
                 alert("Account created!");
@@ -110,12 +111,14 @@ export default function SignUpScreen({navigation}) {
         marginVertical: 10
       }]}>Enter the following information to create an account.</Text>
 
+ 
       <View style={styles.form}>
         <TextInput 
             style={styles.input}
             label={'Name'} 
             mode={'outlined'}
             outlineColor={'#4970FA'}
+            value={''}
             left={<TextInput.Icon name='account'/>}
             onChangeText={newText => setName(newText)}
         />
@@ -126,6 +129,7 @@ export default function SignUpScreen({navigation}) {
             mode={'outlined'}
             outlineColor={'#4970FA'}
             left={<TextInput.Icon name='email'/>}
+            value={''}
             onChangeText={newText => setEmail(newText)}
           />
           {/* <HelperText type='error' visible={emailError()}>
@@ -137,6 +141,7 @@ export default function SignUpScreen({navigation}) {
           style={styles.input}
           label={'Password'} 
           mode={'outlined'}
+          value={''}
           left={<TextInput.Icon name='lock'/>}
           right={  
               <TextInput.Icon name="eye"
@@ -156,6 +161,7 @@ export default function SignUpScreen({navigation}) {
           style={styles.input}
           label={'Confirm Password'} 
           mode={'outlined'}
+          value={''}
           left={<TextInput.Icon name='lock'/>}
           right={ <TextInput.Icon 
             name="eye"
@@ -165,7 +171,7 @@ export default function SignUpScreen({navigation}) {
           onChangeText={newText => setConfirmPW(newText)}
         />
     
-
+       
 
       <Text style={styles.status}>Are you a...</Text>
         <ButtonGroup
@@ -216,9 +222,9 @@ export default function SignUpScreen({navigation}) {
         
 
         </View>
-       
+  
   </View>
-
+         
 
 
   );

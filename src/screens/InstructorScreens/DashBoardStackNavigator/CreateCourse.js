@@ -4,7 +4,6 @@ import {
   Text,
   Alert,
   StyleSheet,
-  Button,
   TextInput,
   KeyboardAvoidingView,
   Platform,
@@ -14,6 +13,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import {Button} from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Picker } from "@react-native-picker/picker";

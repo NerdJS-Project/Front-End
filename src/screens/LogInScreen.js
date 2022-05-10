@@ -105,7 +105,7 @@ export default function LogInScreen({ navigation }) {
             ...logoAnim,
           }}
         >
-          <Text style={styles.title}> Brain Breeze </Text>
+          <Text style={styles.title}>Brain Breeze</Text>
         </AnimatedView>
       </View>
 
@@ -140,7 +140,7 @@ export default function LogInScreen({ navigation }) {
       </KeyboardAvoidingView>
 
       <View style={signup.divider}>
-        <Text style={signup.divider}>don't have an account? Sign up!</Text>
+        <Text style={signup.divider}>Don't have an account?</Text>
       </View>
 
       <TouchableOpacity

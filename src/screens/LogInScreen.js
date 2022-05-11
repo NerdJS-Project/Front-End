@@ -72,7 +72,7 @@ export default function LogInScreen({ navigation }) {
             console.log("log in user id" + user.user_id);
             const userID = JSON.stringify(user.user_id);
             if (user && user.token) {
-              alert("Authorized!");
+              //alert("Authorized!");
 
               authCtx.authenticate(user.token, user.user_id, user.user_type);
             } else {

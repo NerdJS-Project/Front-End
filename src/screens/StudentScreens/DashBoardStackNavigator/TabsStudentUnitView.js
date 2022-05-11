@@ -13,8 +13,8 @@ export default function TabsStudentUnitView({ route, navigation }) {
 
     return (
         <Tab.Navigator>
-            <Tab.Screen name="StudentContentView" component={StudentUnitContentView} initialParams={{unitID, unitName}} />
-            <Tab.Screen name="StudentQuizView" component={StudentQuizView}  initialParams={{unitID, unitName}} />
+            <Tab.Screen name="Content" component={StudentUnitContentView} initialParams={{unitID, unitName}} />
+            <Tab.Screen name="Quiz" component={StudentQuizView}  initialParams={{unitID, unitName}} />
         </Tab.Navigator>
     );
 };

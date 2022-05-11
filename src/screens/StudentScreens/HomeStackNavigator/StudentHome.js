@@ -221,7 +221,7 @@ const search = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 60,
     width: 250,
-    marginTop: 100,
+    marginTop: 10,
     right: 50,
   },
 

@@ -19,7 +19,7 @@ export default function Welcome() {
 
   const viewAnim = useSpring({
     to: {
-      backgroundColor: "#94c9ff",
+      backgroundColor: "#ccf7ff",
       borderRadius: 4,
       borderWidth: 0,
     },
@@ -78,42 +78,87 @@ export default function Welcome() {
           justifyContent: "center"
         }}
       >
-        <AnimatedText style={{ 
+        <View
+          style={{
+            backgroundColor: "#002cad",
+            borderRadius: 30,
+            marginTop: 100,
+          }}>
+          <AnimatedText style={{
             fontWeight: "bold",
-            paddingTop: 100,
+            padding: 20,
+            color: "#ffad9e",
 
-            ...textAnim }}>Welcome!</AnimatedText>
 
-        <AnimatedText style={{ 
-            marginRight: "50%",
-            marginTop: "20%",
-            fontWeight: "bold",
-            
-            ...teachAnim }}>Teach</AnimatedText>
+            ...textAnim
+          }}>Welcome!</AnimatedText>
+        </View>
 
-        <AnimatedText style={{ 
-            marginTop: "20%",
-            fontWeight: "bold",
-            ...learnAnim }}>Learn</AnimatedText>
-        
-        <AnimatedText style={{ 
-            marginRight: "-50%",
-            marginTop: "20%",
-            fontWeight: "bold",
 
-            ...studyAnim }}>Study</AnimatedText>
+
+
+        <View style={{
+          backgroundColor: "#7dffe7",
+          borderRadius: 30,
+          marginRight: "50%",
+          marginTop: "5%",
+        }} >
+
+          <AnimatedText style={{
+           color: "#d63e22",
+           padding: 20,
+
+            ...teachAnim
+          }}>Teach</AnimatedText>
+        </View>
+
+        <View style={{
+          backgroundColor: "#94ffb6",
+          borderRadius: 30,
+          marginTop: "5%",
+
+        }}>
+
+          <AnimatedText style={{
+                        padding: 20,
+                        color: "#437309",
+
+            ...learnAnim
+          }}>Learn</AnimatedText>
+        </View>
+
+
+
+
+
+        <View style={{
+          backgroundColor: "#fdff82",
+          borderRadius: 30,
+          marginRight: "-50%",
+          marginTop: "5%",
+        }}>
+
+          <AnimatedText style={{
+                       padding: 20,
+
+                       color: "#6b0461",
+
+            ...studyAnim
+          }}>Study</AnimatedText>
+        </View>
+
       </View>
     </AnimatedView>
   );
 }
 
 const styles = StyleSheet.create({
-    baseText: {
-    },
-    titleText: {
-      fontSize: 20,
-      fontWeight: "bold",
-      fontFamily: "Cochin"
+  baseText: {
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Cochin"
 
-    }
-  });
+  }
+});

@@ -98,7 +98,7 @@ export default function CourseDescriptionScreen({ navigation,route}){
                 <Avatar.Image
                 size={90}
                 style={styles.shadowOverlay}
-                source={ require('./icons/profile.png')}
+                source={ require('./icons/appProfile.png')}
                 /> 
                     <Text> Instructor Name :{instructor_name} </Text>
                 </View>

@@ -32,26 +32,26 @@ export default function LogInScreen({ navigation }) {
   const [flip, set] = useState(false);
   const logoAnim = useSpring({
     to: { 
-    backgroundColor: "#94c9ff",
+    //backgroundColor: "#94c9ff",
     width: 120,
     height: 120,
     borderRadius: 16,
-    borderWidth: 4,
-    borderColor: "#c7f1ff"
+   // borderWidth: 4,
+    //borderColor: "#c7f1ff"
   },
     from: {
       backgroundColor: "#E8EAED",
       width: 110,
       height: 110,
       borderRadius: 15,
-      borderWidth: 0,
-      borderColor: colors.white
+     // borderWidth: 0,
+     // borderColor: colors.white
 
 
     }, 
     reset: true,
     reverse: flip,
-    delay: 4000,
+    delay: 3000,
     //config: config.molasses,
     onRest: () => set(!flip),
   });
@@ -100,7 +100,7 @@ export default function LogInScreen({ navigation }) {
           style={{
             width: 80,
             height: 80,
-            backgroundColor: "#46e891",
+           // backgroundColor: "#46e891",
 
             ...logoAnim,
           }}
@@ -166,12 +166,14 @@ const styles = StyleSheet.create({
 
   title: {
     //paddingHorizontal:11,
+    alignSelf:"center",
 
     textAlign: "center",
     fontSize: 30,
     fontWeight: "bold",
     color: "#4970FA",
-    top:15
+    marginTop:15,
+   // top:15
   },
 });
 

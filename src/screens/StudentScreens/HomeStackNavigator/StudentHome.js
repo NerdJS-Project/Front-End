@@ -140,9 +140,11 @@ export default function StudentClassSearchScreenTest({ navigation }) {
               <Card.Cover style={{height:'50%'}} source={{uri: 'https://picsum.photos/700' }}/>
                 <Card.Content  adjustsFontSizeToFit>
 
-                  <Text  style={{textAlign:'center',fontSize:16}}adjustsFontSizeToFit>
-                    { item.class_name +'\n' +
-                      'instructor: ' + item.instructor_name}
+                  <Text  style={styles.className} adjustsFontSizeToFit>
+                    { item.class_name }
+                  </Text>
+                  <Text  style={styles.classInstructor} adjustsFontSizeToFit>
+                    { item.instructor_name }
                   </Text>
 
                 </Card.Content>
@@ -155,6 +157,15 @@ export default function StudentClassSearchScreenTest({ navigation }) {
   );
 }
 const styles = StyleSheet.create({
+  className:{
+    textAlign:'center',
+    fontSize:16,
+    fontWeight:'bold'
+  },
+  classInstructor:{
+    textAlign:'center',
+    fontSize:16,
+  },
   gridItem: {
     flex: 1,
     margin: 16,

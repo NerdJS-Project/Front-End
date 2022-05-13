@@ -13,10 +13,13 @@ const UnitEditCard = ({unitName, onPress, onDelete, unitID}) => (
     style={styles.cardContainer}
     >
   <Card
-  
+
   onPress={() => onPress(unitID, unitName)}>
-    <Card.Content>
-      <Title>{unitName}</Title>
+    <Card.Content  >
+  {/* <Title>{unitName}</Title> */}
+      <View style={{width:110}}>
+      <Text  numberOfLines={3} style={{fontWeight:'bold', fontSize:15}}>{unitName}</Text>
+      </View>
     </Card.Content>
     <Card.Actions>
       <Button

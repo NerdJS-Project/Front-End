@@ -105,8 +105,8 @@ npm install
     <ul>Status: Completed april 25th, 2022</ul>
     <ul>Minimum Viable Product (MVP) has been completed. Showcased to client and will fix and polish the app from here on.</ul>
   <li>Sprint 10</li>
-    <ul>Status: In Progress</ul>
-    <ul>App is being polished and optimized. Will get some visual updates and will start testing the app and write up the necessary manuals for the client.</ul>
+    <ul>Status: Will be completed by May 13th, 2022</ul>
+    <ul>App is being polished and optimized. Will get some visual updates and will start testing the app and write up the necessary manuals for the client and have everything ready to be delivered.</ul>
 </ul>
 
 

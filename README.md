@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="icon.png" alt="Logo" width="150" height="150">
+    <a href="https://clever-torte-9d82b6.netlify.app/"><img src="icon.png" alt="Logo" width="150" height="150"></a>
  </div>
 
 # Brain Breeze 

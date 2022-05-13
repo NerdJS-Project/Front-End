@@ -4,7 +4,7 @@
 
 # Brain Breeze 
 
-<summary>Table of Contents</summary>
+**Table of Contents**
 <ol>
   <li>
     <a href="#about-the-project">About the Project</a>
@@ -13,7 +13,7 @@
     </ul>
   </li>
   <li>
-    <a href="#usage">Usage</a>
+    <a href="#installation">Installation</a>
   </li>
   <li>
     <a href="#roadmap">Roadmap</a>
@@ -33,16 +33,47 @@
 <p>Inspired by the language-learning app, Duolingo, Brain Breeze is a learning app available in multiple platforms from iOS and Android devices to web browsers in any OS where students will be able to learn bite-size lessons rather than the tradiitonal three hours a week of lecture in universities. For instructors, they will be able to create and publish classes, organize the class with modules, and create lessons with content with text, video links, or both. Instructors can also implement assessments/quizzes into the lesson aswell to test the student's knowledge on the content.</p>
 
 ### Built With
-<p>The app is built with:</p>
-<ul>
-  <li><b>Programming Language:</b>JavaScript</li>
-  <li><b>Framework:</b> React Native</li>
-  <li>Node/Express JS</li>
-  <li>MySQL</li>
-  <li>Tools: Visual Studio Code, Expo, Android Studio, XCode, Jira</li>
-</ul>
+The following is the list of technologies, languages, and tools the developer team, NerdJS, has used to develop the application:
+- **Technologies, libraries and framework:** React Native, Express/Node JS
+- **Web Services:** Swagger
+- **Web Technologies:** React Native
+- **IDE:** Visual Studio Code, Android Studio, XCode
+- **Networking protocols and data security:** AWS security protocols, tokens
+- **Databases/Data storages:** RDS, MySQL Workbench
+- **Applications:** AWS, EC2 (front end app and web deployment), Putty, WinSCP, OpenVPN
 
-## Usage
+## Installation
+
+To test out this project, make sure you have [Node.js](https://nodejs.org/en/) installed. 
+
+
+1. Open up your (git bash) terminal and git clone the Front-End repository AND Back-End Repository to a folder. The Back-End Repo can be found [here](https://github.com/NerdJS-Project/Back-End).
+```
+    git clone https://github.com/NerdJS-Project/Front-End.git
+    
+    git clone https://github.com/NerdJS-Project/Back-End.git
+```
+2. You will then need to npm install both directories and download all packages from the json file. 
+```
+cd Front-End 
+npm install
+```
+and then do the same for the 'Back-End' directory.
+```
+cd Back-End/nerd-backend 
+npm install
+```
+3. You will need to two terminals running at the same to run both the Front-End and the Back-End\*. If you are using Visual Studio Code, Click on the 'Split Terminal' button on the top-right of the terminal next to the trash icon (kill terminal) or Ctrl + Shift + 5. 
+
+4. Change directories of one of the terminals to the Front-End directory and the other terminal to the Back-End directory.
+
+5. Then in each terminal run `npm start`. 
+
+6. For the Front-End, after running `npm start`, expo would ask how you would like to open the application whether it's the web version via browser or a mobile phone.
+   - If you want to run it on an Android, you will need to install Android Studio and have either a virtual device running or your own Android device via USB debugging. 
+   - For iOS, you will need xCode installed, and have it running in the background to have it open as well. 
+
+\* You may not need to change the API_URL in the APIConnection.js file to switch the URL to a local host address since it may have its own server link running. 
 
 ## Roadmap
 <ul>
@@ -90,6 +121,20 @@
   <li>Emmanuel Silva</li>
 </ul>
 
+Lab Advisors:
+- Dr. Ahmed Salem (Fall 2021)
+- Dr. Jinsong Ouyang (Spring 2022)
 
+Senior Project Professors:
+- Chris Grove (CSC 190 for Fall 2021)
+- Kenneth Elliott (CSC 191 for Spring 2022)
 
 ## Acknowledgments 
+Resources and Documentation we have used: 
+- [React Native Paper](https://callstack.github.io/react-native-paper/) 
+- [React Native Elements](https://reactnativeelements.com/docs)
+- [React Native](https://reactnative.dev/docs/getting-started)
+- [Maximilian Schwarzmüller's "React Native - The Practical Guide" Udemy Course](https://www.udemy.com/course/react-native-the-practical-guide/)
+- [Icons by Material Design](https://materialdesignicons.com/)
+    - [Github Repository for MaterialCommunityIcons](https://github.com/Templarian/MaterialDesign)
+

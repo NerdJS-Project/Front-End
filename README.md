@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="productIcon.png" alt="Logo">
+    <img src="icon.png" alt="Logo" width="150" height="150">
  </div>
 
 # Brain Breeze 
